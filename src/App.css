@@ -1,38 +1,303 @@
-.App {
-  text-align: center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+@font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-display: swap;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+@font-face {
+    font-family: 'Gmarket Sans Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+    font-weight: 700;
+    font-display: swap;
 }
 
-.App-header {
-  background-color: #282c34;
+.app {
+  width: 100%;
   min-height: 100vh;
+  background: #242424;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* Header Styles */
+.header {
+  max-width: 880px;
+  height: 72px;
+  background: #242424;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  position: relative;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icon {
+    width: 30px;
+    height: 32.273px;
+    aspect-ratio: 30.00/32.27;
+}
+
+.logo-text {
+    color: #FFF;
+    font-family: 'Gmarket Sans Bold';
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 18px; /* 128.571% */
+    letter-spacing: 0.84px;
+    word-wrap: break-word
+}
+
+.menu-button {
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
+}
+
+.menu-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Main Content */
+.main-content {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 12px 0;
+}
+
+/* Notification Banner */
+.notification-banner {
+  width: 880px;
+  height: 51px;
+  background: #2E2E2E;
+  border-radius: 12px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.notification-icon {
+    width: 24px;
+    height: 24px;
+    aspect-ratio: 1/1;
+}
+
+.notification-text {
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px; /* 125% */
+}
+
+.notification-link {
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px; /* 125% */
+    text-decoration-line: underline;
+    text-decoration-style: solid;
+    text-decoration-skip-ink: auto;
+    text-decoration-thickness: auto;
+    text-underline-offset: auto;
+    text-underline-position: from-font;
+    opacity: 0.5;
+}
+
+.close-button {
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  position: absolute;
+  right: 16px;
+}
+
+.close-icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Guide Grid */
+.guide-grid {
+    display: inline-grid;
+    width: 880px;
+    row-gap: 16px;
+    column-gap: 16px;
+    grid-template-rows: repeat(2, fit-content(100%));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.guide-card {
+    display: flex;
+    padding: 16px 18px;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+    align-self: stretch;
+    justify-self: stretch;
+    border-radius: 12px;
+}
+
+.guide-card.inactive {
+  background: rgba(46, 46, 46, 0.5);
+}
+
+.guide-card.active {
+  background: #2E2E2E;
+}
+
+.guide-card.inactive .guide-title {
+  opacity: 0.1;
+}
+
+.guide-card.inactive .icon-wrapper {
+  opacity: 0.1;
+}
+
+.guide-title {
+  width: 100%;
   color: white;
+  font-family: "Pretendard";
+  font-style: normal;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 26px;
+  white-space: pre-line;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.App-link {
-  color: #61dafb;
+.guide-icon {
+  width: 24px;
+  height: 24px;
+  aspect-ratio: 1/1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Footer */
+.footer {
+  max-width: 880px;
+  margin: 60px auto 0;
+  padding: 0 0 40px 0;
+}
+
+.social-icons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.social-icon {
+  width: 42px;
+  height: 42px;
+  background: #2E2E2E;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  text-decoration: none;
+  position: relative;
+}
+
+.social-icon:hover {
+  opacity: 0.8;
+}
+
+.social-icon-img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.footer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.footer-title,
+.footer-email,
+.footer-copyright {
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.footer-copyright {
+  opacity: 0.5;
+}
+
+/* Responsive Design */
+@media (max-width: 1440px) {
+  .header {
+    padding: 0 40px;
   }
-  to {
-    transform: rotate(360deg);
+
+  .main-content,
+  .footer {
+    max-width: calc(100% - 80px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: 0 20px;
+  }
+
+  .main-content,
+  .footer {
+    max-width: calc(100% - 40px);
+  }
+
+  .notification-banner {
+    padding: 0 12px;
+  }
+
+  .notification-text {
+    font-size: 14px;
+  }
+
+  .notification-link {
+    font-size: 14px;
   }
 }
