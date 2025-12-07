@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       {currentPage === 'home' && <Home onNavigate={navigateToPage} />}
-      {currentPage === 'music-broadcast' && <MusicBroadcast />}
+      {currentPage === 'music-broadcast' && <MusicBroadcast onNavigate={navigateToPage} />}
     </>
   );
 }

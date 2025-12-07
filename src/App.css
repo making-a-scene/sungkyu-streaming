@@ -4,7 +4,12 @@
   box-sizing: border-box;
 }
 
-html, body {
+html {
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+body {
   overflow-x: hidden;
 }
 
@@ -159,7 +164,7 @@ html, body {
 
 /* Guide Grid */
 .guide-grid {
-    display: inline-grid;
+    display: grid;
     width: 880px;
     row-gap: 16px;
     column-gap: 16px;

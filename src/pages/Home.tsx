@@ -69,7 +69,7 @@ const GuideGrid: React.FC<GuideGridProps> = ({ onNavigate }) => {
 const Home: React.FC<HomeProps> = ({ onNavigate }) => {
     return (
         <div className="app">
-            <Header />
+            <Header onNavigate={onNavigate} />
             <main className="main-content">
                 <NotificationBanner />
                 <GuideGrid onNavigate={onNavigate} />
