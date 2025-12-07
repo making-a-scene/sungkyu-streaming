@@ -168,6 +168,8 @@
     align-self: stretch;
     justify-self: stretch;
     border-radius: 12px;
+    position: relative;
+    cursor: pointer;
 }
 
 .guide-card.inactive {
@@ -184,6 +186,34 @@
 
 .guide-card.inactive .icon-wrapper {
   opacity: 0.1;
+}
+
+.guide-card.inactive .hover-message {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  text-align: center;
+}
+
+.guide-card.inactive:hover .hover-message {
+  display: flex;
+}
+
+.guide-card.inactive:hover .guide-title,
+.guide-card.inactive:hover .guide-icon {
+  opacity: 0;
 }
 
 .guide-title {
