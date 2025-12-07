@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
 @font-face {
     font-family: 'Pretendard';
     src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/pretendard@1.0/Pretendard-Medium.woff2') format('woff2');
@@ -28,7 +36,7 @@
 
 /* Header Styles */
 .header {
-  max-width: 880px;
+  width: 880px;
   height: 72px;
   background: #242424;
   display: flex;
@@ -79,7 +87,7 @@
 
 /* Main Content */
 .main-content {
-  max-width: 880px;
+  width: 880px;
   margin: 0 auto;
   padding: 12px 0;
 }
@@ -237,9 +245,79 @@
   aspect-ratio: 1/1;
 }
 
+.page-title-text {
+    color: #FFF;
+    font-family: Pretendard;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px; /* 71.429% */
+}
+
+.tab-text {
+    color: #FFF;
+    text-align: center;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px; /* 125% */
+}
+
+/* Tab View Styles */
+.tab-view {
+    width: 880px;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.tab-list {
+    display: flex;
+    gap: 0;
+    width: 880px;
+    border-bottom: 1px solid #686868;
+    overflow: hidden;
+}
+
+.tab-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px 20px;
+    cursor: pointer;
+    position: relative;
+    flex: 0 0 auto;
+    transition: opacity 0.2s ease;
+}
+
+.tab-item:hover {
+    opacity: 0.8;
+}
+
+.tab-item .tab-text {
+    margin-bottom: 8px;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.tab-item.selected .tab-text {
+    opacity: 1;
+}
+
+.tab-indicator {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: white;
+    margin: 0 8px;
+}
+
 /* Footer */
 .footer {
-  max-width: 880px;
+  width: 880px;
   margin: 60px auto 0;
   padding: 0 0 40px 0;
 }
