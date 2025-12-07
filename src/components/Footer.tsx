@@ -9,7 +9,7 @@ const Footer: React.FC = () => {
                 <a href="#" className="social-icon">
                     <img src={process.env.PUBLIC_URL + '/xlogo 1.svg'} alt="X (Twitter)" className="social-icon-img" />
                 </a>
-                <a href="#" className="social-icon">
+                <a href="http://pf.kakao.com/_zfixgn" className="social-icon">
                     <img src={process.env.PUBLIC_URL + '/image 85.svg'} alt="Messenger" className="social-icon-img" />
                 </a>
             </div>
