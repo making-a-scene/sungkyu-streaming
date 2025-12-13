@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from './pages/Home';
-import MusicBroadcast from './pages/MusicBroadcast';
-import Vote from "./pages/Vote";
+import MusicBroadcast from './pages/guide/MusicBroadcast';
+import Vote from "./pages/guide/Vote";
 
 // Main App Component
 function App() {

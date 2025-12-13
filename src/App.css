@@ -660,6 +660,32 @@ body {
     .page-title-text {
         font-size: 24px;
     }
+
+    .guide-menu-bar {
+        width: 100%;
+    }
+
+    .guide-menu-wrapper {
+        width: 100%;
+    }
+
+    .guide-menu-container {
+        width: calc(100% - 32px);
+        padding: 16px 16px;
+        gap: 20px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .guide-menu-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+    .guide-menu-item {
+        font-size: 13px;
+    }
 }
 
 /* 태블릿: 768-927px */
@@ -721,6 +747,101 @@ body {
         padding: 0 30px;
         gap: 24px;
     }
+
+    .guide-menu-bar {
+        width: 100%;
+    }
+
+    .guide-menu-wrapper {
+        width: 100%;
+    }
+
+    .guide-menu-container {
+        width: calc(100% - 60px);
+        padding: 16px 30px;
+        gap: 24px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .guide-menu-container::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+}
+
+/* Guide Menu Styles */
+.guide-menu-bar {
+    width: 100%;
+    background: #282828;
+    margin-bottom: 24px;
+    overflow: hidden;
+}
+
+.guide-menu-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.guide-gradient {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    z-index: 10;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.guide-gradient-left {
+    left: 0;
+    background: linear-gradient(to right, #282828 0%, rgba(40, 40, 40, 0) 100%);
+}
+
+.guide-gradient-right {
+    right: 0;
+    background: linear-gradient(to left, #282828 0%, rgba(40, 40, 40, 0) 100%);
+}
+
+.guide-menu-container {
+    width: 880px;
+    margin: 0 auto;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    padding: 16px 0;
+    overflow: hidden;
+}
+
+.guide-menu-item {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+    cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.guide-menu-item:hover {
+    opacity: 1;
+}
+
+.guide-menu-item.active {
+    opacity: 1;
+}
+
+.guide-menu-item.disabled {
+    cursor: not-allowed;
+    opacity: 0.1;
+}
+
+.guide-menu-item.disabled:hover {
+    opacity: 0.1;
 }
 
 /* PC: 928px 이상 */
@@ -731,6 +852,7 @@ body {
     .guide-grid,
     .tab-view,
     .tab-list,
+    .guide-menu-container,
     .footer {
         width: 880px;
     }
