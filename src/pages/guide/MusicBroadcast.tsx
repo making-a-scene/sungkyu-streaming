@@ -17,25 +17,25 @@ const MusicBroadcast = () => {
             <TabView tabs={tabs} defaultTab={0} onTabChange={setSelectedTab} />
             <main className="main-content">
                 {selectedTab === 0 && (
-                    <img src={process.env.PUBLIC_URL + '/최종_차트집계.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <img src={process.env.PUBLIC_URL + '/guide-music-chart.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
                 {selectedTab === 1 && (
-                    <img src={process.env.PUBLIC_URL + '/최종_투표스케줄.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <img src={process.env.PUBLIC_URL + '/guide-vote-schedule.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
                 {selectedTab === 2 && (
-                    <img src={process.env.PUBLIC_URL + '/최종_쇼챔피언.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <img src={process.env.PUBLIC_URL + '/guide-show-champion.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
                 {selectedTab === 3 && (
-                    <img src={process.env.PUBLIC_URL + '/최종_엠카운트다운.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <img src={process.env.PUBLIC_URL + '/guide-m-countdown.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
                 {selectedTab === 4 && (
-                    <img src={process.env.PUBLIC_URL + '/최종_뮤직뱅크.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <img src={process.env.PUBLIC_URL + '/guide-music-bank.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
                 {selectedTab === 5 && (
-                    <img src={process.env.PUBLIC_URL + '/최종_음악중심.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <img src={process.env.PUBLIC_URL + '/guide-music-core.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
                 {selectedTab === 6 && (
-                    <img src={process.env.PUBLIC_URL + '/최종_인기가요.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <img src={process.env.PUBLIC_URL + '/guide-inkigayo.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
             </main>
             <Footer />
