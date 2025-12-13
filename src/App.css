@@ -39,6 +39,23 @@ body {
     overflow-x: hidden;
 }
 
+.tooltip-text {
+    visibility: hidden; /* Hide the element by default */
+    width: 120px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute; /* Position the text */
+    z-index: 1;
+    bottom: 125%; /* Place the tooltip above the container */
+    left: 50%;
+    margin-left: -60px; /* Centers the tooltip text */
+    opacity: 0;
+    transition: opacity 0.3s; /* Adds a fade effect */
+}
+
 /* Header Styles */
 .header {
     width: 880px;
@@ -61,6 +78,7 @@ body {
     width: 30px;
     height: 32.273px;
     aspect-ratio: 30.00/32.27;
+    cursor: pointer;
 }
 
 .logo-text {
@@ -76,16 +94,40 @@ body {
 
 .header-menu {
     display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.header-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     cursor: pointer;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.header-menu-item.active {
+    opacity: 1;
+}
+
+.header-menu-item:hover {
+    opacity: 1;
 }
 
 .header-menu-icon {
-    opacity: 0.5;
-    margin-right: 32px;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
 }
 
-.header-menu-icon:hover {
-    opacity: 1;
+.header-menu-text {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 600;
+    white-space: nowrap;
 }
 
 .header-social-icon {
@@ -405,6 +447,18 @@ body {
     .header {
         width: calc(100% - 32px);
         padding: 0 16px;
+    }
+
+    .header-menu {
+        gap: 16px;
+    }
+
+    .header-menu-icon {
+        display: none; /* 모바일에서 아이콘 숨김 */
+    }
+
+    .header-menu-text {
+        display: block; /* 모바일에서 텍스트 표시 */
     }
 
     .main-content,
