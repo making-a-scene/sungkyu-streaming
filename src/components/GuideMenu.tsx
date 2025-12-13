@@ -61,10 +61,10 @@ const GuideMenu: React.FC = () => {
 
     return (
         <div className="guide-menu-bar">
-            <div className="guide-menu-wrapper">
+            <div className="guide-menu-wrapper" ref={menuListRef}>
                 {showLeftGradient && <div className="guide-gradient guide-gradient-left"></div>}
                 {showRightGradient && <div className="guide-gradient guide-gradient-right"></div>}
-                <div className="guide-menu-container" ref={menuListRef}>
+                <div className="guide-menu-container">
                     {menuItems.map((item, index) => (
                         <div
                             key={index}
