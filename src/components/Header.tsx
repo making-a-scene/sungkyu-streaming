@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
                     <img src={process.env.PUBLIC_URL + 'email.svg'} alt="Email" className="header-social-icon header-social-icon-email" />
                 </a>
                 <a href="https://x.com/sungkyustream" className="header-social-icon">
-                    <img src={process.env.PUBLIC_URL + 'xlogo 1.svg'} alt="X" className="header-social-icon header-social-icon-x" />
+                    <img src={process.env.PUBLIC_URL + 'xlogo.svg'} alt="X" className="header-social-icon header-social-icon-x" />
                 </a>
             </div>
         </header>

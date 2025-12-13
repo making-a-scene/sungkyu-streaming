@@ -38,16 +38,16 @@ interface GuideGridProps {
 
 const GuideGrid: React.FC<GuideGridProps> = ({ onNavigate }) => {
     const guides = [
-        { title: '아이디 생성\n가이드', iconSrc: process.env.PUBLIC_URL + '/identified 1.svg', isActive: false, isSpecial: false, page: null },
-        { title: '스트리밍\n가이드', iconSrc: process.env.PUBLIC_URL + '/Music Icon (1) 1.svg', isActive: false, isSpecial: false, page: null },
-        { title: '다운로드\n가이드', iconSrc: process.env.PUBLIC_URL + '/Music Icon (2) 1.svg', isActive: false, isSpecial: false, page: null },
-        { title: '음악방송\n가이드', iconSrc: process.env.PUBLIC_URL + '/trophy (1) 1.svg', isActive: true, isSpecial: false, page: 'music-broadcast' },
-        { title: '투표\n가이드', iconSrc: process.env.PUBLIC_URL + '/Vote Icon 1.svg', isActive: true, isSpecial: false, page: null },
-        { title: '숏폼·SNS\n가이드', iconSrc: process.env.PUBLIC_URL + '/trending-topic 1.svg', isActive: false, isSpecial: true, page: null },
-        { title: 'MV 스트리밍\n가이드', iconSrc: process.env.PUBLIC_URL + '/Video Media Player 1.svg', isActive: false, isSpecial: false, page: null },
-        { title: '라디오\n가이드', iconSrc: process.env.PUBLIC_URL + '/005-podcast 1.svg', isActive: false, isSpecial: false, page: null },
-        { title: '컬러링\n가이드', iconSrc: process.env.PUBLIC_URL + '/Call Icon (1) 1.svg', isActive: false, isSpecial: false, page: null },
-        { title: '선물하기\n가이드', iconSrc: process.env.PUBLIC_URL + '/Gift Chocolate Box 1.svg', isActive: false, isSpecial: false, page: null },
+        { title: '아이디 생성\n가이드', iconSrc: process.env.PUBLIC_URL + '/아이디 생성 가이드.svg', isActive: false, isSpecial: false, page: null },
+        { title: '스트리밍\n가이드', iconSrc: process.env.PUBLIC_URL + '/스트리밍 가이드.svg', isActive: false, isSpecial: false, page: null },
+        { title: '다운로드\n가이드', iconSrc: process.env.PUBLIC_URL + '/다운로드 가이드.svg', isActive: false, isSpecial: false, page: null },
+        { title: '음악방송\n가이드', iconSrc: process.env.PUBLIC_URL + '/음악방송 가이드.svg', isActive: true, isSpecial: false, page: 'music-broadcast' },
+        { title: '투표\n가이드', iconSrc: process.env.PUBLIC_URL + '/투표 가이드.svg', isActive: true, isSpecial: false, page: null },
+        { title: '숏폼·SNS\n가이드', iconSrc: process.env.PUBLIC_URL + '/숏폼SNS 가이드.svg', isActive: false, isSpecial: true, page: null },
+        { title: 'MV 스트리밍\n가이드', iconSrc: process.env.PUBLIC_URL + '/MV 스트리밍 가이드.svg', isActive: false, isSpecial: false, page: null },
+        { title: '라디오\n가이드', iconSrc: process.env.PUBLIC_URL + '/라디오 가이드.svg', isActive: false, isSpecial: false, page: null },
+        { title: '컬러링\n가이드', iconSrc: process.env.PUBLIC_URL + '/컬러링 가이드.svg', isActive: false, isSpecial: false, page: null },
+        { title: '선물하기\n가이드', iconSrc: process.env.PUBLIC_URL + '/선물하기 가이드.svg', isActive: false, isSpecial: false, page: null },
     ];
 
     return (
