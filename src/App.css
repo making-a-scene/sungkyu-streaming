@@ -107,7 +107,7 @@ body {
     padding: 5px 0;
     position: absolute; /* Position the text */
     z-index: 1;
-    /*bottom: 125%; !* Place the tooltip above the container *!*/
+    bottom: 0;
     left: 50%;
     margin-left: -60px; /* Centers the tooltip text */
     opacity: 0;
@@ -126,7 +126,7 @@ body {
     padding: 5px 0;
     position: absolute; /* Position the text */
     z-index: 1;
-    bottom: 0%; /* Place the tooltip above the container */
+    bottom: 0;
     left: 50%;
     margin-left: -60px; /* Centers the tooltip text */
     opacity: 0;
@@ -468,6 +468,32 @@ body {
     opacity: 0.5;
 }
 
+/* Toast Styles */
+.Toastify__toast {
+    font-family: Pretendard;
+    font-size: 14px;
+    padding: 16px 28px;
+    color: #fff;
+    background: rgba(107, 115, 135, 0.8);
+}
+
+.Toastify__toast-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.Toastify__toast--info {
+    background: rgba(107, 115, 135, 0.8);
+}
+
+.Toastify__toast--success {
+    background: rgba(48, 173, 120, 0.8);
+}
+
+.Toastify__toast--error {
+    background: rgba(224, 72, 82, 0.8);
+}
+
 /* Responsive Design */
 
 /* 모바일: 375-767px */
@@ -491,6 +517,19 @@ body {
 
     .tooltip-text {
         display: none; /* 모바일에서 툴팁 숨김 */
+    }
+
+    .Toastify__toast-container {
+        min-width: auto;
+        width: calc(100% - 32px);
+        left: 16px;
+        right: 16px;
+    }
+
+    .Toastify__toast {
+        font-size: 14px;
+        padding: 14px 16px;
+        border-radius: 12px;
     }
 
     .main-content,
