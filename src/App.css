@@ -39,23 +39,6 @@ body {
     overflow-x: hidden;
 }
 
-.tooltip-text {
-    visibility: hidden; /* Hide the element by default */
-    width: 120px;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute; /* Position the text */
-    z-index: 1;
-    bottom: 125%; /* Place the tooltip above the container */
-    left: 50%;
-    margin-left: -60px; /* Centers the tooltip text */
-    opacity: 0;
-    transition: opacity 0.3s; /* Adds a fade effect */
-}
-
 /* Header Styles */
 .header {
     width: 880px;
@@ -105,9 +88,52 @@ body {
     cursor: pointer;
     opacity: 0.5;
     transition: opacity 0.3s ease;
+    position: relative;
 }
 
 .header-menu-item.active {
+    opacity: 1;
+}
+
+.tooltip-text {
+    visibility: hidden; /* Hide the element by default */
+    width: 120px;
+    font-family: Pretendard;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute; /* Position the text */
+    z-index: 1;
+    /*bottom: 125%; !* Place the tooltip above the container *!*/
+    left: 50%;
+    margin-left: -60px; /* Centers the tooltip text */
+    opacity: 0;
+    transition: opacity 0.3s; /* Adds a fade effect */
+}
+
+.header-menu-item.inactive .tooltip-text {
+    visibility: hidden; /* Hide the element by default */
+    width: 120px;
+    font-family: Pretendard;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute; /* Position the text */
+    z-index: 1;
+    bottom: 0%; /* Place the tooltip above the container */
+    left: 50%;
+    margin-left: -60px; /* Centers the tooltip text */
+    opacity: 0;
+    transition: opacity 0.3s; /* Adds a fade effect */
+}
+
+/* Show the tooltip text when the inactive menu item is hovered over */
+.header-menu-item.inactive:hover .tooltip-text {
+    visibility: visible;
     opacity: 1;
 }
 
@@ -459,6 +485,10 @@ body {
 
     .header-menu-text {
         display: block; /* 모바일에서 텍스트 표시 */
+    }
+
+    .tooltip-text {
+        display: none; /* 모바일에서 툴팁 숨김 */
     }
 
     .main-content,
