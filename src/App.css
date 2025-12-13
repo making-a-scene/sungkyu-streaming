@@ -666,7 +666,7 @@ body {
     }
 
     .guide-menu-wrapper {
-        width: calc(100% - 32px);
+        max-width: calc(100% - 32px);
         margin: 0 16px;
     }
 
@@ -744,7 +744,7 @@ body {
     }
 
     .guide-menu-wrapper {
-        width: calc(100% - 60px);
+        max-width: calc(100% - 60px);
         margin: 0 30px;
     }
 
@@ -763,7 +763,7 @@ body {
 
 .guide-menu-wrapper {
     position: relative;
-    width: 880px;
+    max-width: 880px;
     margin: 0 auto;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -796,11 +796,10 @@ body {
 }
 
 .guide-menu-container {
-    display: flex;
+    display: inline-flex;
     gap: 32px;
     align-items: center;
     padding: 16px 0;
-    width: fit-content;
     min-width: 100%;
 }
 
@@ -842,8 +841,11 @@ body {
     .guide-grid,
     .tab-view,
     .tab-list,
-    .guide-menu-wrapper,
     .footer {
         width: 880px;
+    }
+
+    .guide-menu-wrapper {
+        max-width: 880px;
     }
 }
