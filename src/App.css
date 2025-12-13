@@ -583,6 +583,12 @@ body {
         margin-right: auto;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .main-content::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
     }
 
     .footer {
