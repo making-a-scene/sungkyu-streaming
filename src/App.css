@@ -140,7 +140,7 @@ body {
     white-space: nowrap;
 }
 
-.header-social-icon {
+.social-icon {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -151,18 +151,18 @@ body {
     opacity: 0.5;
 }
 
-.header-social-icon-email {
+.social-icon-email {
     width: 24px;
     height: 24px;
 }
 
-.header-social-icon-x {
+.social-icon-x {
     width: 20px;
     height: 20px;
 }
 
 
-.header-social-icon:hover {
+.social-icon:hover {
     opacity: 1;
 }
 
@@ -408,6 +408,14 @@ body {
     gap: 10px;
 }
 
+.header-social-icons {
+    display: flex;
+}
+
+.footer-social-icons {
+    display: none;
+}
+
 .footer-social-icon {
     width: 42px;
     height: 42px;
@@ -499,6 +507,16 @@ body {
 
     .tooltip-text {
         display: none; /* 모바일에서 툴팁 숨김 */
+    }
+
+    .header-social-icons {
+        display: none; /* 모바일에서 헤더의 소셜 아이콘 숨김 */
+    }
+
+    .footer-social-icons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 16px; /* footer-info와의 간격 */
     }
 
     .Toastify__toast-container {
