@@ -599,9 +599,20 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .tab-view,
+    .tab-view {
+        width: 100%;
+    }
+
     .tab-list {
         width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    .tab-list::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
     }
 
     .page-title-text {
