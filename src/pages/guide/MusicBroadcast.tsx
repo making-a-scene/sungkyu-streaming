@@ -13,8 +13,8 @@ const MusicBroadcast = () => {
         <div className="app">
             <Header />
             <GuideMenu />
+            <TabView tabs={tabs} defaultTab={0} />
             <main className="main-content">
-                <TabView tabs={tabs} defaultTab={0} />
             </main>
             <Footer />
         </div>

@@ -6,7 +6,6 @@
 
 html {
     overflow-y: scroll;
-    overflow-x: hidden;
 }
 
 body {
@@ -48,7 +47,9 @@ body {
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
-    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .logo {
@@ -205,7 +206,7 @@ body {
 .main-content {
     width: 880px;
     margin: 0 auto;
-    padding: 12px 0;
+    padding: 24px 0 12px 0;
 }
 
 /* Notification Banner */
@@ -383,8 +384,12 @@ body {
 /* Tab View Styles */
 .tab-view {
     width: 880px;
-    margin-bottom: 24px;
+    margin: 0 auto 24px auto;
     overflow: hidden;
+    position: sticky;
+    top: 124px;
+    z-index: 80;
+    background: #242424;
 }
 
 .tab-list-wrapper {
@@ -757,8 +762,10 @@ body {
 .guide-menu-bar {
     width: 100%;
     background: #282828;
-    margin-bottom: 24px;
     overflow: hidden;
+    position: sticky;
+    top: 72px;
+    z-index: 90;
 }
 
 .guide-menu-wrapper {
@@ -799,7 +806,6 @@ body {
     display: inline-flex;
     gap: 32px;
     align-items: center;
-    padding: 16px 0;
     min-width: 100%;
 }
 
@@ -814,6 +820,7 @@ body {
     transition: opacity 0.3s ease;
     white-space: nowrap;
     flex-shrink: 0;
+    padding: 16px 0;
 }
 
 .guide-menu-item:hover {

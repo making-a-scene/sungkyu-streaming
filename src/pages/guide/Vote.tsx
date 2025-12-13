@@ -14,10 +14,10 @@ const Vote = () => {
         <div className="app">
             <Header />
             <GuideMenu />
+            <TabView tabs={tabs} defaultTab={0} onTabChange={setSelectedTab} />
             <main className="main-content">
-                <TabView tabs={tabs} defaultTab={0} onTabChange={setSelectedTab} />
                 {selectedTab === 0 && (
-                    <img src={process.env.PUBLIC_URL + '/재화투표권모으기가이드.svg'} alt="guide" style={{ width: '880px', display: 'block' }} />
+                    <img src={process.env.PUBLIC_URL + '/재화투표권모으기가이드.svg'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
             </main>
             <Footer />
