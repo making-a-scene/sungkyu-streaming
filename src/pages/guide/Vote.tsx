@@ -17,7 +17,10 @@ const Vote = () => {
             <TabView tabs={tabs} defaultTab={0} onTabChange={setSelectedTab} />
             <main className="main-content">
                 {selectedTab === 0 && (
-                    <img src={process.env.PUBLIC_URL + '/재화투표권모으기가이드.svg'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <img src={process.env.PUBLIC_URL + '/최종_재화투표권모으기가이드.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                )}
+                {selectedTab === 1 && (
+                    <img src={process.env.PUBLIC_URL + '/최종_투표스케줄.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
             </main>
             <Footer />
