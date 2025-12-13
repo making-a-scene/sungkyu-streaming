@@ -1,22 +1,15 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 import '../App.css';
 import SocialIcons from "./SocialIcons";
 
-interface HeaderProps {
-    onNavigate?: (page: string) => void;
-}
-
 // Header Component
-const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
-    const handleLogoClick = () => {
-        if (onNavigate) {
-            onNavigate('home');
-        }
-    };
+const Header = () => {
+    const navigate = useNavigate();
 
     return (
         <header className="header">
-            <div className="logo" onClick={handleLogoClick}>
+            <div className="logo" onClick={() => navigate('/')}>
                 <img src={process.env.PUBLIC_URL + 'logo.svg'} alt="Logo" className="logo-icon" />
             </div>
             <div className="header-menu">

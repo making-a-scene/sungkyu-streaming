@@ -140,6 +140,41 @@ body {
     white-space: nowrap;
 }
 
+/* Submenu Bar */
+.submenu-bar {
+    width: 100%;
+    background: #282828;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    z-index: 50;
+    padding: 16px 0;
+}
+
+.submenu-container {
+    width: 880px;
+    margin: 0 auto;
+    display: flex;
+    gap: 32px;
+    align-items: center;
+}
+
+.submenu-item {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+    white-space: nowrap;
+}
+
+.submenu-item:hover {
+    opacity: 1;
+}
+
 .social-icon {
     display: flex;
     align-items: center;
@@ -519,6 +554,16 @@ body {
         margin-bottom: 16px; /* footer-info와의 간격 */
     }
 
+    .submenu-container {
+        width: calc(100% - 32px);
+        padding: 0 16px;
+        gap: 20px;
+    }
+
+    .submenu-item {
+        font-size: 13px;
+    }
+
     .Toastify__toast-container {
         min-width: auto;
         width: calc(100% - 32px);
@@ -594,6 +639,12 @@ body {
 
     .page-title-text {
         font-size: 26px;
+    }
+
+    .submenu-container {
+        width: calc(100% - 60px);
+        padding: 0 30px;
+        gap: 24px;
     }
 }
 

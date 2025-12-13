@@ -1,13 +1,10 @@
 import React from 'react';
+import {useNavigate} from 'react-router-dom';
 import '../App.css';
 
 import Header from '../components/Header';
-import NotificationBanner from '../components/NotificationBanner';
+// import NotificationBanner from '../components/NotificationBanner';
 import Footer from '../components/Footer';
-
-interface HomeProps {
-    onNavigate: (page: string) => void;
-}
 
 // Guide Card Component
 interface GuideCardProps {
@@ -31,17 +28,14 @@ const GuideCard: React.FC<GuideCardProps> = ({ title, iconSrc, isActive, isSpeci
     );
 };
 
-// Guide Grid Component
-interface GuideGridProps {
-    onNavigate: (page: string) => void;
-}
+const GuideGrid = () => {
+    const navigate = useNavigate();
 
-const GuideGrid: React.FC<GuideGridProps> = ({ onNavigate }) => {
     const guides = [
         { title: '아이디 생성\n가이드', iconSrc: process.env.PUBLIC_URL + '/아이디 생성 가이드.svg', isActive: false, isSpecial: false, page: null },
         { title: '스트리밍\n가이드', iconSrc: process.env.PUBLIC_URL + '/스트리밍 가이드.svg', isActive: false, isSpecial: false, page: null },
         { title: '다운로드\n가이드', iconSrc: process.env.PUBLIC_URL + '/다운로드 가이드.svg', isActive: false, isSpecial: false, page: null },
-        { title: '음악방송\n가이드', iconSrc: process.env.PUBLIC_URL + '/음악방송 가이드.svg', isActive: true, isSpecial: false, page: 'music-broadcast' },
+        { title: '음악방송\n가이드', iconSrc: process.env.PUBLIC_URL + '/음악방송 가이드.svg', isActive: true, isSpecial: false, page: '/music-broadcast' },
         { title: '투표\n가이드', iconSrc: process.env.PUBLIC_URL + '/투표 가이드.svg', isActive: true, isSpecial: false, page: null },
         { title: '숏폼·SNS\n가이드', iconSrc: process.env.PUBLIC_URL + '/숏폼SNS 가이드.svg', isActive: false, isSpecial: true, page: null },
         { title: 'MV 스트리밍\n가이드', iconSrc: process.env.PUBLIC_URL + '/MV 스트리밍 가이드.svg', isActive: false, isSpecial: false, page: null },
@@ -59,20 +53,20 @@ const GuideGrid: React.FC<GuideGridProps> = ({ onNavigate }) => {
                     iconSrc={guide.iconSrc}
                     isActive={guide.isActive}
                     isSpecial={guide.isSpecial}
-                    onClick={guide.page ? () => onNavigate(guide.page!) : undefined}
+                    onClick={guide.page ? () => navigate(guide.page) : undefined}
                 />
             ))}
         </div>
     );
 };
 
-const Home: React.FC<HomeProps> = ({ onNavigate }) => {
+const Home = () => {
     return (
         <div className="app">
-            <Header onNavigate={onNavigate} />
+            <Header />
             <main className="main-content">
-                <NotificationBanner />
-                <GuideGrid onNavigate={onNavigate} />
+                {/*<NotificationBanner />*/}
+                <GuideGrid />
             </main>
             <Footer />
         </div>

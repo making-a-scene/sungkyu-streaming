@@ -17,7 +17,7 @@ const SocialIcons: React.FC = () => {
             <img src={process.env.PUBLIC_URL + 'email.svg'} alt="Email" className="social-icon social-icon-email"
                  onClick={(e) => copyEmail()}/>
             <ToastContainer />
-            <a href="https://x.com/sungkyustream" target="_blank">
+            <a href="https://x.com/sungkyustream" target="_blank" rel="noreferrer">
                 <img src={process.env.PUBLIC_URL + 'xlogo.svg'} alt="X" className="social-icon social-icon-x" />
             </a>
         </div>
