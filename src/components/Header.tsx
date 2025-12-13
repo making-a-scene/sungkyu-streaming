@@ -15,15 +15,15 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
 
     return (
         <header className="header">
-        <div className="logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
-        <img src={process.env.PUBLIC_URL + 'Group.svg'} alt="Logo" className="logo-icon" />
-    <div className="logo-text">
-        SUNGKYU<br/>STREAM
-        </div>
-        </div>
-        <button className="menu-button">
-    <img src={process.env.PUBLIC_URL + '/Menu Icon 1.svg'} alt="Menu" className="menu-icon" />
-        </button>
+            <div className="logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
+                <img src={process.env.PUBLIC_URL + 'Group.svg'} alt="Logo" className="logo-icon" />
+                <div className="logo-text">
+                    SUNGKYU<br/>STREAM
+                </div>
+            </div>
+            <button className="menu-button">
+                <img src={process.env.PUBLIC_URL + '/Menu Icon 1.svg'} alt="Menu" className="menu-icon" />
+            </button>
         </header>
     );
 };

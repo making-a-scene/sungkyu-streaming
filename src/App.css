@@ -1,20 +1,20 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-  overflow-y: scroll;
-  overflow-x: hidden;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 body {
-  overflow-x: hidden;
+    overflow-x: hidden;
 }
 
 #root {
-  min-height: 100vh;
+    min-height: 100vh;
 }
 
 @font-face {
@@ -32,29 +32,29 @@ body {
 }
 
 .app {
-  width: 100%;
-  min-height: 100vh;
-  background: #242424;
-  color: white;
-  overflow-x: hidden;
+    width: 100%;
+    min-height: 100vh;
+    background: #242424;
+    color: white;
+    overflow-x: hidden;
 }
 
 /* Header Styles */
 .header {
-  width: 880px;
-  height: 72px;
-  background: #242424;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 0 auto;
-  position: relative;
+    width: 880px;
+    height: 72px;
+    background: #242424;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 auto;
+    position: relative;
 }
 
 .logo {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .logo-icon {
@@ -75,40 +75,40 @@ body {
 }
 
 .menu-button {
-  width: 36px;
-  height: 36px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  overflow: hidden;
-  position: relative;
+    width: 36px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
 }
 
 .menu-icon {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 /* Main Content */
 .main-content {
-  width: 880px;
-  margin: 0 auto;
-  padding: 12px 0;
+    width: 880px;
+    margin: 0 auto;
+    padding: 12px 0;
 }
 
 /* Notification Banner */
 .notification-banner {
-  width: 880px;
-  height: 51px;
-  background: #2E2E2E;
-  border-radius: 12px;
-  padding: 0 16px;
-  display: flex;
-  align-items: center;
-  gap: 17px;
-  margin-bottom: 22px;
-  position: relative;
+    width: 880px;
+    height: 51px;
+    background: #2E2E2E;
+    border-radius: 12px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    margin-bottom: 22px;
+    position: relative;
 }
 
 .notification-icon {
@@ -143,23 +143,23 @@ body {
 }
 
 .close-button {
-  width: 24px;
-  height: 24px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  flex-shrink: 0;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  right: 16px;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 16px;
 }
 
 .close-icon {
-  width: 24px;
-  height: 24px;
+    width: 24px;
+    height: 24px;
 }
 
 /* Guide Grid */
@@ -186,68 +186,68 @@ body {
 }
 
 .guide-card.inactive {
-  background: rgba(46, 46, 46, 0.5);
+    background: rgba(46, 46, 46, 0.5);
 }
 
 .guide-card.active {
-  background: #2E2E2E;
+    background: #2E2E2E;
 }
 
 .guide-card.inactive .guide-title {
-  opacity: 0.1;
+    opacity: 0.1;
 }
 
 .guide-card.inactive .icon-wrapper {
-  opacity: 0.1;
+    opacity: 0.1;
 }
 
 .guide-card.inactive .hover-message {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  border-radius: 12px;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-family: Pretendard;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 20px;
-  text-align: center;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: center;
 }
 
 .guide-card.inactive:hover .hover-message {
-  display: flex;
+    display: flex;
 }
 
 .guide-card.inactive:hover .guide-title,
 .guide-card.inactive:hover .guide-icon {
-  opacity: 0;
+    opacity: 0;
 }
 
 .guide-title {
-  width: 100%;
-  color: white;
-  font-family: "Pretendard";
-  font-style: normal;
-  font-size: 18px;
-  font-weight: 600;
-  line-height: 26px;
-  white-space: pre-line;
-  text-align: left;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    width: 100%;
+    color: white;
+    font-family: "Pretendard";
+    font-style: normal;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 26px;
+    white-space: pre-line;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .guide-icon {
-  width: 24px;
-  height: 24px;
-  aspect-ratio: 1/1;
+    width: 24px;
+    height: 24px;
+    aspect-ratio: 1/1;
 }
 
 .page-title-text {
@@ -322,45 +322,45 @@ body {
 
 /* Footer */
 .footer {
-  width: 880px;
-  margin: 60px auto 0;
-  padding: 0 0 40px 0;
+    width: 880px;
+    margin: 60px auto 0;
+    padding: 0 0 40px 0;
 }
 
 .social-icons {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
 }
 
 .social-icon {
-  width: 42px;
-  height: 42px;
-  background: #2E2E2E;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: opacity 0.3s ease;
-  text-decoration: none;
-  position: relative;
+    width: 42px;
+    height: 42px;
+    background: #2E2E2E;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    text-decoration: none;
+    position: relative;
 }
 
 .social-icon:hover {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 
 .social-icon-img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
 }
 
 .footer-info {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
 }
 
 .footer-title,
@@ -375,42 +375,92 @@ body {
 }
 
 .footer-copyright {
-  opacity: 0.5;
+    opacity: 0.5;
 }
 
 /* Responsive Design */
-@media (max-width: 1440px) {
-  .header {
-    padding: 0 40px;
-  }
 
-  .main-content,
-  .footer {
-    max-width: calc(100% - 80px);
-    margin-left: auto;
-    margin-right: auto;
-  }
+/* 모바일: 375-767px */
+@media (max-width: 767px) {
+    .header {
+        width: calc(100% - 32px);
+        padding: 0 16px;
+    }
+
+    .main-content,
+    .footer {
+        width: calc(100% - 32px);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .notification-banner {
+        width: 100%;
+        padding: 0 12px;
+    }
+
+    .notification-text,
+    .notification-link {
+        font-size: 14px;
+    }
+
+    .guide-grid {
+        width: 100%;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tab-view,
+    .tab-list {
+        width: 100%;
+    }
+
+    .page-title-text {
+        font-size: 24px;
+    }
 }
 
-@media (max-width: 768px) {
-  .header {
-    padding: 0 20px;
-  }
+/* 태블릿: 768-927px */
+@media (min-width: 768px) and (max-width: 927px) {
+    .header {
+        width: calc(100% - 60px);
+        padding: 0 30px;
+    }
 
-  .main-content,
-  .footer {
-    max-width: calc(100% - 40px);
-  }
+    .main-content,
+    .footer {
+        width: calc(100% - 60px);
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-  .notification-banner {
-    padding: 0 12px;
-  }
+    .notification-banner {
+        width: 100%;
+    }
 
-  .notification-text {
-    font-size: 14px;
-  }
+    .guide-grid {
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+    }
 
-  .notification-link {
-    font-size: 14px;
-  }
+    .tab-view,
+    .tab-list {
+        width: 100%;
+    }
+
+    .page-title-text {
+        font-size: 26px;
+    }
+}
+
+/* PC: 928px 이상 */
+@media (min-width: 928px) {
+    .header,
+    .main-content,
+    .notification-banner,
+    .guide-grid,
+    .tab-view,
+    .tab-list,
+    .footer {
+        width: 880px;
+    }
 }
