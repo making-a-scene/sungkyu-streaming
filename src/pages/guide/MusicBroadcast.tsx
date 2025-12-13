@@ -22,6 +22,9 @@ const MusicBroadcast = () => {
                 {selectedTab === 1 && (
                     <img src={process.env.PUBLIC_URL + '/최종_투표스케줄.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
+                {selectedTab === 2 && (
+                    <img src={process.env.PUBLIC_URL + '/최종_쇼챔피언.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                )}
                 {selectedTab === 3 && (
                     <img src={process.env.PUBLIC_URL + '/최종_엠카운트다운.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
