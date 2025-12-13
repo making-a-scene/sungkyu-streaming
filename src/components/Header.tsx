@@ -16,7 +16,14 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
     return (
         <header className="header">
             <div className="logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
-                <img src={process.env.PUBLIC_URL + 'Group.svg'} alt="Logo" className="logo-icon" />
+                <img src={process.env.PUBLIC_URL + 'logo.svg'} alt="Logo" className="logo-icon" />
+            </div>
+            <div className="header-menu" style={{ cursor: 'pointer' }}>
+                <img src={process.env.PUBLIC_URL + '홈.svg'} alt="Home" className="header-menu-icon" />
+                <img src={process.env.PUBLIC_URL + '가이드.svg'} alt="Guide" className="header-menu-icon" />
+                <img src={process.env.PUBLIC_URL + '스케줄.svg'} alt="Schedule" className="header-menu-icon" />
+                <img src={process.env.PUBLIC_URL + '차트.svg'} alt="Chart" className="header-menu-icon" />
+                <img src={process.env.PUBLIC_URL + '지원하기.svg'} alt="Chart" className="header-menu-icon" />
             </div>
             <div className="social-icons">
                 <a href="http://pf.kakao.com/_zfixgn" className="header-social-icon">

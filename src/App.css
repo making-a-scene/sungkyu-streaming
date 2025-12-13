@@ -74,6 +74,20 @@ body {
     word-wrap: break-word
 }
 
+.header-menu {
+    display: flex;
+    cursor: pointer;
+}
+
+.header-menu-icon {
+    opacity: 0.5;
+    margin-right: 32px;
+}
+
+.header-menu-icon:hover {
+    opacity: 1;
+}
+
 .header-social-icon {
     display: flex;
     align-items: center;
@@ -82,7 +96,7 @@ body {
     transition: opacity 0.3s ease;
     text-decoration: none;
     position: relative;
-    opacity: 0.8;
+    opacity: 0.5;
 }
 
 .header-social-icon-email {
