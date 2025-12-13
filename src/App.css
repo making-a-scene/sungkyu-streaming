@@ -96,41 +96,23 @@ body {
 }
 
 .tooltip-text {
-    visibility: hidden; /* Hide the element by default */
-    width: 120px;
-    font-weight: 600;
-    font-family: Pretendard;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute; /* Position the text */
-    z-index: 1;
-    bottom: 0;
+    visibility: hidden;
+    position: absolute;
+    bottom: -45px;
     left: 50%;
-    margin-left: -60px; /* Centers the tooltip text */
+    transform: translateX(-50%);
+    background-color: #2E2E2E;
+    border-radius: 8px;
+    padding: 8px 14px;
+    z-index: 100;
     opacity: 0;
-    transition: opacity 0.3s; /* Adds a fade effect */
-}
-
-.header-menu-item.inactive .tooltip-text {
-    visibility: hidden; /* Hide the element by default */
-    width: 120px;
-    font-weight: 600;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    white-space: nowrap;
+    color: #FFFFFF;
     font-family: Pretendard;
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    border-radius: 6px;
-    padding: 5px 0;
-    position: absolute; /* Position the text */
-    z-index: 1;
-    bottom: 0;
-    left: 50%;
-    margin-left: -60px; /* Centers the tooltip text */
-    opacity: 0;
-    transition: opacity 0.3s; /* Adds a fade effect */
+    font-size: 13px;
+    font-weight: 500;
 }
 
 /* Show the tooltip text when the inactive menu item is hovered over */
