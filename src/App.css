@@ -98,6 +98,7 @@ body {
 .tooltip-text {
     visibility: hidden; /* Hide the element by default */
     width: 120px;
+    font-weight: 600;
     font-family: Pretendard;
     background-color: #333;
     color: #fff;
@@ -116,6 +117,7 @@ body {
 .header-menu-item.inactive .tooltip-text {
     visibility: hidden; /* Hide the element by default */
     width: 120px;
+    font-weight: 600;
     font-family: Pretendard;
     background-color: #333;
     color: #fff;
