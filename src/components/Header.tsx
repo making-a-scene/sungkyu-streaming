@@ -1,11 +1,15 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import '../App.css';
 import SocialIcons from "./SocialIcons";
 
 // Header Component
 const Header = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const isHome = location.pathname === '/';
+    const isGuide = location.pathname.startsWith('/guide');
 
     return (
         <header className="header">
@@ -13,14 +17,14 @@ const Header = () => {
                 <img src={process.env.PUBLIC_URL + '/logo.svg'} alt="Logo" className="logo-icon" />
             </div>
             <div className="header-menu">
-                <div className="header-menu-item active" onClick={() => navigate('/')}>
+                <div className={`header-menu-item ${isHome ? 'active' : ''}`} onClick={() => navigate('/')}>
                     <img src={process.env.PUBLIC_URL + '/홈.svg'} alt="Home" className="header-menu-icon"/>
                     <span className="header-menu-text">홈</span>
                 </div>
-                <div className="header-menu-item inactive">
+                <div className={`header-menu-item ${isGuide ? 'active' : 'inactive'}`}>
                     <img src={process.env.PUBLIC_URL + '/가이드.svg'} alt="Guide" className="header-menu-icon"/>
                     <span className="header-menu-text">가이드</span>
-                    <span className="tooltip-text">준비중</span>
+                    {!isGuide && <span className="tooltip-text">준비중</span>}
                 </div>
                 <div className="header-menu-item inactive">
                     <img src={process.env.PUBLIC_URL + '/스케줄.svg'} alt="Schedule" className="header-menu-icon"/>
