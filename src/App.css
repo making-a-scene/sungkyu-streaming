@@ -811,7 +811,14 @@ body {
     gap: 32px;
     align-items: center;
     padding: 16px 0;
-    overflow: hidden;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.guide-menu-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
 }
 
 .guide-menu-item {
