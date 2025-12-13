@@ -3,7 +3,6 @@ import {useNavigate} from 'react-router-dom';
 import '../App.css';
 
 import Header from '../components/Header';
-// import NotificationBanner from '../components/NotificationBanner';
 import Footer from '../components/Footer';
 
 // Guide Card Component
@@ -65,7 +64,6 @@ const Home = () => {
         <div className="app">
             <Header />
             <main className="main-content">
-                {/*<NotificationBanner />*/}
                 <GuideGrid />
             </main>
             <Footer />
