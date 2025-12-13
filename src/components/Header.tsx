@@ -17,13 +17,15 @@ const Header: React.FC<HeaderProps> = ({ onNavigate }) => {
         <header className="header">
             <div className="logo" onClick={handleLogoClick} style={{ cursor: 'pointer' }}>
                 <img src={process.env.PUBLIC_URL + 'Group.svg'} alt="Logo" className="logo-icon" />
-                <div className="logo-text">
-                    SUNGKYU<br/>STREAM
-                </div>
             </div>
-            <button className="menu-button">
-                <img src={process.env.PUBLIC_URL + '/Menu Icon 1.svg'} alt="Menu" className="menu-icon" />
-            </button>
+            <div className="social-icons">
+                <a href="http://pf.kakao.com/_zfixgn" className="header-social-icon">
+                    <img src={process.env.PUBLIC_URL + 'email.svg'} alt="Email" className="header-social-icon header-social-icon-email" />
+                </a>
+                <a href="https://x.com/sungkyustream" className="header-social-icon">
+                    <img src={process.env.PUBLIC_URL + 'xlogo 1.svg'} alt="X" className="header-social-icon header-social-icon-x" />
+                </a>
+            </div>
         </header>
     );
 };

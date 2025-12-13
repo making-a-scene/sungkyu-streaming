@@ -26,7 +26,7 @@ const GuideCard: React.FC<GuideCardProps> = ({ title, iconSrc, isActive, isSpeci
         >
             <div className="guide-title">{title}</div>
             <img src={iconSrc} alt={title} className="guide-icon" />
-            {!isActive && <div className="hover-message">12월 중 업로드 예정</div>}
+            {!isActive && <div className="hover-message">준비중</div>}
         </div>
     );
 };
