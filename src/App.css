@@ -387,6 +387,31 @@ body {
     overflow: hidden;
 }
 
+.tab-list-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.tab-gradient {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+    z-index: 10;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.tab-gradient-left {
+    left: 0;
+    background: linear-gradient(to right, #242424 0%, rgba(36, 36, 36, 0) 100%);
+}
+
+.tab-gradient-right {
+    right: 0;
+    background: linear-gradient(to left, #242424 0%, rgba(36, 36, 36, 0) 100%);
+}
+
 .tab-list {
     display: flex;
     gap: 0;
@@ -616,6 +641,10 @@ body {
         width: 100%;
     }
 
+    .tab-list-wrapper {
+        width: 100%;
+    }
+
     .tab-list {
         width: 100%;
         overflow-x: auto;
@@ -661,6 +690,14 @@ body {
     .guide-grid {
         width: 100%;
         grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tab-view {
+        width: 100%;
+    }
+
+    .tab-list-wrapper {
+        width: 100%;
     }
 
     .tab-list {
