@@ -13,7 +13,7 @@ const Header = () => {
                 <img src={process.env.PUBLIC_URL + '/logo.svg'} alt="Logo" className="logo-icon" />
             </div>
             <div className="header-menu">
-                <div className="header-menu-item active">
+                <div className="header-menu-item active" onClick={() => navigate('/')}>
                     <img src={process.env.PUBLIC_URL + '/홈.svg'} alt="Home" className="header-menu-icon"/>
                     <span className="header-menu-text">홈</span>
                 </div>
