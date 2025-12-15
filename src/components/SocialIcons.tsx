@@ -13,11 +13,11 @@ const SocialIcons: React.FC = () => {
     };
 
     return (
-        <div className="social-icons">
-            <img src={process.env.PUBLIC_URL + '/email.svg'} alt="Email" className="social-icon social-icon-email"
+        <div className="social-icon">
+            <img src={process.env.PUBLIC_URL + '/email.svg'} alt="Email"
                  onClick={(e) => copyEmail()}/>
             <a href="https://x.com/sungkyustream" target="_blank" rel="noreferrer">
-                <img src={process.env.PUBLIC_URL + '/xlogo.svg'} alt="X" className="social-icon social-icon-x" />
+                <img src={process.env.PUBLIC_URL + '/xlogo.svg'} alt="X" />
             </a>
         </div>
     );

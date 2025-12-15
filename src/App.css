@@ -250,22 +250,10 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: opacity 0.3s ease;
     text-decoration: none;
     position: relative;
-    opacity: 0.5;
+    gap: 20px;
 }
-
-.social-icon-email {
-    width: 24px;
-    height: 24px;
-}
-
-.social-icon-x {
-    width: 20px;
-    height: 20px;
-}
-
 
 .social-icon:hover {
     opacity: 1;
@@ -535,11 +523,6 @@ body {
     width: 880px;
     margin: 60px auto 0;
     padding: 0 0 40px 0;
-}
-
-.social-icons {
-    display: flex;
-    gap: 10px;
 }
 
 .header-social-icons {
