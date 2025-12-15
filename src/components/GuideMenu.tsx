@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../App.css';
 
@@ -11,8 +11,6 @@ interface GuideMenuItem {
 const GuideMenu: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const [showLeftGradient, setShowLeftGradient] = useState(false);
-    const [showRightGradient, setShowRightGradient] = useState(false);
     const menuListRef = useRef<HTMLDivElement>(null);
 
     const menuItems: GuideMenuItem[] = [
@@ -34,35 +32,8 @@ const GuideMenu: React.FC = () => {
         }
     };
 
-    const updateGradients = () => {
-        const element = menuListRef.current;
-        if (!element) return;
-
-        const { scrollLeft, scrollWidth, clientWidth } = element;
-        const scrollRight = scrollWidth - clientWidth - scrollLeft;
-
-        setShowLeftGradient(scrollLeft > 10);
-        setShowRightGradient(scrollRight > 10);
-    };
-
-    useEffect(() => {
-        const element = menuListRef.current;
-        if (!element) return;
-
-        updateGradients();
-        element.addEventListener('scroll', updateGradients);
-        window.addEventListener('resize', updateGradients);
-
-        return () => {
-            element.removeEventListener('scroll', updateGradients);
-            window.removeEventListener('resize', updateGradients);
-        };
-    }, []);
-
     return (
         <div className="guide-menu-bar">
-            {showLeftGradient && <div key="left-gradient" className="guide-gradient guide-gradient-left"></div>}
-            {showRightGradient && <div key="right-gradient" className="guide-gradient guide-gradient-right"></div>}
             <div className="guide-menu-wrapper" ref={menuListRef}>
                 <div className="guide-menu-container">
                     {menuItems.map((item, index) => (
