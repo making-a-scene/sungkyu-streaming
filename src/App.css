@@ -682,6 +682,14 @@ body {
     .guide-menu-item {
         font-size: 13px;
     }
+
+    .guide-gradient-left {
+        left: 16px;
+    }
+
+    .guide-gradient-right {
+        right: 16px;
+    }
 }
 
 /* 태블릿: 768-927px */
@@ -756,6 +764,14 @@ body {
     .guide-menu-container {
         gap: 24px;
     }
+
+    .guide-gradient-left {
+        left: 30px;
+    }
+
+    .guide-gradient-right {
+        right: 30px;
+    }
 }
 
 /* Guide Menu Styles */
@@ -793,12 +809,12 @@ body {
 }
 
 .guide-gradient-left {
-    left: 0;
+    left: calc((100% - 880px) / 2);
     background: linear-gradient(to right, #282828 0%, rgba(40, 40, 40, 0) 100%);
 }
 
 .guide-gradient-right {
-    right: 0;
+    right: calc((100% - 880px) / 2);
     background: linear-gradient(to left, #282828 0%, rgba(40, 40, 40, 0) 100%);
 }
 
