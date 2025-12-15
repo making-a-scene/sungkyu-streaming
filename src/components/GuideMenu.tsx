@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, {useRef, useEffect} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../App.css';
 
@@ -12,6 +12,7 @@ const GuideMenu: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const menuListRef = useRef<HTMLDivElement>(null);
+    const activeItemRef = useRef<HTMLDivElement>(null);
 
     const menuItems: GuideMenuItem[] = [
         { label: '아이디', path: '/guide/id', disabled: true },
@@ -32,6 +33,16 @@ const GuideMenu: React.FC = () => {
         }
     };
 
+    useEffect(() => {
+        if (activeItemRef.current && menuListRef.current) {
+            activeItemRef.current.scrollIntoView({
+                behavior: 'auto',
+                block: 'nearest',
+                inline: 'center'
+            });
+        }
+    }, [location.pathname]);
+
     return (
         <div className="guide-menu-bar">
             <div className="guide-menu-wrapper" ref={menuListRef}>
@@ -39,6 +50,7 @@ const GuideMenu: React.FC = () => {
                     {menuItems.map((item, index) => (
                         <div
                             key={index}
+                            ref={location.pathname === item.path ? activeItemRef : null}
                             className={`guide-menu-item ${location.pathname === item.path ? 'active' : ''} ${item.disabled ? 'disabled' : ''}`}
                             onClick={() => handleMenuClick(item.path, item.disabled)}
                         >
