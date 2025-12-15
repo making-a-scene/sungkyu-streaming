@@ -523,32 +523,6 @@ body {
     opacity: 0.5;
 }
 
-/* Toast Styles */
-.Toastify__toast {
-    font-family: Pretendard;
-    font-size: 14px;
-    padding: 16px 28px;
-    color: #fff;
-    background: rgba(107, 115, 135, 0.8);
-}
-
-.Toastify__toast-icon {
-    width: 22px;
-    height: 22px;
-}
-
-.Toastify__toast--info {
-    background: rgba(107, 115, 135, 0.8);
-}
-
-.Toastify__toast--success {
-    background: rgba(48, 173, 120, 0.8);
-}
-
-.Toastify__toast--error {
-    background: rgba(224, 72, 82, 0.8);
-}
-
 /* Responsive Design */
 
 /* 모바일: 375-767px */
