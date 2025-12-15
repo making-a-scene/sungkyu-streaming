@@ -46,14 +46,14 @@ const GuideGrid = () => {
     return (
         <div className="guide-grid">
             {guides.map((guide, index) => (
-                <GuideCard
-                    key={index}
-                    title={guide.title}
-                    iconSrc={guide.iconSrc}
-                    isActive={guide.isActive}
-                    isSpecial={guide.isSpecial}
-                    onClick={guide.page ? () => navigate(guide.page) : undefined}
-                />
+                    <GuideCard
+                        key={index}
+                        title={guide.title}
+                        iconSrc={guide.iconSrc}
+                        isActive={guide.isActive}
+                        isSpecial={guide.isSpecial}
+                        onClick={guide.page ? () => navigate(guide.page) : undefined}
+                    />
             ))}
         </div>
     );

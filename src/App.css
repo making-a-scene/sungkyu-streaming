@@ -637,8 +637,6 @@ body {
         font-size: 13px;
     }
 
-
-
     .main-content {
         width: calc(100% - 32px);
         margin-left: auto;
@@ -672,6 +670,32 @@ body {
     .guide-grid {
         width: 100%;
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .guide-card {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        height: 64px;
+        align-items: center;
+        justify-content: space-between;
+        border-radius: 12px;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .guide-title {
+        display: flex;
+        width: fit-content;
+        color: white;
+        font-family: "Pretendard";
+        font-style: normal;
+        font-size: 15px;
+        font-weight: 600;
+        line-height: 20px;
+        text-align: left;
+        flex-direction: column;
+        justify-content: start;
     }
 
     .tab-view {
