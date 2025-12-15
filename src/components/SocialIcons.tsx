@@ -1,6 +1,6 @@
 import React from 'react';
 import '../App.css';
-import {toast, ToastContainer} from "react-toastify";
+import {toast} from "react-toastify";
 
 const SocialIcons: React.FC = () => {
     const copyEmail = async () => {
@@ -16,7 +16,6 @@ const SocialIcons: React.FC = () => {
         <div className="social-icons">
             <img src={process.env.PUBLIC_URL + '/email.svg'} alt="Email" className="social-icon social-icon-email"
                  onClick={(e) => copyEmail()}/>
-            <ToastContainer />
             <a href="https://x.com/sungkyustream" target="_blank" rel="noreferrer">
                 <img src={process.env.PUBLIC_URL + '/xlogo.svg'} alt="X" className="social-icon social-icon-x" />
             </a>
