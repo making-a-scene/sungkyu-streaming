@@ -6,9 +6,9 @@ const SocialIcons: React.FC = () => {
     const copyEmail = async () => {
         try {
             await navigator.clipboard.writeText("sungkyustream@gmail.com");
-            toast.success("이메일 주소가 클립보드에 복사되었습니다!", {autoClose: 500});
+            toast.success("이메일 주소가 클립보드에 복사되었습니다!", {autoClose: 1000, hideProgressBar: true});
         } catch (e) {
-            toast.error("이메일 주소 복사에 실패했습니다. 다시 시도해주세요.", {autoClose: 500});
+            toast.error("이메일 주소 복사에 실패했습니다. 다시 시도해주세요.", {autoClose: 1000, hideProgressBar: true});
         }
     };
 
