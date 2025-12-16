@@ -7,7 +7,7 @@ import TabView from '../../components/TabView';
 import GuideMenu from '../../components/GuideMenu';
 
 const Vote = () => {
-    const tabs = ['재화 모으기', '스케줄', '아이돌챔프', '엠넷플러스', '팬캐스트', '뮤빗', '링크'];
+    const tabs = ['재화 모으기', '스케줄', '아이돌챔프', '엠넷플러스', '팬캐스트', '뮤빗', '링크', '하이어'];
     const [selectedTab, setSelectedTab] = useState(0);
 
     return (
@@ -33,6 +33,9 @@ const Vote = () => {
                 )}
                 {selectedTab === 6 && (
                     <img src={process.env.PUBLIC_URL + '/guide-linc.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                )}
+                {selectedTab === 7 && (
+                    <img src={process.env.PUBLIC_URL + '/guide-higher.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
             </main>
             <Footer />
