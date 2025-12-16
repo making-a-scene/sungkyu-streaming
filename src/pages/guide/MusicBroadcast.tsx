@@ -23,19 +23,33 @@ const MusicBroadcast = () => {
                     <img src={process.env.PUBLIC_URL + '/guide-vote-schedule.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
                 {selectedTab === 2 && (
-                    <img src={process.env.PUBLIC_URL + '/guide-show-champion.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <><img src={process.env.PUBLIC_URL + '/guide-show-champion.png'} alt="guide"
+                           style={{width: '100%', maxWidth: '880px', display: 'block'}}/><img
+                        src={process.env.PUBLIC_URL + '/guide-idolchamp.png'} alt="guide"
+                        style={{width: '100%', maxWidth: '880px', display: 'block'}}/></>
                 )}
                 {selectedTab === 3 && (
                     <img src={process.env.PUBLIC_URL + '/guide-m-countdown.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
                 {selectedTab === 4 && (
-                    <img src={process.env.PUBLIC_URL + '/guide-music-bank.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <><img src={process.env.PUBLIC_URL + '/guide-music-bank.png'} alt="guide"
+                           style={{width: '100%', maxWidth: '880px', display: 'block'}}/><img
+                        src={process.env.PUBLIC_URL + '/guide-fancast.png'} alt="guide"
+                        style={{width: '100%', maxWidth: '880px', display: 'block'}}/></>
                 )}
                 {selectedTab === 5 && (
-                    <img src={process.env.PUBLIC_URL + '/guide-music-core.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <><img src={process.env.PUBLIC_URL + '/guide-music-core.png'} alt="guide"
+                           style={{width: '100%', maxWidth: '880px', display: 'block'}}/><img
+                        src={process.env.PUBLIC_URL + '/guide-mubeat.png'} alt="guide"
+                        style={{width: '100%', maxWidth: '880px', display: 'block'}}/></>
                 )}
                 {selectedTab === 6 && (
-                    <img src={process.env.PUBLIC_URL + '/guide-inkigayo.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                    <><img src={process.env.PUBLIC_URL + '/guide-inkigayo.png'} alt="guide"
+                           style={{width: '100%', maxWidth: '880px', display: 'block'}}/><img
+                        src={process.env.PUBLIC_URL + '/guide-linc.png'} alt="guide"
+                        style={{width: '100%', maxWidth: '880px', display: 'block'}}/><img
+                        src={process.env.PUBLIC_URL + '/guide-higher.png'} alt="guide"
+                        style={{width: '100%', maxWidth: '880px', display: 'block'}}/></>
                 )}
             </main>
             <Footer />
