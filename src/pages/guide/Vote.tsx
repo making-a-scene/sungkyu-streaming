@@ -22,6 +22,18 @@ const Vote = () => {
                 {selectedTab === 1 && (
                     <img src={process.env.PUBLIC_URL + '/guide-vote-schedule.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
                 )}
+                {selectedTab === 2 && (
+                    <img src={process.env.PUBLIC_URL + '/idolchamp.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                )}
+                {selectedTab === 4 && (
+                    <img src={process.env.PUBLIC_URL + '/fancast.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                )}
+                {selectedTab === 5 && (
+                    <img src={process.env.PUBLIC_URL + '/mubeat.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                )}
+                {selectedTab === 6 && (
+                    <img src={process.env.PUBLIC_URL + '/linc.png'} alt="guide" style={{ width: '100%', maxWidth: '880px', display: 'block' }} />
+                )}
             </main>
             <Footer />
         </div>
