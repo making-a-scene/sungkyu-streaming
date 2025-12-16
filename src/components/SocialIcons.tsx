@@ -14,10 +14,10 @@ const SocialIcons: React.FC = () => {
 
     return (
         <div className="social-icon">
-            <img src={process.env.PUBLIC_URL + '/email.svg'} alt="Email"
+            <img src={process.env.PUBLIC_URL + '/email-icon.svg'} alt="Email"
                  onClick={(e) => copyEmail()}/>
             <a href="https://x.com/sungkyustream" target="_blank" rel="noreferrer">
-                <img src={process.env.PUBLIC_URL + '/xlogo.svg'} alt="X" />
+                <img src={process.env.PUBLIC_URL + '/x-logo.svg'} alt="X" />
             </a>
         </div>
     );
