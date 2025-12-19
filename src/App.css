@@ -824,6 +824,7 @@ body {
 }
 
 .guide-menu-wrapper {
+    padding-left: 20px;
     position: relative;
     max-width: 880px;
     margin: 0 auto;
