@@ -7,7 +7,7 @@ import TabView from '../../components/TabView';
 import GuideMenu from '../../components/GuideMenu';
 
 const IdGeneration = () => {
-    const tabs = ['멜론', '지니', '벅스', '바이브', '플로', '듀얼 넘버 가이드'];
+    const tabs = ['멜론', '지니', '벅스', '플로', '바이브', '듀얼 넘버'];
     const [selectedTab, setSelectedTab] = useState(0);
 
     return (
