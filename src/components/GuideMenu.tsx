@@ -15,7 +15,7 @@ const GuideMenu: React.FC = () => {
     const activeItemRef = useRef<HTMLDivElement>(null);
 
     const menuItems: GuideMenuItem[] = [
-        { label: '아이디', path: '/guide/id', disabled: true },
+        { label: '아이디', path: '/guide/id-generation', disabled: true },
         { label: '스트리밍', path: '/guide/streaming', disabled: true },
         { label: '다운로드', path: '/guide/download', disabled: true },
         { label: '음악방송', path: '/guide/music-broadcast' },
