@@ -31,7 +31,7 @@ const GuideGrid = () => {
     const navigate = useNavigate();
 
     const guides = [
-        { title: '아이디 생성\n가이드', iconSrc: process.env.PUBLIC_URL + '/id-generation-icon-inactive.svg', isActive: true, isSpecial: false, page: '/guide/id-generation' },
+        { title: '아이디 생성\n가이드', iconSrc: process.env.PUBLIC_URL + '/id-generation-icon.svg', isActive: true, isSpecial: false, page: '/guide/id-generation' },
         { title: '스트리밍\n가이드', iconSrc: process.env.PUBLIC_URL + '/streaming-icon-inactive.svg', isActive: false, isSpecial: false, page: null },
         { title: '다운로드\n가이드', iconSrc: process.env.PUBLIC_URL + '/download-icon-inactive.svg', isActive: false, isSpecial: false, page: null },
         { title: '음악방송\n가이드', iconSrc: process.env.PUBLIC_URL + '/music-broadcast-icon.svg', isActive: true, isSpecial: false, page: '/guide/music-broadcast' },
