@@ -16,7 +16,7 @@ const IdGeneration = () => {
             <GuideMenu />
             <TabView tabs={tabs} defaultTab={0} onTabChange={setSelectedTab} />
             <main className="main-content">
-햐
+
             </main>
             <Footer />
         </div>
