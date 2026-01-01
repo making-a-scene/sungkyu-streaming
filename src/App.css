@@ -861,7 +861,6 @@ body {
 .sub-menu-container {
     display: inline-flex;
     gap: 32px;
-    align-items: center;
     min-width: 100%;
     justify-content: center;
 }
