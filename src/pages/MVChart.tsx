@@ -38,9 +38,12 @@ type MVStatistics = {
 
 type MVItem = MVMeta & MVStatistics;
 
+type SortType = 'viewCount' | 'latest';
+
 const MVChart: React.FC = () => {
     const [mvItems, setMvItems] = useState<MVItem[]>([]);
     const [loading, setLoading] = useState(true);
+    const [sortType, setSortType] = useState<SortType>('viewCount');
     const chartMenus = [
         { label: '멜론', path: '/chart/melon', disabled: true },
         { label: '지니', path: '/chart/genie', disabled: true },
@@ -79,9 +82,6 @@ const MVChart: React.FC = () => {
                     viewCount: statsMap.get(meta.id) ?? 0,
                 }));
 
-                // 조회수 기준 내림차순 정렬
-                merged.sort((a, b) => b.viewCount - a.viewCount);
-
                 setMvItems(merged);
             } finally {
                 setLoading(false);
@@ -91,12 +91,41 @@ const MVChart: React.FC = () => {
         fetchStats();
     }, []);
 
+    // 정렬된 목록
+    const sortedItems = [...mvItems].sort((a, b) => {
+        if (sortType === 'viewCount') {
+            return b.viewCount - a.viewCount;
+        } else {
+            // 최신순 (releasedAt 기준)
+            return new Date(b.releasedAt).getTime() - new Date(a.releasedAt).getTime();
+        }
+    });
+
     return (
         <div className="app">
             <Header />
             <SubMenu menuItems={chartMenus} />
             <main className="main-content">
-                {!loading && mvItems.map((mv, idx) => (
+                {!loading && (
+                    <div className="mv-header">
+                        <div className="mv-count">총 {mvItems.length}개의 영상</div>
+                        <div className="mv-sort-toggle">
+                            <button
+                                className={`sort-button ${sortType === 'viewCount' ? 'active' : ''}`}
+                                onClick={() => setSortType('viewCount')}
+                            >
+                                조회수
+                            </button>
+                            <button
+                                className={`sort-button ${sortType === 'latest' ? 'active' : ''}`}
+                                onClick={() => setSortType('latest')}
+                            >
+                                최신순
+                            </button>
+                        </div>
+                    </div>
+                )}
+                {!loading && sortedItems.map((mv, idx) => (
                     <div
                         key={mv.id}
                         className="mv-row"
