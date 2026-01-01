@@ -22,7 +22,7 @@ const MV_LIST: MVMeta[] = [
     { id: "vqfBr2qBMAM", title: "[MV] Kim Sung kyu(김성규) _ Sorry", releasedAt: '2018. 8. 22.' },
     { id: "TI70x0jEZA0", title: "[MV] Kim Sung Kyu(김성규) - Beautiful | Oh My Baby 오 마이 베이비 OST", releasedAt: '2020. 6. 10.' },
     { id: "AFl4UZc3LEA", title: "김성규(Kim Sung Kyu) 'I'm Cold' MV", releasedAt: '2020. 12. 14.' },
-    { id: "hDvaqF6Kvjpc", title: "김성규(Kim Sung Kyu) 'HUSH' MV", releasedAt: '2021. 3. 29.' },
+    { id: "DvaqF6Kvjpc", title: "김성규(Kim Sung Kyu) 'HUSH' MV", releasedAt: '2021. 3. 29.' },
     { id: "r5WzI1Jm5z0", title: "[MV] Kim Yong Jun(김용준),Kim Sung Kyu(김성규) _ When it snows(눈이 내리면)", releasedAt: '2021. 12. 13.' },
     { id: "dr8h26nozhY", title: "[백수세끼 OST] 김성규 (Kim Sung Kyu) - 'Ready To Go' MV", releasedAt: '2022. 1. 5.' },
     { id: "8cbbipzif5w", title: "[Official MV] 김성규(Kim Sung Kyu) 'Savior'", releasedAt: '2022. 4. 22.' },
