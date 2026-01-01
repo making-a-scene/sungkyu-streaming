@@ -291,7 +291,6 @@ body {
     font-family: Pretendard;
     font-size: 16px;
     font-style: normal;
-    font-weight: 600;
     line-height: 20px; /* 125% */
 }
 
@@ -896,6 +895,125 @@ body {
     opacity: 0.1;
 }
 
+/* MV Chart Styles */
+.mv-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 0 16px;
+}
+
+.mv-count {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 20px;
+}
+
+.mv-sort-toggle {
+    display: flex;
+    background: rgba(46, 46, 46, 0.5);
+    border-radius: 8px;
+    padding: 4px;
+    gap: 4px;
+}
+
+.sort-button {
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    padding: 6px 14px;
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 18px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.5;
+}
+
+.sort-button:hover {
+    opacity: 0.7;
+}
+
+.sort-button.active {
+    opacity: 1;
+    background: #3E3E3E;
+}
+
+.mv-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    margin-bottom: 8px;
+}
+
+.mv-row:hover {
+    background-color: #2E2E2E;
+}
+
+.mv-rank {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 24px;
+    min-width: 24px;
+    text-align: center;
+}
+
+.mv-thumb {
+    width: 120px;
+    height: 90px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background-color: #3E3E3E;
+}
+
+.mv-thumb-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mv-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.mv-title {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 22px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.mv-views {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    opacity: 0.7;
+}
+
 /* PC: 928px 이상 */
 @media (min-width: 928px) {
     .header,
@@ -910,5 +1028,97 @@ body {
 
     .guide-menu-wrapper {
         max-width: 880px;
+    }
+}
+
+/* 모바일 MV Chart */
+@media (max-width: 767px) {
+    .mv-header {
+        margin-bottom: 16px;
+        padding: 0 12px;
+    }
+
+    .mv-count {
+        font-size: 14px;
+    }
+
+    .mv-sort-toggle {
+        padding: 3px;
+    }
+
+    .sort-button {
+        padding: 5px 12px;
+        font-size: 12px;
+    }
+
+    .mv-row {
+        padding: 10px 12px;
+        gap: 12px;
+    }
+
+    .mv-rank {
+        font-size: 16px;
+        min-width: 20px;
+    }
+
+    .mv-thumb {
+        width: 90px;
+        height: 68px;
+    }
+
+    .mv-title {
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .mv-views {
+        font-size: 12px;
+        line-height: 16px;
+    }
+}
+
+/* 태블릿 MV Chart */
+@media (min-width: 768px) and (max-width: 927px) {
+    .mv-header {
+        margin-bottom: 18px;
+        padding: 0 14px;
+    }
+
+    .mv-count {
+        font-size: 15px;
+    }
+
+    .mv-sort-toggle {
+        padding: 3.5px;
+    }
+
+    .sort-button {
+        padding: 5.5px 13px;
+        font-size: 13px;
+    }
+
+    .mv-row {
+        padding: 11px 14px;
+        gap: 14px;
+    }
+
+    .mv-rank {
+        font-size: 17px;
+        min-width: 22px;
+    }
+
+    .mv-thumb {
+        width: 105px;
+        height: 79px;
+    }
+
+    .mv-title {
+        font-size: 15px;
+        line-height: 21px;
+    }
+
+    .mv-views {
+        font-size: 13px;
+        line-height: 17px;
     }
 }

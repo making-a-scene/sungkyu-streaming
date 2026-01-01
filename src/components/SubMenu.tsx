@@ -2,34 +2,25 @@ import React, {useRef, useEffect} from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import '../App.css';
 
-interface GuideMenuItem {
+interface SubMenuItem {
     label: string;
     path: string;
     disabled?: boolean;
 }
 
-const GuideMenu: React.FC = () => {
+interface SubMenuProps {
+    menuItems: SubMenuItem[];
+}
+
+const SubMenu: React.FC<SubMenuProps> = ({menuItems}) => {
     const navigate = useNavigate();
     const location = useLocation();
     const menuListRef = useRef<HTMLDivElement>(null);
     const activeItemRef = useRef<HTMLDivElement>(null);
 
-    const menuItems: GuideMenuItem[] = [
-        { label: '아이디', path: '/guide/id-generation', disabled: false },
-        { label: '스트리밍', path: '/guide/streaming', disabled: true },
-        { label: '다운로드', path: '/guide/download', disabled: true },
-        { label: '음악방송', path: '/guide/music-broadcast' },
-        { label: '투표', path: '/guide/vote' },
-        { label: '음악 나누기', path: '/guide/music-sharing', disabled: false },
-        { label: 'MV', path: '/guide/mv', disabled: true },
-        { label: '숏폼·SNS', path: '/guide/shorts-sns', disabled: true },
-        { label: '라디오', path: '/guide/radio', disabled: true },
-        { label: '컬러링', path: '/guide/coloring', disabled: true }
-    ];
-
-    const handleMenuClick = (path: string, disabled?: boolean) => {
-        if (!disabled) {
-            navigate(path);
+    const handleMenuClick = (item: SubMenuItem) => {
+        if (!item.disabled) {
+            navigate(item.path);
         }
     };
 
@@ -52,7 +43,7 @@ const GuideMenu: React.FC = () => {
                             key={index}
                             ref={location.pathname === item.path ? activeItemRef : null}
                             className={`guide-menu-item ${location.pathname === item.path ? 'active' : ''} ${item.disabled ? 'disabled' : ''}`}
-                            onClick={() => handleMenuClick(item.path, item.disabled)}
+                            onClick={() => handleMenuClick(item)}
                         >
                             {item.label}
                         </div>
@@ -63,4 +54,4 @@ const GuideMenu: React.FC = () => {
     );
 };
 
-export default GuideMenu;
+export default SubMenu;

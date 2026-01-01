@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import MusicBroadcast from './pages/guide/MusicBroadcast';
 import Vote from "./pages/guide/Vote";
 import IdGeneration from "./pages/guide/IdGeneration";
-import MusicSharing from "./pages/guide/MusicSharing";
+import MVChart from "./pages/MVChart";
 
 // Main App Component
 function App() {
@@ -18,7 +18,7 @@ function App() {
                 <Route path="/guide/id-generation" element={<IdGeneration />} />
                 <Route path="/guide/music-broadcast" element={<MusicBroadcast />} />
                 <Route path="/guide/vote" element={<Vote />} />
-                <Route path="/guide/music-sharing" element={<MusicSharing />} />
+                <Route path="/chart/mv" element={<MVChart />} />
             </Routes>
         </BrowserRouter>
     );
