@@ -30,39 +30,87 @@ const MV_LIST: MVMeta[] = [
     { id: "ItuBFmafOJU", title: "김성규, 남우현 - Beautiful (사주왕 OST) [Music Video]", releasedAt: '2024. 3. 15.' },
 ];
 
-interface MVItem {
+type MVStatistics = {
     id: string;
-    statistics: {
-        viewCount: string;
-        favoriteCount: string;
-        commentCount: string;
-    }
+    viewCount: number;
 }
 
+type MVItem = MVMeta & MVStatistics;
+
 const MVChart: React.FC = () => {
-    const [mvInfo, setMVinfo] = useState<MVItem | null>(null);
+    const [mvItems, setMvItems] = useState<MVItem[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios
-            .get(
-                "https://www.googleapis.com/youtube/v3/videos?part=statistics&id=6WNrmU5f8Gs&key=AIzaSyA-6K53NASBQ-CcD-tYlnlV0e3qVJne9iU"
-            )
-            .then((res) => {
-                setMVinfo(res.data.items[0]);
-            })
-            .catch(() => {});
+        const fetchStats = async () => {
+            try {
+                const ids = MV_LIST.map(mv => mv.id).join(',');
+
+                const res = await axios.get(
+                    'https://www.googleapis.com/youtube/v3/videos',
+                    {
+                        params: {
+                            part: 'statistics',
+                            id: ids,
+                            key: 'AIzaSyA-6K53NASBQ-CcD-tYlnlV0e3qVJne9iU',
+                        },
+                    }
+                );
+
+                const statsMap = new Map<string, number>();
+
+                res.data.items.forEach((item: any) => {
+                    const views = Number(item.statistics.viewCount ?? 0);
+                    statsMap.set(item.id, views);
+                });
+
+                const merged: MVItem[] = MV_LIST.map(meta => ({
+                    ...meta,
+                    viewCount: statsMap.get(meta.id) ?? 0,
+                }));
+
+                // 조회수 기준 내림차순 정렬
+                merged.sort((a, b) => b.viewCount - a.viewCount);
+
+                setMvItems(merged);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchStats();
     }, []);
 
     return (
         <div className="app">
             <Header />
             <main className="main-content">
-                <iframe width="100%" height="500" src="https://www.youtube.com/embed/6WNrmU5f8Gs?si=YHFeUO6ZLpz1HcSy"
-                        title="YouTube video player"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                        referrerPolicy="strict-origin-when-cross-origin"
-                        allowFullScreen></iframe>
-                <span className="notification-text">현재 조회수: {mvInfo?.statistics?.viewCount?.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}회</span>
+                {!loading && mvItems.map((mv, idx) => (
+                    <div
+                        key={mv.id}
+                        className="mv-row"
+                        onClick={() => window.open(`https://www.youtube.com/watch?v=${mv.id}`, '_blank')}
+                    >
+                        <div className="mv-rank">
+                            {idx + 1}
+                        </div>
+
+                        <div className="mv-thumb">
+                            <img
+                                src={`https://i.ytimg.com/vi/${mv.id}/mqdefault.jpg`}
+                                alt={mv.title}
+                                className="mv-thumb-img"
+                            />
+                        </div>
+
+                        <div className="mv-info">
+                            <div className="mv-title">{mv.title}</div>
+                            <div className="mv-views">
+                                조회수 {mv.viewCount.toLocaleString()}회
+                            </div>
+                        </div>
+                    </div>
+                ))}
             </main>
             <Footer/>
         </div>
