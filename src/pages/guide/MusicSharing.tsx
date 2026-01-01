@@ -5,7 +5,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import SubMenu from '../../components/SubMenu';
 
-const IdGeneration = () => {
+const MusicSharing = () => {
 
     const guideMenus =  [
         { label: '아이디', path: '/guide/id-generation', disabled: false },
@@ -13,7 +13,7 @@ const IdGeneration = () => {
         { label: '다운로드', path: '/guide/download', disabled: true },
         { label: '음악방송', path: '/guide/music-broadcast' },
         { label: '투표', path: '/guide/vote' },
-        { label: '선물하기', path: '/guide/gift', disabled: true },
+        { label: '음악 나누기', path: '/guide/music-sharing', disabled: false },
         { label: 'MV', path: '/guide/mv', disabled: true },
         { label: '숏폼·SNS', path: '/guide/shorts-sns', disabled: true },
         { label: '라디오', path: '/guide/radio', disabled: true },
@@ -32,4 +32,4 @@ const IdGeneration = () => {
     );
 }
 
-export default IdGeneration;
+export default MusicSharing;
