@@ -4,16 +4,29 @@ import '../../App.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import TabView from '../../components/TabView';
-import GuideMenu from '../../components/GuideMenu';
+import SubMenu from '../../components/SubMenu';
 
 const MusicBroadcast = () => {
     const tabs = ['차트집계', '스케줄', '쇼챔피언', '엠카운트다운', '뮤직뱅크', '음악중심', '인기가요'];
     const [selectedTab, setSelectedTab] = useState(0);
 
+    const guideMenus =  [
+        { label: '아이디', path: '/guide/id-generation', disabled: false },
+        { label: '스트리밍', path: '/guide/streaming', disabled: true },
+        { label: '다운로드', path: '/guide/download', disabled: true },
+        { label: '음악방송', path: '/guide/music-broadcast' },
+        { label: '투표', path: '/guide/vote' },
+        { label: '선물하기', path: '/guide/gift', disabled: true },
+        { label: 'MV', path: '/guide/mv', disabled: true },
+        { label: '숏폼·SNS', path: '/guide/shorts-sns', disabled: true },
+        { label: '라디오', path: '/guide/radio', disabled: true },
+        { label: '컬러링', path: '/guide/coloring', disabled: true }
+    ];
+
     return (
         <div className="app">
             <Header />
-            <GuideMenu />
+            <SubMenu menuItems={guideMenus} />
             <TabView tabs={tabs} defaultTab={0} onTabChange={setSelectedTab} />
             <main className="main-content">
                 {selectedTab === 0 && (

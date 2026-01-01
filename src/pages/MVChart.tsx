@@ -3,6 +3,7 @@ import '../App.css';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
+import SubMenu from "../components/SubMenu";
 
 type MVMeta = {
     id: string;
@@ -40,6 +41,15 @@ type MVItem = MVMeta & MVStatistics;
 const MVChart: React.FC = () => {
     const [mvItems, setMvItems] = useState<MVItem[]>([]);
     const [loading, setLoading] = useState(true);
+    const chartMenus = [
+        { label: '멜론', path: '/chart/melon', disabled: true },
+        { label: '지니', path: '/chart/genie', disabled: true },
+        { label: '벅스', path: '/chart/bugs', disabled: true },
+        { label: '플로', path: '/chart/flo', disabled: true },
+        { label: '바이브', path: '/chart/vibe', disabled: true },
+        { label: 'MV', path: '/chart/mv', disabled: false },
+        { label: '틱톡', path: '/chart/tiktok', disabled: true },
+    ];
 
     useEffect(() => {
         const fetchStats = async () => {
@@ -84,6 +94,7 @@ const MVChart: React.FC = () => {
     return (
         <div className="app">
             <Header />
+            <SubMenu menuItems={chartMenus} />
             <main className="main-content">
                 {!loading && mvItems.map((mv, idx) => (
                     <div
