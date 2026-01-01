@@ -10,6 +10,7 @@ const Header = () => {
 
     const isHome = location.pathname === '/';
     const isGuide = location.pathname.startsWith('/guide');
+    const isChart = location.pathname.startsWith('/chart');
 
     return (
         <header className="header">
@@ -31,10 +32,9 @@ const Header = () => {
                     <span className="header-menu-text">스케줄</span>
                     <span className="tooltip-text">준비중</span>
                 </div>
-                <div className="header-menu-item" onClick={() => navigate('/chart/mv')}>
+                <div className={`header-menu-item ${isChart ? 'active' : 'inactive'}`} onClick={() => navigate('/chart/mv')}>
                     <img src={process.env.PUBLIC_URL + '/chart-icon.svg'} alt="Chart" className="header-menu-icon"/>
                     <span className="header-menu-text">차트</span>
-                    <span className="tooltip-text">준비중</span>
                 </div>
                 <div className="header-menu-item inactive">
                     <img src={process.env.PUBLIC_URL + '/apply-icon.svg'} alt="Apply" className="header-menu-icon"/>
