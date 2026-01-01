@@ -38,7 +38,7 @@ const GuideMenu: React.FC = () => {
     }, [location.pathname]);
 
     return (
-        <div className="sub-menu-bar">
+        <div className="sub-menu-bar" style={{ position: 'sticky', top: 72, zIndex: 90, background: '#282828' }}>
             <div className="sub-menu-wrapper" ref={menuListRef}>
                 <div className="sub-menu-container">
                     {menuItems.map((item, index) => (

@@ -46,7 +46,7 @@ const TabView: React.FC<TabViewProps> = ({ tabs, defaultTab = 0, onTabChange }) 
     }, [tabs]);
 
     return (
-        <div className="tab-view">
+        <div className="tab-view" style={{ position: 'sticky', top: 124, zIndex: 80, background: '#242424' }}>
             <div className="tab-list-wrapper">
                 {showLeftGradient && <div className="tab-gradient tab-gradient-left"></div>}
                 {showRightGradient && <div className="tab-gradient tab-gradient-right"></div>}

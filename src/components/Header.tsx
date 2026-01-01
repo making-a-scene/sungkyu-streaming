@@ -13,7 +13,7 @@ const Header = () => {
     const isChart = location.pathname.startsWith('/chart');
 
     return (
-        <header className="header">
+        <header className="header" style={{ position: 'sticky', top: 0, zIndex: 100, background: '#242424' }}>
             <div className="logo" onClick={() => navigate('/')}>
                 <img src={process.env.PUBLIC_URL + '/main-logo.svg'} alt="Logo" className="logo-icon" />
             </div>
