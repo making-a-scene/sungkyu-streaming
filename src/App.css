@@ -227,6 +227,7 @@ body {
     display: flex;
     gap: 32px;
     align-items: center;
+    justify-content: center;
 }
 
 .submenu-item {
@@ -704,28 +705,28 @@ body {
         font-size: 24px;
     }
 
-    .guide-menu-bar {
+    .sub-menu-bar {
         width: 100%;
     }
 
-    .guide-menu-wrapper {
+    .sub-menu-wrapper {
         max-width: calc(100% - 32px);
         margin: 0 16px;
     }
 
-    .guide-menu-container {
+    .sub-menu-container {
         gap: 20px;
     }
 
-    .guide-menu-item {
+    .sub-menu-item {
         font-size: 13px;
     }
 
-    .guide-gradient-left {
+    .sub-gradient-left {
         left: 16px;
     }
 
-    .guide-gradient-right {
+    .sub-gradient-right {
         right: 16px;
     }
 }
@@ -790,30 +791,30 @@ body {
         gap: 24px;
     }
 
-    .guide-menu-bar {
+    .sub-menu-bar {
         width: 100%;
     }
 
-    .guide-menu-wrapper {
+    .sub-menu-wrapper {
         max-width: calc(100% - 60px);
         margin: 0 30px;
     }
 
-    .guide-menu-container {
+    .sub-menu-container {
         gap: 24px;
     }
 
-    .guide-gradient-left {
+    .sub-gradient-left {
         left: 30px;
     }
 
-    .guide-gradient-right {
+    .sub-gradient-right {
         right: 30px;
     }
 }
 
-/* Guide Menu Styles */
-.guide-menu-bar {
+/* Sub Menu Styles */
+.sub-menu-bar {
     width: 100%;
     background: #282828;
     overflow: hidden;
@@ -822,7 +823,7 @@ body {
     z-index: 90;
 }
 
-.guide-menu-wrapper {
+.sub-menu-wrapper {
     padding-left: 20px;
     position: relative;
     max-width: 880px;
@@ -833,11 +834,11 @@ body {
     -ms-overflow-style: none; /* IE and Edge */
 }
 
-.guide-menu-wrapper::-webkit-scrollbar {
+.sub-menu-wrapper::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
 }
 
-.guide-gradient {
+.sub-gradient {
     position: absolute;
     top: 0;
     bottom: 0;
@@ -847,24 +848,25 @@ body {
     transition: opacity 0.3s ease;
 }
 
-.guide-gradient-left {
+.sub-gradient-left {
     left: calc((100% - 880px) / 2);
     background: linear-gradient(to right, #282828 0%, rgba(40, 40, 40, 0) 100%);
 }
 
-.guide-gradient-right {
+.sub-gradient-right {
     right: calc((100% - 880px) / 2);
     background: linear-gradient(to left, #282828 0%, rgba(40, 40, 40, 0) 100%);
 }
 
-.guide-menu-container {
+.sub-menu-container {
     display: inline-flex;
     gap: 32px;
     align-items: center;
     min-width: 100%;
+    justify-content: center;
 }
 
-.guide-menu-item {
+.sub-menu-item {
     color: #FFFFFF;
     font-family: Pretendard;
     font-size: 18px;
@@ -878,20 +880,20 @@ body {
     padding: 16px 0;
 }
 
-.guide-menu-item:hover {
+.sub-menu-item:hover {
     opacity: 1;
 }
 
-.guide-menu-item.active {
+.sub-menu-item.active {
     opacity: 1;
 }
 
-.guide-menu-item.disabled {
+.sub-menu-item.disabled {
     cursor: not-allowed;
     opacity: 0.1;
 }
 
-.guide-menu-item.disabled:hover {
+.sub-menu-item.disabled:hover {
     opacity: 0.1;
 }
 
@@ -1026,7 +1028,7 @@ body {
         width: 880px;
     }
 
-    .guide-menu-wrapper {
+    .sub-menu-wrapper {
         max-width: 880px;
     }
 }

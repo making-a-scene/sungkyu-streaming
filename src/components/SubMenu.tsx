@@ -35,14 +35,14 @@ const SubMenu: React.FC<SubMenuProps> = ({menuItems}) => {
     }, [location.pathname]);
 
     return (
-        <div className="guide-menu-bar">
-            <div className="guide-menu-wrapper" ref={menuListRef}>
-                <div className="guide-menu-container">
+        <div className="sub-menu-bar">
+            <div className="sub-menu-wrapper" ref={menuListRef}>
+                <div className="sub-menu-container">
                     {menuItems.map((item, index) => (
                         <div
                             key={index}
                             ref={location.pathname === item.path ? activeItemRef : null}
-                            className={`guide-menu-item ${location.pathname === item.path ? 'active' : ''} ${item.disabled ? 'disabled' : ''}`}
+                            className={`sub-menu-item ${location.pathname === item.path ? 'active' : ''} ${item.disabled ? 'disabled' : ''}`}
                             onClick={() => handleMenuClick(item)}
                         >
                             {item.label}
