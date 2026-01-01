@@ -16,7 +16,7 @@ const GuideMenu: React.FC = () => {
         { label: '투표', path: '/guide/vote', disabled: false },
         { label: '음악 나누기', path: '/guide/music-sharing', disabled: false },
         { label: 'MV', path: '/guide/mv', disabled: false },
-        { label: '숏폼·SNS', path: '/guide/shorts-sns', disabled: true },
+        { label: '숏폼·SNS', path: '/guide/shorts-sns', disabled: false },
         { label: '라디오', path: '/guide/radio', disabled: true },
         { label: '컬러링', path: '/guide/coloring', disabled: true }
     ];
