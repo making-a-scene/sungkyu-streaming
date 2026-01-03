@@ -258,6 +258,7 @@ html, body {
     display: flex;
     align-items: center;
     gap: 16px;
+    cursor: pointer;
 }
 
 .notification-icon {
@@ -296,7 +297,6 @@ html, body {
     height: 20px;
     background: transparent;
     border: none;
-    cursor: pointer;
     flex-shrink: 0;
     padding: 0;
     margin-left: auto;
