@@ -136,6 +136,7 @@ const MVChart: React.FC = () => {
 
                         <div className="mv-info">
                             <div className="mv-title">{mv.title}</div>
+                            <div className="mv-released-date">{mv.releasedAt}</div>
                             <div className="mv-views">
                                 조회수 {mv.viewCount.toLocaleString()}회
                             </div>

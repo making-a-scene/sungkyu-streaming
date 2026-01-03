@@ -969,7 +969,7 @@ html, body {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 11px;
     min-width: 0;
 }
 
@@ -978,7 +978,7 @@ html, body {
     font-family: Pretendard;
     font-size: 16px;
     font-weight: 600;
-    line-height: 22px;
+    line-height: 15px;
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -986,13 +986,21 @@ html, body {
     -webkit-box-orient: vertical;
 }
 
+.mv-released-date {
+    color: #696969;
+    font-family: Pretendard;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 15px;
+}
+
 .mv-views {
     color: #FFFFFF;
     font-family: Pretendard;
     font-size: 14px;
-    font-weight: 400;
-    line-height: 18px;
-    opacity: 0.7;
+    font-weight: 600;
+    line-height: 15px;
+    letter-spacing: 0.5px;
 }
 
 /* PC: 928px 이상 */
@@ -1043,18 +1051,26 @@ html, body {
     }
 
     .mv-thumb {
-        width: 96px;
-        height: 54px;
+        width: 112px;
+        height: 63px;
+    }
+
+    .mv-info {
+        gap: 5px;
     }
 
     .mv-title {
-        font-size: 14px;
-        line-height: 20px;
+        font-size: 12px;
+    }
+
+    .mv-released-date {
+        font-size: 10px;
+        line-height: 10px;
     }
 
     .mv-views {
-        font-size: 12px;
-        line-height: 16px;
+        font-size: 10px;
+        line-height: 10px;
     }
 }
 
@@ -1095,11 +1111,13 @@ html, body {
 
     .mv-title {
         font-size: 15px;
-        line-height: 21px;
+    }
+
+    .mv-released-date {
+        font-size: 13px;
     }
 
     .mv-views {
         font-size: 13px;
-        line-height: 17px;
     }
 }
