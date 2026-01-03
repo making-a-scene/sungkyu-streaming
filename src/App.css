@@ -22,13 +22,6 @@ html, body {
     font-display: swap;
 }
 
-@font-face {
-    font-family: 'Gmarket Sans Bold';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
-    font-weight: 700;
-    font-display: swap;
-}
-
 .app {
     width: 100%;
     min-height: 100%;
@@ -130,17 +123,6 @@ html, body {
     height: 32.273px;
     aspect-ratio: 30.00/32.27;
     cursor: pointer;
-}
-
-.logo-text {
-    color: #FFF;
-    font-family: 'Gmarket Sans Bold';
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: 18px; /* 128.571% */
-    letter-spacing: 0.84px;
-    word-wrap: break-word
 }
 
 .header-menu {
