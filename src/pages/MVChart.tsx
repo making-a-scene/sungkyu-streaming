@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import axios from "axios";
 import ChartMenu from "../components/ChartMenu";
+import NotificationBanner from "../components/NotificationBanner";
 
 type MVMeta = {
     id: string;
@@ -96,6 +97,7 @@ const MVChart: React.FC = () => {
         <div className="app">
             <Header />
             <ChartMenu />
+            <NotificationBanner />
             <main className="main-content">
                 {!loading && (
                     <div className="mv-header">

@@ -244,34 +244,33 @@ html, body {
 .main-content {
     width: 880px;
     margin: 0 auto;
-    padding: 24px 0 12px 0;
+    padding: 24px 0 8px 0;
 }
 
 /* Notification Banner */
 .notification-banner {
-    width: 880px;
-    height: 51px;
+    margin: 20px auto;
+    padding: 0 16px;
+    width: 90%;
+    height: 52px;
     background: #2E2E2E;
     border-radius: 12px;
-    padding: 0 16px;
     display: flex;
     align-items: center;
-    gap: 17px;
-    margin-bottom: 22px;
-    position: relative;
+    gap: 16px;
 }
 
 .notification-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     aspect-ratio: 1/1;
 }
 
 .notification-text {
     color: #FFF;
     font-family: Pretendard;
+    font-weight: 600;
     font-size: 16px;
-    font-style: normal;
     line-height: 20px; /* 125% */
 }
 
@@ -291,24 +290,21 @@ html, body {
     opacity: 0.5;
 }
 
-.close-button {
-    width: 24px;
-    height: 24px;
+.move-button {
+    display: flex;
+    width: 20px;
+    height: 20px;
     background: transparent;
     border: none;
     cursor: pointer;
     flex-shrink: 0;
     padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    right: 16px;
+    margin-left: auto;
 }
 
-.close-icon {
-    width: 24px;
-    height: 24px;
+.move-icon {
+    width: 20px;
+    height: 20px;
 }
 
 /* Guide Grid */
@@ -620,11 +616,6 @@ html, body {
         margin-right: auto;
     }
 
-    .notification-banner {
-        width: 100%;
-        padding: 0 12px;
-    }
-
     .notification-text,
     .notification-link {
         font-size: 14px;
@@ -730,10 +721,6 @@ html, body {
         width: calc(100% - 60px);
         margin-left: auto;
         margin-right: auto;
-    }
-
-    .notification-banner {
-        width: 100%;
     }
 
     .guide-grid {

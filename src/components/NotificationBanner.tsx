@@ -1,27 +1,19 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../App.css';
+import {useNavigate} from "react-router-dom";
 
 // Notification Banner Component
 const NotificationBanner: React.FC = () => {
-    const [isVisible, setIsVisible] = useState(true);
-
-    const handleClose = () => {
-        setIsVisible(false);
-    };
-
-    if (!isVisible) {
-        return null;
-    }
+    const navigate = useNavigate();
 
     return (
         <div className="notification-banner">
-            <img src={process.env.PUBLIC_URL + '/notify-icon.svg'} alt="Notification" className="notification-icon" />
+            <img src={process.env.PUBLIC_URL + '/mv-icon.svg'} alt="Notification" className="notification-icon" />
             <div className="notification-text">
-                음총팀 X(트위터) 계정을 팔로우하고 빠르게 소식을 받아보세요!
+                MV 스트리밍 가이드
             </div>
-            <a href="https://x.com/sungkyustream" className="notification-link" target="_blank" rel="noreferrer">바로가기</a>
-            <button className="close-button" onClick={handleClose}>
-                <img src={process.env.PUBLIC_URL + '/close-icon.svg'} alt="Close" className="close-icon" />
+            <button className="move-button" onClick={() => navigate('/guide/mv')}>
+                <img className="move-icon" src={process.env.PUBLIC_URL + '/arrow-icon.svg'} alt="Move" />
             </button>
         </div>
     );
