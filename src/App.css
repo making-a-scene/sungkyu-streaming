@@ -969,7 +969,7 @@ html, body {
 }
 
 .mv-thumb {
-    width: 120px;
+    width: 160px;
     height: 90px;
     flex-shrink: 0;
     border-radius: 8px;
@@ -1061,8 +1061,8 @@ html, body {
     }
 
     .mv-thumb {
-        width: 90px;
-        height: 68px;
+        width: 96px;
+        height: 54px;
     }
 
     .mv-title {
@@ -1107,8 +1107,8 @@ html, body {
     }
 
     .mv-thumb {
-        width: 105px;
-        height: 79px;
+        width: 144px;
+        height: 81px;
     }
 
     .mv-title {
