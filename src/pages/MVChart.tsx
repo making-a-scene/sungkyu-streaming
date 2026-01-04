@@ -84,13 +84,25 @@ const MVChart: React.FC = () => {
         fetchStats();
     }, []);
 
+    // 날짜 문자열을 Date 객체로 변환하는 함수
+    const parseDate = (dateStr: string): Date => {
+        // '2012. 11. 19.' 형식에서 숫자만 추출
+        const parts = dateStr.match(/\d+/g);
+        if (parts && parts.length === 3) {
+            const [year, month, day] = parts.map(Number);
+            // Date 생성자는 month를 0부터 시작하므로 -1 필요
+            return new Date(year, month - 1, day);
+        }
+        return new Date(dateStr);
+    };
+
     // 정렬된 목록
     const sortedItems = [...mvItems].sort((a, b) => {
         if (sortType === 'viewCount') {
             return b.viewCount - a.viewCount;
         } else {
             // 최신순 (releasedAt 기준)
-            return new Date(b.releasedAt).getTime() - new Date(a.releasedAt).getTime();
+            return parseDate(b.releasedAt).getTime() - parseDate(a.releasedAt).getTime();
         }
     });
 
