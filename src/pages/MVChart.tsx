@@ -14,23 +14,23 @@ type MVMeta = {
 }
 
 const MV_LIST: MVMeta[] = [
-    { id: "JgoHQJQ1ORY", title: "Kim Sung Kyu(김성규) _ 60Sec (60초) MV", releasedAt: '2012. 11. 19.', duration: '4:08' },
-    { id: "MhUlAdcJtuU", title: "김성규 Kim Sung Kyu '60초(60 Sec/60秒)' Music video (Band ver.)", releasedAt: '2012. 12. 10.', duration: '3:36' },
-    { id: "pbzwecIT2nw", title: "김성규 Kim Sung Kyu 'I Need You' Music video", releasedAt: '2012. 12. 18.', duration: '3:36' },
-    { id: "2fBODWRrnWM", title: '김성규 (Kim Sung Kyu) "Kontrol" Official MV', releasedAt: '2015. 5. 11.', duration: '3:58' },
-    { id: "R1DiozFguJg", title: '김성규 (Kim Sung Kyu) "너여야만 해" Official MV', releasedAt: '2015. 5. 11.', duration: '3:46' },
-    { id: "jt3Vdwrbhig", title: "[MV] Kim Sung Kyu (김성규) _ True Love", releasedAt: '2018. 2. 26.', duration: '3:44' },
-    { id: "5wXEXz6t2Qo", title: "[MV] Kim Sung Kyu(김성규) _ Don't move(머물러줘) (SHINE Live ver)", releasedAt: '2018. 5. 14.', duration: '5:24' },
-    { id: "vqfBr2qBMAM", title: "[MV] Kim Sung kyu(김성규) _ Sorry", releasedAt: '2018. 8. 22.', duration: '5:23' },
-    { id: "TI70x0jEZA0", title: "[MV] Kim Sung Kyu(김성규) - Beautiful | Oh My Baby 오 마이 베이비 OST", releasedAt: '2020. 6. 10.', duration: '4:10' },
-    { id: "AFl4UZc3LEA", title: "김성규(Kim Sung Kyu) 'I'm Cold' MV", releasedAt: '2020. 12. 14.', duration: '4:05' },
-    { id: "DvaqF6Kvjpc", title: "김성규(Kim Sung Kyu) 'HUSH' MV", releasedAt: '2021. 3. 29.', duration: '4:08' },
-    { id: "r5WzI1Jm5z0", title: "[MV] Kim Yong Jun(김용준),Kim Sung Kyu(김성규) _ When it snows(눈이 내리면)", releasedAt: '2021. 12. 13.', duration: '2:58' },
-    { id: "dr8h26nozhY", title: "[백수세끼 OST] 김성규 (Kim Sung Kyu) - 'Ready To Go' MV", releasedAt: '2022. 1. 5.', duration: '3:30' },
-    { id: "8cbbipzif5w", title: "[Official MV] 김성규(Kim Sung Kyu) 'Savior'", releasedAt: '2022. 4. 22.', duration: '3:38' },
-    { id: "uVD-Dnd511A", title: "[M/V] 김성규 - My Everyday Is You :: 개미가 타고 있어요(Stock Struck) OST Part.1", releasedAt: '2022. 8. 20.', duration: '3:16' },
-    { id: '6WNrmU5f8Gs', title: "[Official MV] 김성규 'Small Talk'", releasedAt: '2023. 06. 28.', duration: '4:17' },
-    { id: "ItuBFmafOJU", title: "김성규, 남우현 - Beautiful (사주왕 OST) [Music Video]", releasedAt: '2024. 3. 15.', duration: '3:04' },
+    { id: "JgoHQJQ1ORY", title: "Kim Sung Kyu(김성규) _ 60Sec (60초) MV", releasedAt: '2012-11-19', duration: '4:08' },
+    { id: "MhUlAdcJtuU", title: "김성규 Kim Sung Kyu '60초(60 Sec/60秒)' Music video (Band ver.)", releasedAt: '2012-12-10', duration: '3:36' },
+    { id: "pbzwecIT2nw", title: "김성규 Kim Sung Kyu 'I Need You' Music video", releasedAt: '2012-12-18', duration: '3:36' },
+    { id: "2fBODWRrnWM", title: '김성규 (Kim Sung Kyu) "Kontrol" Official MV', releasedAt: '2015-05-11', duration: '3:58' },
+    { id: "R1DiozFguJg", title: '김성규 (Kim Sung Kyu) "너여야만 해" Official MV', releasedAt: '2015-05-11', duration: '3:46' },
+    { id: "jt3Vdwrbhig", title: "[MV] Kim Sung Kyu (김성규) _ True Love", releasedAt: '2018-02-26', duration: '3:44' },
+    { id: "5wXEXz6t2Qo", title: "[MV] Kim Sung Kyu(김성규) _ Don't move(머물러줘) (SHINE Live ver)", releasedAt: '2018-05-14', duration: '5:24' },
+    { id: "vqfBr2qBMAM", title: "[MV] Kim Sung kyu(김성규) _ Sorry", releasedAt: '2018-08-22', duration: '5:23' },
+    { id: "TI70x0jEZA0", title: "[MV] Kim Sung Kyu(김성규) - Beautiful | Oh My Baby 오 마이 베이비 OST", releasedAt: '2020-06-10', duration: '4:10' },
+    { id: "AFl4UZc3LEA", title: "김성규(Kim Sung Kyu) 'I'm Cold' MV", releasedAt: '2020-12-14', duration: '4:05' },
+    { id: "DvaqF6Kvjpc", title: "김성규(Kim Sung Kyu) 'HUSH' MV", releasedAt: '2021-03-29', duration: '4:08' },
+    { id: "r5WzI1Jm5z0", title: "[MV] Kim Yong Jun(김용준),Kim Sung Kyu(김성규) _ When it snows(눈이 내리면)", releasedAt: '2021-12-13', duration: '2:58' },
+    { id: "dr8h26nozhY", title: "[백수세끼 OST] 김성규 (Kim Sung Kyu) - 'Ready To Go' MV", releasedAt: '2022-01-05', duration: '3:30' },
+    { id: "8cbbipzif5w", title: "[Official MV] 김성규(Kim Sung Kyu) 'Savior'", releasedAt: '2022-04-22', duration: '3:38' },
+    { id: "uVD-Dnd511A", title: "[M/V] 김성규 - My Everyday Is You :: 개미가 타고 있어요(Stock Struck) OST Part.1", releasedAt: '2022-08-20', duration: '3:16' },
+    { id: '6WNrmU5f8Gs', title: "[Official MV] 김성규 'Small Talk'", releasedAt: '2023-06-28', duration: '4:17' },
+    { id: "ItuBFmafOJU", title: "김성규, 남우현 - Beautiful (사주왕 OST) [Music Video]", releasedAt: '2024-03-15', duration: '3:04' },
 ];
 
 type MVStatistics = {
@@ -84,16 +84,13 @@ const MVChart: React.FC = () => {
         fetchStats();
     }, []);
 
-    // 날짜 문자열을 Date 객체로 변환하는 함수
-    const parseDate = (dateStr: string): Date => {
-        // '2012. 11. 19.' 형식에서 숫자만 추출
-        const parts = dateStr.match(/\d+/g);
-        if (parts && parts.length === 3) {
-            const [year, month, day] = parts.map(Number);
-            // Date 생성자는 month를 0부터 시작하므로 -1 필요
-            return new Date(year, month - 1, day);
-        }
-        return new Date(dateStr);
+    // YYYY-MM-DD를 한국식 날짜 형식으로 변환
+    const formatDate = (dateStr: string): string => {
+        const date = new Date(dateStr);
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return `${year}. ${month}. ${day}.`;
     };
 
     // 정렬된 목록
@@ -102,7 +99,7 @@ const MVChart: React.FC = () => {
             return b.viewCount - a.viewCount;
         } else {
             // 최신순 (releasedAt 기준)
-            return parseDate(b.releasedAt).getTime() - parseDate(a.releasedAt).getTime();
+            return new Date(b.releasedAt).getTime() - new Date(a.releasedAt).getTime();
         }
     });
 
@@ -152,7 +149,7 @@ const MVChart: React.FC = () => {
 
                         <div className="mv-info">
                             <div className="mv-title">{mv.title}</div>
-                            <div className="mv-released-date">{mv.releasedAt}</div>
+                            <div className="mv-released-date">{formatDate(mv.releasedAt)}</div>
                             <div className="mv-views">
                                 조회수 {mv.viewCount.toLocaleString()}회
                             </div>
