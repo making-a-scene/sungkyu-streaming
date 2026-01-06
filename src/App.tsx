@@ -9,6 +9,8 @@ import MVChart from "./pages/MVChart";
 import MusicSharing from "./pages/guide/MusicSharing";
 import ShortsSns from "./pages/guide/ShortsSns";
 import MusicVideo from "./pages/guide/MusicVideo";
+import Radio from "./pages/guide/Radio";
+import Coloring from "./pages/guide/Coloring";
 
 // Main App Component
 function App() {
@@ -24,6 +26,8 @@ function App() {
                 <Route path="/guide/music-sharing" element={<MusicSharing />} />
                 <Route path="/guide/mv" element={<MusicVideo />} />
                 <Route path="/guide/shorts-sns" element={<ShortsSns />} />
+                <Route path="/guide/radio" element={<Radio />} />
+                <Route path="/guide/coloring" element={<Coloring />} />
                 <Route path="/chart/mv" element={<MVChart />} />
             </Routes>
         </BrowserRouter>
