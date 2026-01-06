@@ -108,7 +108,7 @@ const MVChart: React.FC = () => {
             <Header />
             <ChartMenu />
             <NotificationBanner />
-            <main className="main-content">
+            <main className="main-content mv-chart-main">
                 {!loading && (
                     <div className="mv-header">
                         <div className="mv-count">총 {mvItems.length}개의 영상</div>

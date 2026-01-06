@@ -270,7 +270,7 @@ html, body {
 
 /* Notification Banner */
 .notification-banner {
-    margin: 20px auto;
+    margin: 16px auto;
     padding: 0 16px;
     width: 90%;
     height: 52px;
@@ -885,6 +885,10 @@ html, body {
 }
 
 /* MV Chart Styles */
+.mv-chart-main {
+    padding-top: 0;
+}
+
 .mv-header {
     display: flex;
     justify-content: space-between;
