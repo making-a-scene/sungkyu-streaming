@@ -423,16 +423,6 @@ html, body {
     font-weight: 500;
 }
 
-/* Show the tooltip text when the inactive menu item is hovered over */
-.header-menu-item.inactive:hover .tooltip-text {
-    visibility: visible;
-    opacity: 1;
-}
-
-.header-menu-item:hover {
-    opacity: 1;
-}
-
 .header-menu-icon {
     width: 24px;
     height: 24px;
