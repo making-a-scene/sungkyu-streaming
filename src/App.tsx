@@ -11,6 +11,7 @@ import ShortsSns from "./pages/guide/ShortsSns";
 import MusicVideo from "./pages/guide/MusicVideo";
 import Radio from "./pages/guide/Radio";
 import Coloring from "./pages/guide/Coloring";
+import BottomNav from "./components/BottomNav";
 
 // Main App Component
 function App() {
@@ -30,6 +31,7 @@ function App() {
                 <Route path="/guide/coloring" element={<Coloring />} />
                 <Route path="/chart/mv" element={<MVChart />} />
             </Routes>
+            <BottomNav />
         </BrowserRouter>
     );
 }
