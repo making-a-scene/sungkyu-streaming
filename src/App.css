@@ -9,6 +9,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    background: #1E1E1E;
 }
 
 #root {
@@ -43,10 +44,17 @@ html, body {
     src: local('Pretendard Bold'), url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'Gmarket Sans';
+    font-weight: 500;
+    font-display: swap;
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSans.woff') format('woff');
+}
+
 .app {
     width: 100%;
     min-height: 100%;
-    background: #242424;
+    background: #1E1E1E;
     color: white;
 }
 
@@ -123,7 +131,6 @@ html, body {
 .header {
     width: 880px;
     height: 72px;
-    background: #242424;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -136,14 +143,39 @@ html, body {
 .logo {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 6px;
+    cursor: pointer;
 }
 
 .logo-icon {
     width: 30px;
-    height: 32.273px;
-    aspect-ratio: 30.00/32.27;
+    height: 32px;
+}
+
+.logo-text {
+    color: #FFF8E8;
+    font-family: 'Gmarket Sans';
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 14px;
+    letter-spacing: 0.2px;
+    opacity: 0.3;
+}
+
+.menu-button {
+    background: transparent;
+    border: none;
+    padding: 0;
     cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+.menu-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .header-menu {
@@ -443,7 +475,6 @@ html, body {
     position: sticky;
     top: 124px;
     z-index: 80;
-    background: #242424;
 }
 
 .tab-list-wrapper {
@@ -577,28 +608,18 @@ html, body {
 /* 모바일: 375-767px */
 @media (max-width: 767px) {
     .header {
-        width: calc(100% - 32px);
-        padding: 0 16px;
+        width: 100%;
+        height: 52px;
+        padding: 0 24px;
     }
 
-    .header-menu {
-        gap: 16px;
-    }
-
-    .header-menu-icon {
-        display: none; /* 모바일에서 아이콘 숨김 */
-    }
-
-    .header-menu-text {
-        display: block; /* 모바일에서 텍스트 표시 */
-    }
-
-    .tooltip-text {
-        display: none; /* 모바일에서 툴팁 숨김 */
+    .logo-icon {
+        width: 22px;
+        height: 24px;
     }
 
     .header-social-icons {
-        display: none; /* 모바일에서 헤더의 소셜 아이콘 숨김 */
+        display: none;
     }
 
     .footer-social-icons {
