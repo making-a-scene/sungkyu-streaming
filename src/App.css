@@ -1569,11 +1569,19 @@ html, body {
     height: 20px;
 }
 
-.cheering-search-placeholder {
-    color: #696969;
+.cheering-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
     font-family: Pretendard;
     font-size: 15px;
     font-weight: 500;
+}
+
+.cheering-search-input::placeholder {
+    color: #696969;
 }
 
 .cheering-filter-tabs {

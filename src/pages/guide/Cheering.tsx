@@ -109,15 +109,34 @@ const parseChant = (text: string) => {
     });
 };
 
+// Normalize text for search (lowercase, remove spaces)
+const normalizeText = (text: string): string => {
+    return text.toLowerCase().replace(/\s+/g, '');
+};
+
 const Cheering: React.FC = () => {
     const [filter, setFilter] = useState<FilterType>('all');
+    const [searchQuery, setSearchQuery] = useState('');
     const [selectedItem, setSelectedItem] = useState<ChantItem | null>(null);
     const [isModalClosing, setIsModalClosing] = useState(false);
 
     const filteredData = (chantData as ChantItem[]).filter((item) => {
-        if (filter === 'all') return true;
-        if (filter === 'fanchat') return item.is_fanchat;
-        if (filter === 'chorus') return !item.is_fanchat;
+        // Filter by type
+        if (filter === 'fanchat' && !item.is_fanchat) return false;
+        if (filter === 'chorus' && item.is_fanchat) return false;
+
+        // Filter by search query
+        if (searchQuery.trim()) {
+            const normalizedQuery = normalizeText(searchQuery);
+            const titleMatch = normalizeText(item.title).includes(normalizedQuery);
+            const aliasMatch = item.aliases.some(alias =>
+                normalizeText(alias).includes(normalizedQuery)
+            );
+            const chantMatch = normalizeText(item.chant).includes(normalizedQuery);
+
+            if (!titleMatch && !aliasMatch && !chantMatch) return false;
+        }
+
         return true;
     });
 
@@ -143,7 +162,13 @@ const Cheering: React.FC = () => {
                 <div className="cheering-search-container">
                     <div className="cheering-search-box">
                         <img src={process.env.PUBLIC_URL + '/search-icon.svg'} alt="Search" className="cheering-search-icon" />
-                        <span className="cheering-search-placeholder">곡명 또는 가사를 입력하세요.</span>
+                        <input
+                            type="text"
+                            className="cheering-search-input"
+                            placeholder="곡명 또는 가사를 입력하세요."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
                     </div>
                     <div className="cheering-filter-tabs">
                         <button
