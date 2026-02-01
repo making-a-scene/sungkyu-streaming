@@ -719,6 +719,7 @@ html, body {
     position: sticky;
     top: 124px;
     z-index: 80;
+    background: #1E1E1E;
 }
 
 .tab-list-wrapper {
