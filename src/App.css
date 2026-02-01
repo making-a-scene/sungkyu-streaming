@@ -148,22 +148,6 @@ html, body {
     cursor: pointer;
 }
 
-.logo-icon {
-    width: 30px;
-    height: 32px;
-}
-
-.logo-text {
-    color: #FFF8E8;
-    font-family: 'Gmarket Sans';
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 14px;
-    letter-spacing: 0.2px;
-    opacity: 0.3;
-}
-
 .menu-button {
     background: transparent;
     border: none;
@@ -860,11 +844,6 @@ html, body {
     .header {
         width: calc(100% - 32px);
         padding: 0 16px;
-    }
-
-    .logo-icon {
-        width: 22px;
-        height: 24px;
     }
 
     .header-social-icons {

@@ -12,10 +12,7 @@ const Header = () => {
         <>
             <header className="header">
                 <div className="logo" onClick={() => navigate('/')}>
-                    <img src={process.env.PUBLIC_URL + '/main-logo.svg'} alt="Logo" className="logo-icon"/>
-                    <div className="logo-text">
-                        SUNGKYU<br/>STREAM
-                    </div>
+                    <img src={process.env.PUBLIC_URL + '/sungkyustrm.svg'} alt="Logo" className="logo-icon"/>
                 </div>
                 <button className="menu-button" onClick={() => setIsMenuOpen(true)}>
                     <img src={process.env.PUBLIC_URL + '/menu-icon.svg'} alt="Menu" className="menu-icon"/>
