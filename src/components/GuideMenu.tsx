@@ -18,7 +18,8 @@ const GuideMenu: React.FC = () => {
         { label: 'MV', path: '/guide/mv', disabled: false },
         { label: '숏폼·SNS', path: '/guide/shorts-sns', disabled: false },
         { label: '라디오', path: '/guide/radio', disabled: true },
-        { label: '컬러링', path: '/guide/coloring', disabled: true }
+        { label: '컬러링', path: '/guide/coloring', disabled: true },
+        { label: '응원법', path: '/guide/cheering', disabled: false }
     ];
 
     const handleMenuClick = (path: string, disabled: boolean) => {
