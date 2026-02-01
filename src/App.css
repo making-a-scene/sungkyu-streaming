@@ -148,22 +148,6 @@ html, body {
     cursor: pointer;
 }
 
-.logo-icon {
-    width: 30px;
-    height: 32px;
-}
-
-.logo-text {
-    color: #FFF8E8;
-    font-family: 'Gmarket Sans';
-    font-size: 10px;
-    font-style: normal;
-    font-weight: 700;
-    line-height: 14px;
-    letter-spacing: 0.2px;
-    opacity: 0.3;
-}
-
 .menu-button {
     background: transparent;
     border: none;
@@ -492,7 +476,7 @@ html, body {
 .main-content {
     width: 880px;
     margin: 0 auto;
-    padding: 24px 0 8px 0;
+    padding: 20px 0 8px 0;
 }
 
 /* Notification Banner */
@@ -551,6 +535,55 @@ html, body {
 }
 
 .move-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* Cheering Guide Banner */
+.cheering-guide-banner {
+    width: 880px;
+    margin: 0 auto;
+    padding: 14px 16px;
+    background: #2E2E2E;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cheering-guide-banner:hover {
+    background: #3E3E3E;
+}
+
+.cheering-guide-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.cheering-guide-text {
+    color: #FFF;
+    font-family: Pretendard;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: normal;
+    flex: 1;
+}
+
+.cheering-guide-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.cheering-arrow-icon {
     width: 24px;
     height: 24px;
 }
@@ -670,6 +703,7 @@ html, body {
     position: sticky;
     top: 124px;
     z-index: 80;
+    background: #1E1E1E;
 }
 
 .tab-list-wrapper {
@@ -812,11 +846,6 @@ html, body {
         padding: 0 16px;
     }
 
-    .logo-icon {
-        width: 22px;
-        height: 24px;
-    }
-
     .header-social-icons {
         display: none;
     }
@@ -860,6 +889,17 @@ html, body {
     .notification-text,
     .notification-link {
         font-size: 14px;
+    }
+
+    /* Cheering Guide Banner - Mobile */
+    .cheering-guide-banner {
+        width: calc(100% - 48px);
+        margin: 0 24px;
+        padding: 14px 16px;
+    }
+
+    .cheering-guide-text {
+        font-size: 15px;
     }
 
     .guide-grid {
@@ -969,7 +1009,7 @@ html, body {
     .bottom-nav-item .bottom-nav-icon {
         width: 22px;
         height: 22px;
-        opacity: 0.4;
+        opacity: 0.5;
     }
 
     .bottom-nav-item .bottom-nav-label {
@@ -1025,6 +1065,12 @@ html, body {
         width: calc(100% - 60px);
         margin-left: auto;
         margin-right: auto;
+    }
+
+    /* Cheering Guide Banner - Tablet */
+    .cheering-guide-banner {
+        width: calc(100% - 60px);
+        margin: 0 30px;
     }
 
     .guide-grid {
@@ -1317,6 +1363,7 @@ html, body {
     .header,
     .main-content,
     .notification-banner,
+    .cheering-guide-banner,
     .guide-grid,
     .tab-view,
     .tab-list,
@@ -1428,5 +1475,583 @@ html, body {
 
     .mv-views {
         font-size: 13px;
+    }
+}
+
+/* Cheering Guide Styles */
+.cheering-sub-menu {
+    width: 100%;
+    background: #282828;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.cheering-sub-menu::-webkit-scrollbar {
+    display: none;
+}
+
+.cheering-sub-menu-container {
+    width: 880px;
+    margin: 0 auto;
+    display: flex;
+    gap: 20px;
+    padding: 12px 0;
+    justify-content: flex-end;
+}
+
+.cheering-sub-menu-item {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    cursor: pointer;
+    opacity: 0.3;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+}
+
+.cheering-sub-menu-item:hover {
+    opacity: 0.7;
+}
+
+.cheering-sub-menu-item.active {
+    opacity: 1;
+}
+
+.cheering-main {
+    padding-top: 20px;
+}
+
+.cheering-search-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.cheering-search-box {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 15px 16px;
+    background: #1E1E1E;
+    border: 1px solid #282828;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.cheering-search-icon {
+    width: 20px;
+    height: 20px;
+}
+
+.cheering-search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.cheering-search-input::placeholder {
+    color: #696969;
+}
+
+.cheering-filter-tabs {
+    display: flex;
+    gap: 0;
+}
+
+.cheering-filter-tab {
+    background: transparent;
+    border: none;
+    padding: 8px 12px;
+    color: #696969;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.cheering-filter-tab.active {
+    background: #313131;
+    color: #FFFFFF;
+}
+
+.cheering-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.cheering-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 12px 12px 16px;
+    background: #313131;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cheering-item:hover {
+    background: #3E3E3E;
+}
+
+.cheering-item-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cheering-item-album {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.cheering-item-album-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #4a4a4a 0%, #2a2a2a 100%);
+}
+
+.cheering-item-album-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.cheering-item-title {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.cheering-item-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cheering-item-badge {
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.cheering-item-badge.fanchat {
+    background: #FFFFFF;
+    color: #313131;
+}
+
+.cheering-item-badge.chorus {
+    background: transparent;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.cheering-item-arrow {
+    width: 24px;
+    height: 24px;
+}
+
+.cheering-footer-message {
+    margin-top: 28px;
+    text-align: center;
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 24px;
+    opacity: 0.5;
+}
+
+.cheering-footer-message p {
+    margin: 0;
+}
+
+/* Cheering Detail Styles */
+.cheering-detail-header {
+    width: 100%;
+    height: 52px;
+    background: #1E1E1E;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.cheering-detail-back {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    margin-right: 6px;
+}
+
+.cheering-detail-back img {
+    width: 100%;
+    height: 100%;
+}
+
+.cheering-detail-title-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cheering-detail-title {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+}
+
+.cheering-detail-badge {
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.cheering-detail-badge.fanchat {
+    background: #FFFFFF;
+    color: #313131;
+}
+
+.cheering-detail-badge.chorus {
+    background: transparent;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.cheering-detail-content {
+    padding: 16px 24px;
+    background: #1E1E1E;
+    min-height: calc(100vh - 52px);
+}
+
+.cheering-detail-info-box {
+    background: #2E2E2E;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-bottom: 16px;
+}
+
+.cheering-detail-info-box .info-text {
+    color: #696969;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 22px;
+}
+
+.info-text-yellow {
+    color: #F1D217;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 22px;
+}
+
+.info-text-blue {
+    color: #50A0FF;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 22px;
+}
+
+.cheering-detail-lyrics {
+    padding-bottom: 60px;
+}
+
+.chant-line {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 28px;
+    margin: 0;
+    min-height: 28px;
+}
+
+.chant-yellow {
+    color: #F1D217;
+    font-family: Pretendard;
+}
+
+.chant-blue {
+    color: #50A0FF;
+    font-family: Pretendard;
+}
+
+/* Cheering Mobile Responsive */
+@media (max-width: 767px) {
+    .cheering-sub-menu-container {
+        width: calc(100% - 48px);
+        padding: 12px 24px;
+        gap: 20px;
+        justify-content: flex-end;
+    }
+
+    .cheering-sub-menu-item {
+        font-size: 16px;
+    }
+
+    .cheering-detail-header {
+        padding: 0 24px;
+    }
+
+    .cheering-detail-content {
+        padding: 16px 24px;
+    }
+}
+
+/* Cheering Tablet Responsive */
+@media (min-width: 768px) and (max-width: 927px) {
+    .cheering-sub-menu-container {
+        width: calc(100% - 60px);
+        padding: 12px 30px;
+    }
+
+    .cheering-detail-header {
+        padding: 0 30px;
+    }
+
+    .cheering-detail-content {
+        padding: 16px 30px;
+    }
+}
+
+/* Cheering PC Responsive */
+@media (min-width: 928px) {
+    .cheering-sub-menu-container {
+        width: 880px;
+    }
+
+    .cheering-detail-header {
+        width: 880px;
+        margin: 0 auto;
+        padding: 0;
+    }
+
+    .cheering-detail-content {
+        width: 880px;
+        margin: 0 auto;
+        padding: 16px 0;
+    }
+}
+
+/* Cheering Modal Styles */
+@keyframes modalFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes modalFadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes modalSlideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes modalSlideDown {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(100%);
+    }
+}
+
+.cheering-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    animation: modalFadeIn 0.25s ease-out;
+}
+
+.cheering-modal-overlay.closing {
+    animation: modalFadeOut 0.25s ease-in forwards;
+}
+
+.cheering-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #1E1E1E;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideUp 0.3s ease-out;
+}
+
+.cheering-modal.closing {
+    animation: modalSlideDown 0.25s ease-in forwards;
+}
+
+.cheering-modal-header {
+    width: 100%;
+    height: 52px;
+    background: #1E1E1E;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    flex-shrink: 0;
+    border-bottom: 1px solid #2E2E2E;
+}
+
+.cheering-modal-close {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+.cheering-modal-close img {
+    width: 100%;
+    height: 100%;
+}
+
+.cheering-modal-title-container {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cheering-modal-title {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 20px;
+}
+
+.cheering-modal-badge {
+    padding: 4px 8px;
+    border-radius: 20px;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.cheering-modal-badge.fanchat {
+    background: #FFFFFF;
+    color: #313131;
+}
+
+.cheering-modal-badge.chorus {
+    background: transparent;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+}
+
+.cheering-modal-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 24px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.cheering-modal-info-box {
+    background: #2E2E2E;
+    border-radius: 8px;
+    padding: 8px 16px;
+    margin-bottom: 16px;
+}
+
+.cheering-modal-info-box .info-text {
+    color: #696969;
+    font-family: Pretendard;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 22px;
+}
+
+.cheering-modal-lyrics {
+    padding-bottom: 40px;
+}
+
+/* Modal Tablet Responsive */
+@media (min-width: 768px) and (max-width: 927px) {
+    .cheering-modal-header {
+        padding: 0 30px;
+    }
+
+    .cheering-modal-content {
+        padding: 16px 30px;
+    }
+}
+
+/* Modal PC Responsive */
+@media (min-width: 928px) {
+    .cheering-modal {
+        top: 50%;
+        left: 50%;
+        right: auto;
+        bottom: auto;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        max-height: 80vh;
+        border-radius: 16px;
+        animation: modalFadeIn 0.25s ease-out;
+    }
+
+    .cheering-modal.closing {
+        animation: modalFadeOut 0.25s ease-in forwards;
+    }
+
+    .cheering-modal-header {
+        border-radius: 16px 16px 0 0;
+    }
+
+    .cheering-modal-content {
+        border-radius: 0 0 16px 16px;
     }
 }

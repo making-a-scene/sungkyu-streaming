@@ -4,6 +4,7 @@ import '../App.css';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import CheeringGuideBanner from '../components/CheeringGuideBanner';
 
 // Guide Card Component
 interface GuideCardProps {
@@ -63,6 +64,7 @@ const Home = () => {
     return (
         <div className="app">
             <Header />
+            <CheeringGuideBanner />
             <main className="main-content">
                 <GuideGrid />
             </main>
