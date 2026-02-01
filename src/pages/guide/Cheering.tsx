@@ -234,15 +234,15 @@ const Cheering: React.FC = () => {
                 <div className={`cheering-modal-overlay ${isModalClosing ? 'closing' : ''}`} onClick={handleCloseModal}>
                     <div className={`cheering-modal ${isModalClosing ? 'closing' : ''}`} onClick={(e) => e.stopPropagation()}>
                         <div className="cheering-modal-header">
-                            <button className="cheering-modal-close" onClick={handleCloseModal}>
-                                <img src={process.env.PUBLIC_URL + '/close-icon.svg'} alt="Close" />
-                            </button>
                             <div className="cheering-modal-title-container">
                                 <span className="cheering-modal-title">{selectedItem.title}</span>
                                 <span className={`cheering-modal-badge ${selectedItem.is_fanchat ? 'fanchat' : 'chorus'}`}>
                                     {selectedItem.is_fanchat ? '응원법' : '떼창곡'}
                                 </span>
                             </div>
+                            <button className="cheering-modal-close" onClick={handleCloseModal}>
+                                <img src={process.env.PUBLIC_URL + '/close-icon.svg'} alt="Close" />
+                            </button>
                         </div>
                         <div className="cheering-modal-content">
                             <div className="cheering-modal-info-box">

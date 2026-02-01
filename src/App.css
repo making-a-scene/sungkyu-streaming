@@ -1960,6 +1960,7 @@ html, body {
     background: #1E1E1E;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 24px;
     flex-shrink: 0;
     border-bottom: 1px solid #2E2E2E;
@@ -1972,7 +1973,6 @@ html, body {
     cursor: pointer;
     width: 24px;
     height: 24px;
-    margin-right: 6px;
 }
 
 .cheering-modal-close img {
