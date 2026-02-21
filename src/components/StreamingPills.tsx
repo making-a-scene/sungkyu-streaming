@@ -85,7 +85,7 @@ const StreamingPills: React.FC = () => {
         const link = platform.links[device];
 
         if (!link) {
-            toast.error(`${platform.name}은(는) 현재 기기에서 지원하지 않습니다.`, {
+            toast.error(`${platform.name}는 현재 기기에서 지원하지 않습니다.`, {
                 autoClose: 1500,
                 hideProgressBar: true,
             });
