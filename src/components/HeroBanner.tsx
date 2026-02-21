@@ -6,7 +6,7 @@ const HeroBanner: React.FC = () => {
         <div className="hero-banner">
             <div className="hero-video-wrapper">
                 <iframe
-                    src="https://www.youtube.com/embed/-x-s5Hf-Xj8?si=Z_L1YD66OnIekSVu"
+                    src="https://www.youtube.com/embed/AdOaQpwYx0c?si=a6j3BAkqFcZ5AKU9"
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
