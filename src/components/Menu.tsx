@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from "react-router-dom";
 import '../App.css';
 import SocialIcons from "./SocialIcons";
-import Footer from "./Footer";
 
 interface MenuProps {
     isOpen: boolean;

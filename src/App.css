@@ -1049,6 +1049,7 @@ html, body {
 /* 태블릿: 768-927px */
 @media (min-width: 768px) and (max-width: 927px) {
     .header {
+        width: 100%;
         padding: 0 30px;
     }
 
