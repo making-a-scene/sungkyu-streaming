@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import '../App.css';
 
 // TODO: 공개 후 실제 곡 ID로 교체
-const overIt_melon = '3964329';
+const overIt_melon = '3964349';
 const overIt_genie = '81626995';
 const overIt_bugs = '2815212';
 const overIt_flo = '2815212';
@@ -26,11 +26,11 @@ const PLATFORMS = [
         name: '멜론',
         icon: '/assets/b8af7c06789987325e94b2ffdf106371ee381a1f.png',
         links: {
-            android: `melonapp://play?ctype=1&menuid=0&cid=${overIt_melon},3964329,5690596,5690598,30917488,37174657,33136332,36573055,5690599`,
-            ios: `melonapp://play/?ctype=1&menuid=0&cid=${overIt_melon},3964329,5690596,5690598,${overIt_melon},30917488,37174657,3964329,${overIt_melon},33136332,5690596,36573055,${overIt_melon},3964329,5690599,30917488`,
-            ipad: `melonipad://play/?ctype=1&menuid=0&cid=${overIt_melon},3964329,5690596,5690598,${overIt_melon},30917488,37174657,3964329,${overIt_melon},33136332,5690596,36573055,${overIt_melon},3964329,5690599,30917488`,
-            windows: `melonapp://play?cType=1&menuId=0&cList=${overIt_melon},3964329,5690596,5690598,${overIt_melon},30917488,37174657,3964329,${overIt_melon},33136332,5690596,36573055,${overIt_melon},3964329,5690599,30917488`,
-            mac: `melonplayer://play?menuid=0&cflag=1&cid=${overIt_melon},3964329,5690596,5690598,${overIt_melon},30917488,37174657,3964329,${overIt_melon},33136332,5690596,36573055,${overIt_melon},3964329,5690599,30917488`,
+            android: `melonapp://play?ctype=1&menuid=0&cid=${overIt_melon},3964349,5690596,5690598,30917488,37174657,33136332,36573055,5690599`,
+            ios: `melonapp://play/?ctype=1&menuid=0&cid=${overIt_melon},3964349,5690596,5690598,${overIt_melon},30917488,37174657,3964349,${overIt_melon},33136332,5690596,36573055,${overIt_melon},3964349,5690599,30917488`,
+            ipad: `melonipad://play/?ctype=1&menuid=0&cid=${overIt_melon},3964349,5690596,5690598,${overIt_melon},30917488,37174657,3964349,${overIt_melon},33136332,5690596,36573055,${overIt_melon},3964349,5690599,30917488`,
+            windows: `melonapp://play?cType=1&menuId=0&cList=${overIt_melon},3964349,5690596,5690598,${overIt_melon},30917488,37174657,3964349,${overIt_melon},33136332,5690596,36573055,${overIt_melon},3964349,5690599,30917488`,
+            mac: `melonplayer://play?menuid=0&cflag=1&cid=${overIt_melon},3964349,5690596,5690598,${overIt_melon},30917488,37174657,3964349,${overIt_melon},33136332,5690596,36573055,${overIt_melon},3964349,5690599,30917488`,
         },
     },
     {
