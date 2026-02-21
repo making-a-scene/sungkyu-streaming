@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from "react-router-dom";
 import '../App.css';
+import SocialIcons from "./SocialIcons";
+import Footer from "./Footer";
 
 interface MenuProps {
     isOpen: boolean;
@@ -81,14 +83,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
                     ))}
                 </nav>
                 <div className="menu-footer">
-                    <div className="menu-social-icons">
-                        <a href="mailto:sungkyustream@gmail.com" className="menu-social-link">
-                            <img src={process.env.PUBLIC_URL + '/email-icon.svg'} alt="Email" className="menu-social-icon"/>
-                        </a>
-                        <a href="https://x.com/sungkyustream" target="_blank" rel="noopener noreferrer" className="menu-social-link">
-                            <img src={process.env.PUBLIC_URL + '/x-logo.svg'} alt="X" className="menu-social-icon"/>
-                        </a>
-                    </div>
+                    <SocialIcons />
                     <p className="menu-copyright">© 김성규 음원총공팀 sungkyustream 2025</p>
                 </div>
             </div>

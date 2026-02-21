@@ -2107,7 +2107,8 @@ html, body {
     width: 100%;
 }
 
-.home-guide-content {
+.home-guide-content,
+.guide-page-content {
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -2328,7 +2329,8 @@ html, body {
     row-gap: 14px;
 }
 
-.home-content .cheering-guide-banner {
+.home-content .cheering-guide-banner,
+.guide-page-content .cheering-guide-banner {
     width: 100%;
     margin: 0;
 }

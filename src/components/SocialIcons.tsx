@@ -19,6 +19,9 @@ const SocialIcons: React.FC = () => {
             <a href="https://x.com/sungkyustream" target="_blank" rel="noreferrer">
                 <img src={process.env.PUBLIC_URL + '/x-logo.svg'} alt="X" />
             </a>
+            <a href="https://pf.kakao.com/_zfixgn" target="_blank" rel="noreferrer">
+                <img src={process.env.PUBLIC_URL + '/kakao-logo.svg'} alt="kakao" />
+            </a>
         </div>
     );
 };

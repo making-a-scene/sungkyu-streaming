@@ -8,9 +8,11 @@ const Guide = () => {
     return (
         <div className="app">
             <Header />
-            <CheeringGuideBanner />
             <main className="main-content">
-                <GuideGrid />
+                <div className="guide-page-content">
+                    <GuideGrid />
+                    <CheeringGuideBanner />
+                </div>
             </main>
             <Footer />
         </div>
