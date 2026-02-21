@@ -4,7 +4,7 @@ import '../App.css';
 
 const NAV_ITEMS = [
     { id: 'home', label: '홈', icon: '/home-icon.svg', iconFilled: '/home-icon-filled.svg', path: '/', disabled: false },
-    { id: 'guide', label: '가이드', icon: '/guide-icon.svg', iconFilled: '/guide-icon-filled.svg', path: '/guide', disabled: true },
+    { id: 'guide', label: '가이드', icon: '/guide-icon.svg', iconFilled: '/guide-icon-filled.svg', path: '/guide', disabled: false },
     { id: 'schedule', label: '스케줄', icon: '/schedule-icon.svg', iconFilled: '/schedule-icon-filled.svg', path: '/schedule', disabled: true },
     { id: 'chart', label: '차트', icon: '/chart-icon.svg', iconFilled: '/chart-icon-filled.svg', path: '/chart/mv', disabled: false },
     { id: 'apply', label: '지원', icon: '/apply-icon.svg', iconFilled: '/apply-icon-filled.svg', path: '/apply', disabled: true },

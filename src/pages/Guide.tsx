@@ -1,12 +1,10 @@
-import React from 'react';
-import '../App.css';
-
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import CheeringGuideBanner from '../components/CheeringGuideBanner';
+import React from "react";
+import CheeringGuideBanner from "../components/CheeringGuideBanner";
 import GuideGrid from "../components/GuideGrid";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
-const Home = () => {
+const Guide = () => {
     return (
         <div className="app">
             <Header />
@@ -19,4 +17,4 @@ const Home = () => {
     );
 }
 
-export default Home;
+export default Guide;
