@@ -12,7 +12,7 @@ const PLATFORMS = [
 const StreamingPills: React.FC = () => {
     return (
         <div className="streaming-pills-section">
-            <h2 className="home-section-title">원클릭 스밍리스트</h2>
+            <h2 className="home-section-title">원클릭 스밍리스트 (준비 중)</h2>
             <div className="streaming-pills-container">
                 {PLATFORMS.map((platform) => (
                     <div key={platform.name} className="streaming-pill">
