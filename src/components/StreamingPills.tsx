@@ -2,12 +2,11 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import '../App.css';
 
-// TODO: 공개 후 실제 곡 ID로 교체
-const overIt_melon = '3964349';
-const overIt_genie = '81626995';
-const overIt_bugs = '2815212';
-const overIt_flo = '2815212';
-const overIt_vibe = '3361722';
+const overIt_melon = '601332981';
+const overIt_genie = '113971444';
+const overIt_bugs = '6426606';
+const overIt_flo = '576129937';
+const overIt_vibe = '100900428';
 
 type DeviceType = 'android' | 'ios' | 'ipad' | 'windows' | 'mac';
 
