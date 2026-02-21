@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../App.css';
 
 const AnnouncementSection: React.FC = () => {
+    const [popupImage, setPopupImage] = useState<string | null>(null);
+
     return (
         <div className="announcement-section">
             <h2 className="home-section-title">🔥 2/21 선공개곡 발매 🔥</h2>
             <div className="announcement-links">
-                <div className="announcement-link-item">
+                <div className="announcement-link-item" onClick={() => setPopupImage(process.env.PUBLIC_URL + '/timetable-temp.png')}>
                     <span className="announcement-link-text">음원 총공 임시 타임테이블</span>
                     <img
                         src={process.env.PUBLIC_URL + '/arrow-icon.svg'}
@@ -14,7 +16,7 @@ const AnnouncementSection: React.FC = () => {
                         className="announcement-link-arrow"
                     />
                 </div>
-                <div className="announcement-link-item">
+                <div className="announcement-link-item" onClick={() => setPopupImage(process.env.PUBLIC_URL + '/streaming-list-temp.png')}>
                     <span className="announcement-link-text">권장 스트리밍 리스트</span>
                     <img
                         src={process.env.PUBLIC_URL + '/arrow-icon.svg'}
@@ -39,6 +41,17 @@ const AnnouncementSection: React.FC = () => {
                     </div>
                 </a>
             </div>
+
+            {popupImage && (
+                <div className="image-popup-overlay" onClick={() => setPopupImage(null)}>
+                    <div className="image-popup-content" onClick={(e) => e.stopPropagation()}>
+                        <button className="image-popup-close" onClick={() => setPopupImage(null)}>
+                            <img src={process.env.PUBLIC_URL + '/close-icon.svg'} alt="닫기" />
+                        </button>
+                        <img src={popupImage} alt="" className="image-popup-img" />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

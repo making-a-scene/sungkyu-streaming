@@ -1049,7 +1049,6 @@ html, body {
 /* 태블릿: 768-927px */
 @media (min-width: 768px) and (max-width: 927px) {
     .header {
-        width: calc(100% - 60px);
         padding: 0 30px;
     }
 
@@ -2273,6 +2272,50 @@ html, body {
     flex-shrink: 0;
     position: relative;
     z-index: 1;
+}
+
+/* Image Popup */
+.image-popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.image-popup-content {
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.image-popup-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    width: 28px;
+    height: 28px;
+}
+
+.image-popup-close img {
+    width: 100%;
+    height: 100%;
+    filter: brightness(0.8);
+}
+
+.image-popup-img {
+    max-width: 100%;
+    max-height: calc(100vh - 96px);
+    border-radius: 12px;
+    display: block;
+    object-fit: contain;
 }
 
 /* Streaming Pills */
