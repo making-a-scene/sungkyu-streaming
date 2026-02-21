@@ -15,6 +15,7 @@ import Cheering from "./pages/guide/Cheering";
 import BottomNav from "./components/BottomNav";
 import Streaming from "./pages/guide/Streaming";
 import Download from "./pages/guide/Download";
+import Guide from "./pages/Guide";
 
 // Main App Component
 function App() {
@@ -24,6 +25,7 @@ function App() {
             <ToastContainer position="top-right" />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/guide" element={<Guide />} />
                 <Route path="/guide/id-generation" element={<IdGeneration />} />
                 <Route path="/guide/streaming" element={<Streaming />} />
                 <Route path="/guide/download" element={<Download />} />
