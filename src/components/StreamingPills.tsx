@@ -24,7 +24,7 @@ const PLATFORMS = [
         icon: '/assets/b8af7c06789987325e94b2ffdf106371ee381a1f.png',
         links: {
             android: `melonapp://play?ctype=1&menuid=1000002721&cid=${overIt_melon},3964329,5690596,5690598,30917488,37174657,33136332,36573055,5690599`,
-            ios: `meloniphone://play/?ctype=1&menuid=0&cid=${overIt_melon},3964329,5690596,5690598,${overIt_melon},30917488,37174657,3964329,${overIt_melon},33136332,5690596,36573055,${overIt_melon},3964329,5690599,30917488`,
+            ios: `melonapp://play/?ctype=1&menuid=0&cid=${overIt_melon},3964329,5690596,5690598,${overIt_melon},30917488,37174657,3964329,${overIt_melon},33136332,5690596,36573055,${overIt_melon},3964329,5690599,30917488`,
             pc: `melonapp://play?cType=1&menuId=1000002721&cList=${overIt_melon},3964329,5690596,5690598,30917488,37174657,33136332,36573055,5690599`,
         },
     },
