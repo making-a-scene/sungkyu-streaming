@@ -9,7 +9,6 @@ import ActionButtons from '../components/ActionButtons';
 import AnnouncementSection from '../components/AnnouncementSection';
 import StreamingPills from '../components/StreamingPills';
 import GuideGrid from '../components/GuideGrid';
-import CheeringGuideBanner from '../components/CheeringGuideBanner';
 
 const Home = () => {
     return (
