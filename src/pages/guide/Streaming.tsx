@@ -5,7 +5,7 @@ import Footer from "../../components/Footer";
 import TabView from "../../components/TabView";
 
 const Streaming = () => {
-    const tabs = ['멜론', '멜론 뮤직 웨이브', '지니', '벅스', '플로', '바이브'];
+    const tabs = ['멜론', '멜론 뮤직웨이브', '지니', '벅스', '플로', '바이브'];
     const [selectedTab, setSelectedTab] = useState(0);
 
     return (
