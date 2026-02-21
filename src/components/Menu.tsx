@@ -59,12 +59,6 @@ const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
     return (
         <div className={`menu-overlay ${isClosing ? 'closing' : ''}`}>
             <div className="menu-header">
-                <div className="logo">
-                    <img src={process.env.PUBLIC_URL + '/main-logo.svg'} alt="Logo" className="logo-icon"/>
-                    <div className="logo-text">
-                        SUNGKYU<br/>STREAM
-                    </div>
-                </div>
                 <button className="menu-close-button" onClick={handleClose}>
                     <img src={process.env.PUBLIC_URL + '/close-icon.svg'} alt="Close" className="menu-close-icon"/>
                 </button>
