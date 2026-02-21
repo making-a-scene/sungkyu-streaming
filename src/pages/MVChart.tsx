@@ -31,6 +31,7 @@ const MV_LIST: MVMeta[] = [
     { id: "uVD-Dnd511A", title: "[M/V] 김성규 - My Everyday Is You :: 개미가 타고 있어요(Stock Struck) OST Part.1", releasedAt: '2022-08-20', duration: '3:16' },
     { id: '6WNrmU5f8Gs', title: "[Official MV] 김성규 'Small Talk'", releasedAt: '2023-06-28', duration: '4:17' },
     { id: "ItuBFmafOJU", title: "김성규, 남우현 - Beautiful (사주왕 OST) [Music Video]", releasedAt: '2024-03-15', duration: '3:04' },
+    { id: "AdOaQpwYx0c", title: "[Official Video] 김성규 (KIM SUNG KYU) 'Over It' Pre-Release", releasedAt: '2026-02-21', duration: '3:34' }
 ];
 
 type MVStatistics = {
