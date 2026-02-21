@@ -32,8 +32,8 @@ const GuideGrid = () => {
 
     const guides = [
         { title: '아이디 생성\n가이드', iconSrc: process.env.PUBLIC_URL + '/id-generation-icon.svg', isActive: true, page: '/guide/id-generation' },
-        { title: '스트리밍\n가이드', iconSrc: process.env.PUBLIC_URL + '/streaming-icon.svg', isActive: true, page: null },
-        { title: '다운로드\n가이드', iconSrc: process.env.PUBLIC_URL + '/download-icon.svg', isActive: true, page: null },
+        { title: '스트리밍\n가이드', iconSrc: process.env.PUBLIC_URL + '/streaming-icon.svg', isActive: true, page: '/guide/streaming' },
+        { title: '다운로드\n가이드', iconSrc: process.env.PUBLIC_URL + '/download-icon.svg', isActive: true, page: '/guide/download' },
         { title: '음악방송\n가이드', iconSrc: process.env.PUBLIC_URL + '/music-broadcast-icon.svg', isActive: true, page: '/guide/music-broadcast' },
         { title: '투표\n가이드', iconSrc: process.env.PUBLIC_URL + '/vote-icon.svg', isActive: true, page: '/guide/vote' },
         { title: '음악 나누기\n가이드', iconSrc: process.env.PUBLIC_URL + '/music-sharing-icon.svg', isActive: true, page: '/guide/music-sharing' },
