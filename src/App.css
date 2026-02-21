@@ -2055,3 +2055,286 @@ html, body {
         border-radius: 0 0 16px 16px;
     }
 }
+
+/* ==================== */
+/* Home Page Styles     */
+/* ==================== */
+
+.home-content {
+    padding: 10px 24px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 42px;
+}
+
+.home-top-group {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.home-countdown-section {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    width: 100%;
+}
+
+.home-bottom-group {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    align-items: center;
+    width: 100%;
+}
+
+.home-section-title {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+    width: 100%;
+}
+
+.home-guide-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+}
+
+.home-guide-content {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: 100%;
+}
+
+/* Hero Banner */
+.hero-banner {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.hero-banner img {
+    width: 100%;
+    display: block;
+}
+
+.hero-video-wrapper {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+}
+
+.hero-video-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+/* Countdown Timer */
+.countdown-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.countdown-subtitle {
+    color: #626262;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.countdown-time {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 26px;
+    font-weight: 600;
+    line-height: normal;
+    text-align: center;
+}
+
+/* Action Buttons */
+.action-buttons-bar {
+    width: 100%;
+    background: #2E2E2E;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 11px;
+}
+
+.action-buttons-inner {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.action-button {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: normal;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.action-divider {
+    width: 1px;
+    height: 29px;
+    background: #4A4A4A;
+}
+
+/* Announcement Section */
+.announcement-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 100%;
+}
+
+.announcement-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.announcement-link-item {
+    background: #2E2E2E;
+    border-radius: 8px;
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 100%;
+}
+
+.announcement-link-item.gradient {
+    background: transparent;
+    position: relative;
+    overflow: hidden;
+}
+
+.announcement-link-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: 8px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.announcement-link-bg img {
+    position: absolute;
+    width: 101%;
+    height: 355%;
+    top: -243%;
+    left: 0;
+    object-fit: cover;
+}
+
+.announcement-link-text {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: normal;
+    position: relative;
+    z-index: 1;
+}
+
+.announcement-link-arrow {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+}
+
+/* Streaming Pills */
+.streaming-pills-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    width: 299px;
+    max-width: 100%;
+}
+
+.streaming-pills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 12px;
+    justify-content: center;
+    width: 100%;
+}
+
+.streaming-pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #2E2E2E;
+    border: 1px solid #626262;
+    border-radius: 50px;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.streaming-pill-icon {
+    width: 24px;
+    height: 24px;
+    object-fit: cover;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.streaming-pill-text {
+    color: #FFFFFF;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: normal;
+    white-space: nowrap;
+}
+
+/* Home page overrides for existing components */
+.home-content .guide-grid {
+    width: 100%;
+    column-gap: 12px;
+    row-gap: 14px;
+}
+
+.home-content .cheering-guide-banner {
+    width: 100%;
+    margin: 0;
+}
+
+@media (min-width: 928px) {
+    .home-content {
+        max-width: 880px;
+        margin: 0 auto;
+    }
+}
