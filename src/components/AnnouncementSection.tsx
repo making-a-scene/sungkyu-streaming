@@ -22,20 +22,22 @@ const AnnouncementSection: React.FC = () => {
                         className="announcement-link-arrow"
                     />
                 </div>
-                <div className="announcement-link-item gradient">
-                    <div className="announcement-link-bg">
-                        <img
-                            src={process.env.PUBLIC_URL + '/assets/761a3422f8c591d1c88725835b4299989c1606d6.png'}
-                            alt=""
-                        />
+                <a href="https://kko.to/rvJIOjuxNy" target="_blank" rel="noreferrer">
+                    <div className="announcement-link-item gradient">
+                        <div className="announcement-link-bg">
+                            <img
+                                src={process.env.PUBLIC_URL + '/assets/761a3422f8c591d1c88725835b4299989c1606d6.png'}
+                                alt=""
+                            />
+                        </div>
+                            <span className="announcement-link-text">음총팀 뮤직웨이브 입장하기</span>
+                            <img
+                                src={process.env.PUBLIC_URL + '/arrow-icon.svg'}
+                                alt=""
+                                className="announcement-link-arrow"
+                            />
                     </div>
-                    <span className="announcement-link-text">음총팀 뮤직웨이브 입장하기</span>
-                    <img
-                        src={process.env.PUBLIC_URL + '/arrow-icon.svg'}
-                        alt=""
-                        className="announcement-link-arrow"
-                    />
-                </div>
+                </a>
             </div>
         </div>
     );
