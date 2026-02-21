@@ -30,7 +30,6 @@ const Home = () => {
                         <h2 className="home-section-title">음원 총공 방법이 궁금하다면!</h2>
                         <div className="home-guide-content">
                             <GuideGrid />
-                            <CheeringGuideBanner />
                         </div>
                     </div>
                 </div>

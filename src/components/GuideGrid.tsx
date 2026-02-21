@@ -33,7 +33,8 @@ const GuideGrid = () => {
         { title: 'MV\n가이드', iconSrc: process.env.PUBLIC_URL + '/mv-icon.svg', isActive: true, page: '/guide/mv' },
         { title: '숏폼·SNS\n가이드', iconSrc: process.env.PUBLIC_URL + '/shorts-sns-icon.svg', isActive: true, page: '/guide/shorts-sns' },
         { title: '라디오\n가이드', iconSrc: process.env.PUBLIC_URL + '/radio-icon.svg', isActive: true, page: '/guide/radio' },
-        { title: '컬러링\n가이드', iconSrc: process.env.PUBLIC_URL + '/coloring-icon.svg', isActive: true, page: '/guide/coloring' }
+        { title: '컬러링\n가이드', iconSrc: process.env.PUBLIC_URL + '/coloring-icon.svg', isActive: true, page: '/guide/coloring' },
+        { title: '응원법 · 떼창곡\n가이드', iconSrc: process.env.PUBLIC_URL + '/song-icon.svg', isActive: true, page: '/guide/cheering' }
     ];
 
     return (

@@ -11,7 +11,6 @@ const Guide = () => {
             <main className="main-content">
                 <div className="guide-page-content">
                     <GuideGrid />
-                    <CheeringGuideBanner />
                 </div>
             </main>
             <Footer />
