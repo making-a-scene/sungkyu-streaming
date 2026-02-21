@@ -16,7 +16,7 @@ const AnnouncementSection: React.FC = () => {
                         className="announcement-link-arrow"
                     />
                 </div>
-                <div className="announcement-link-item" onClick={() => setPopupImage(process.env.PUBLIC_URL + '/streaming-list-temp.png')}>
+                <div className="announcement-link-item" onClick={() => setPopupImage(process.env.PUBLIC_URL + '/streaming-list-final.png')}>
                     <span className="announcement-link-text">권장 스트리밍 리스트</span>
                     <img
                         src={process.env.PUBLIC_URL + '/arrow-icon.svg'}
