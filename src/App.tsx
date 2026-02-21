@@ -13,6 +13,8 @@ import Radio from "./pages/guide/Radio";
 import Coloring from "./pages/guide/Coloring";
 import Cheering from "./pages/guide/Cheering";
 import BottomNav from "./components/BottomNav";
+import Streaming from "./pages/guide/Streaming";
+import Download from "./pages/guide/Download";
 
 // Main App Component
 function App() {
@@ -23,6 +25,8 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/guide/id-generation" element={<IdGeneration />} />
+                <Route path="/guide/streaming" element={<Streaming />} />
+                <Route path="/guide/download" element={<Download />} />
                 <Route path="/guide/music-broadcast" element={<MusicBroadcast />} />
                 <Route path="/guide/vote" element={<Vote />} />
                 <Route path="/guide/music-sharing" element={<MusicSharing />} />

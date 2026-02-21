@@ -476,7 +476,7 @@ html, body {
 .main-content {
     width: 880px;
     margin: 0 auto;
-    padding: 20px 0 8px 0;
+    padding: 0 0 8px 0;
 }
 
 /* Notification Banner */
@@ -542,7 +542,7 @@ html, body {
 /* Cheering Guide Banner */
 .cheering-guide-banner {
     width: 880px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 14px 16px;
     background: #2E2E2E;
     border-radius: 8px;
@@ -894,7 +894,7 @@ html, body {
     /* Cheering Guide Banner - Mobile */
     .cheering-guide-banner {
         width: calc(100% - 48px);
-        margin: 0 24px;
+        margin: 20px 24px;
         padding: 14px 16px;
     }
 
@@ -1070,7 +1070,7 @@ html, body {
     /* Cheering Guide Banner - Tablet */
     .cheering-guide-banner {
         width: calc(100% - 60px);
-        margin: 0 30px;
+        margin: 20px 30px;
     }
 
     .guide-grid {

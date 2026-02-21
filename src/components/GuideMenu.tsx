@@ -10,15 +10,15 @@ const GuideMenu: React.FC = () => {
 
     const menuItems = [
         { label: '아이디', path: '/guide/id-generation', disabled: false },
-        { label: '스트리밍', path: '/guide/streaming', disabled: true },
-        { label: '다운로드', path: '/guide/download', disabled: true },
+        { label: '스트리밍', path: '/guide/streaming', disabled: false },
+        { label: '다운로드', path: '/guide/download', disabled: false },
         { label: '음악방송', path: '/guide/music-broadcast', disabled: false },
         { label: '투표', path: '/guide/vote', disabled: false },
         { label: '음악 나누기', path: '/guide/music-sharing', disabled: false },
         { label: 'MV', path: '/guide/mv', disabled: false },
         { label: '숏폼·SNS', path: '/guide/shorts-sns', disabled: false },
-        { label: '라디오', path: '/guide/radio', disabled: true },
-        { label: '컬러링', path: '/guide/coloring', disabled: true },
+        { label: '라디오', path: '/guide/radio', disabled: false },
+        { label: '컬러링', path: '/guide/coloring', disabled: false },
         { label: '응원법', path: '/guide/cheering', disabled: false }
     ];
 
