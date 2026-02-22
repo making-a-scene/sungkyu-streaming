@@ -8,6 +8,7 @@ import CountdownTimer from '../components/CountdownTimer';
 import ActionButtons from '../components/ActionButtons';
 import AnnouncementSection from '../components/AnnouncementSection';
 import StreamingPills from '../components/StreamingPills';
+import StreamingCounter from '../components/StreamingCounter';
 import GuideGrid from '../components/GuideGrid';
 
 const Home = () => {
@@ -25,6 +26,7 @@ const Home = () => {
                 <div className="home-bottom-group">
                     <AnnouncementSection />
                     <StreamingPills />
+                    <StreamingCounter songName="Over It" />
                     <div className="home-guide-section">
                         <h2 className="home-section-title">음원 총공 방법이 궁금하다면!</h2>
                         <div className="home-guide-content">
