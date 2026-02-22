@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 interface StreamingCounterProps {
-    songName: string;
     releaseKST: Date;
+    songName: string;
 }
 
 const StreamingCounter: React.FC<StreamingCounterProps> = ({ songName, releaseKST }) => {

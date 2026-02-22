@@ -1,12 +1,15 @@
 import React from 'react';
 import '../App.css';
 
-const HeroBanner: React.FC = () => {
+interface YoutubeBannerProps {
+    youtubeSrc: string;
+}
+const YoutubeBanner: React.FC<YoutubeBannerProps> = ({youtubeSrc}) => {
     return (
         <div className="hero-banner">
             <div className="hero-video-wrapper">
                 <iframe
-                    src="https://www.youtube.com/embed/AdOaQpwYx0c?si=a6j3BAkqFcZ5AKU9"
+                    src={youtubeSrc}
                     title="YouTube video player"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -18,4 +21,4 @@ const HeroBanner: React.FC = () => {
     );
 };
 
-export default HeroBanner;
+export default YoutubeBanner;

@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 
-const CountdownTimer: React.FC = () => {
+interface CountdownTimerProps {
+    releaseKST: Date;
+    albumName: string;
+}
+
+const CountdownTimer: React.FC<CountdownTimerProps> = ({releaseKST, albumName}) => {
     const [timeLeft, setTimeLeft] = useState('');
 
     useEffect(() => {
-        const targetDate = new Date('2026-03-02T18:00:00+09:00');
-
         const updateTimer = () => {
             const now = new Date();
-            const diff = targetDate.getTime() - now.getTime();
+            const diff = releaseKST.getTime() - now.getTime();
 
             if (diff <= 0) {
                 setTimeLeft('00:00:00');
@@ -33,7 +36,7 @@ const CountdownTimer: React.FC = () => {
 
     return (
         <div className="countdown-section">
-            <div className="countdown-subtitle">김성규 6th Mini Album [OFF THE MAP] 발매</div>
+            <div className="countdown-subtitle">김성규 {albumName} 발매</div>
             <div className="countdown-time">{timeLeft}</div>
         </div>
     );

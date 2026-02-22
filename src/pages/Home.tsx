@@ -3,7 +3,7 @@ import '../App.css';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import HeroBanner from '../components/HeroBanner';
+import YoutubeBanner from '../components/YoutubeBanner';
 import CountdownTimer from '../components/CountdownTimer';
 import ActionButtons from '../components/ActionButtons';
 import AnnouncementSection from '../components/AnnouncementSection';
@@ -17,16 +17,16 @@ const Home = () => {
             <Header />
             <main className="home-content">
                 <div className="home-top-group">
-                    <HeroBanner />
+                    <YoutubeBanner youtubeSrc="https://www.youtube.com/embed/AdOaQpwYx0c" />
                     <div className="home-countdown-section">
-                        <CountdownTimer />
+                        <CountdownTimer releaseKST={new Date('2026-03-02T18:00:00+09:00')} albumName="6th Mini Album [OFF THE MAP]"/>
                         <ActionButtons />
                     </div>
                 </div>
                 <div className="home-bottom-group">
                     <AnnouncementSection />
                     <StreamingPills />
-                    <StreamingCounter songName="Over It" releaseKST={new Date(Date.UTC(2026, 1, 21, 18 - 9, 0, 0))} />
+                    <StreamingCounter releaseKST={new Date('2026-02-21T18:00:00+09:00')} songName="Over It" />
                     <div className="home-guide-section">
                         <h2 className="home-section-title">음원 총공 방법이 궁금하다면!</h2>
                         <div className="home-guide-content">
