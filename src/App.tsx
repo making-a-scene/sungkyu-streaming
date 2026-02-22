@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import { Analytics } from "@vercel/analytics/react"
+import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import Home from './pages/Home';
 import MusicBroadcast from './pages/guide/MusicBroadcast';
@@ -42,6 +43,7 @@ function App() {
             </Routes>
             <BottomNav />
             <Analytics />
+            <SpeedInsights />
         </BrowserRouter>
     );
 }
