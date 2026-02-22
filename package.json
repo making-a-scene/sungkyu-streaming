@@ -11,7 +11,9 @@
     "@types/node": "^16.18.126",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@upstash/redis": "^1.36.2",
     "axios": "^1.13.2",
+    "cheerio": "^1.2.0",
     "components": "^0.1.0",
     "lodash": "^4.17.21",
     "react": "^19.2.1",
@@ -48,6 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@types/lodash": "^4.17.21"
+    "@types/lodash": "^4.17.21",
+    "@vercel/node": "^5.6.6"
   }
 }
