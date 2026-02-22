@@ -32,7 +32,7 @@ const CountdownTimer: React.FC<CountdownTimerProps> = ({releaseKST, albumName}) 
         const interval = setInterval(updateTimer, 1000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [releaseKST]);
 
     return (
         <div className="countdown-section">
