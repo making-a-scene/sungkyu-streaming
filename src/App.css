@@ -787,7 +787,9 @@ html, body {
 }
 
 .footer-social-icons {
-    display: none;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px; /* footer-info와의 간격 */
 }
 
 .footer-social-icon {
@@ -802,6 +804,9 @@ html, body {
     transition: opacity 0.3s ease;
     text-decoration: none;
     position: relative;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px; /* footer-info와의 간격 */
 }
 
 .social-icon-img {
@@ -848,12 +853,6 @@ html, body {
 
     .header-social-icons {
         display: none;
-    }
-
-    .footer-social-icons {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 16px; /* footer-info와의 간격 */
     }
 
     .submenu-container {
