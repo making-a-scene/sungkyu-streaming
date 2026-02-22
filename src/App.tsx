@@ -41,6 +41,7 @@ function App() {
                 <Route path="/chart/mv" element={<MVChart />} />
             </Routes>
             <BottomNav />
+            <Analytics />
         </BrowserRouter>
     );
 }
