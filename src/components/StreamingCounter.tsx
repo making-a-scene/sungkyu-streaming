@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 
 interface StreamingCounterProps {
     songName: string;
+    releaseKST: Date;
 }
 
-const StreamingCounter: React.FC<StreamingCounterProps> = ({ songName }) => {
+const StreamingCounter: React.FC<StreamingCounterProps> = ({ songName, releaseKST }) => {
     const [now, setNow] = useState(new Date());
 
     useEffect(() => {
@@ -27,8 +28,6 @@ const StreamingCounter: React.FC<StreamingCounterProps> = ({ songName }) => {
     const kstDay = String(kstTime.getUTCDate()).padStart(2, '0');
     const kstHourStr = String(kstHour).padStart(2, '0');
 
-    // 발매 시각: 2026-02-21 18:00 KST
-    const releaseKST = new Date(Date.UTC(2026, 1, 21, 18 - 9, 0, 0));
     const hoursSinceRelease = Math.floor((now.getTime() - releaseKST.getTime()) / (1000 * 60 * 60));
     const count = Math.max(hoursSinceRelease * 4, 0);
 

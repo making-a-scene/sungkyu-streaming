@@ -26,7 +26,7 @@ const Home = () => {
                 <div className="home-bottom-group">
                     <AnnouncementSection />
                     <StreamingPills />
-                    <StreamingCounter songName="Over It" />
+                    <StreamingCounter songName="Over It" releaseKST={new Date(Date.UTC(2026, 1, 21, 18 - 9, 0, 0))} />
                     <div className="home-guide-section">
                         <h2 className="home-section-title">음원 총공 방법이 궁금하다면!</h2>
                         <div className="home-guide-content">
