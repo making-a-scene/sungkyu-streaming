@@ -1,13 +1,11 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { Redis } from '@upstash/redis';
-
-const redis = new Redis({
-  url: process.env.REDIS_URL!,
-  token: process.env.UPSTASH_REDIS_REST_TOKEN!,
-});
+import { createClient } from 'redis';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
+    const redis = await createClient({ url: process.env.REDIS_URL }).connect();
+
+    await redis.set('key', 'value');
     const data = await redis.get('charts:latest');
 
     if (!data) {
