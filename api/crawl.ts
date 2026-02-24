@@ -7,9 +7,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const redis = await createClient({ url: process.env.REDIS_URL }).connect();
 
-    await redis.set('key', 'value');
     const data = await crawlAll();
-    await redis.set('charts:latest', JSON.stringify(data));
+    const json = JSON.stringify(data);
+    const now = Math.floor(Date.now() / 1000);
+    const THIRTY_DAYS = 30 * 24 * 60 * 60;
+
+    await redis.set('charts:latest', json);
+    await redis.zAdd('charts:history', { score: now, value: json });
+    await redis.zRemRangeByScore('charts:history', 0, now - THIRTY_DAYS);
+
     return res.status(200).json({ ok: true, updated_at: data.updated_at });
   } catch (error) {
     console.error('Crawl failed:', error);
