@@ -3,11 +3,6 @@ import { createClient } from 'redis';
 import { crawlAll } from '../lib/crawlers';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Vercel Cron 보안 검증
-  const authHeader = req.headers['authorization'];
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
 
   try {
     const redis = await createClient({ url: process.env.REDIS_URL }).connect();
