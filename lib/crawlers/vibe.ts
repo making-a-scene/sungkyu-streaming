@@ -17,11 +17,13 @@ const HEADERS = {
   Accept: 'application/json',
 };
 
-export async function crawlVibe(artist: string): Promise<ChartResult> {
-  const { data } = await axios.get(
-    'https://apis.naver.com/vibeWeb/musicapiweb/vibe/v1/chart/track/total?start=1&display=100',
-    { headers: HEADERS }
-  );
+const VIBE_CHARTS = [
+  { name: '바이브 Top 100', url: 'https://apis.naver.com/vibeWeb/musicapiweb/vibe/v1/chart/track/total?start=1&display=100' },
+  { name: '바이브 국내 급상승', url: 'https://apis.naver.com/vibeWeb/musicapiweb/vibe/v1/chart/track/domestic?start=1&display=100' }
+]
+
+async function fetchVibeChart(url: string): Promise<ChartEntry[]> {
+  const { data } = await axios.get(url, { headers: HEADERS });
 
   const tracks = data.response.result.chart.items.tracks;
   const chart: ChartEntry[] = tracks.map((item: any, i: number) => ({
@@ -30,8 +32,18 @@ export async function crawlVibe(artist: string): Promise<ChartResult> {
     artist: item.artists[0].artistName,
   }));
 
-  return {
-    chart_name: '바이브',
-    artist_ranks: chart.filter((entry) => entry.artist === artist),
-  };
+  return chart;
+}
+
+export async function crawlVibe(artist: string): Promise<ChartResult[]> {
+  const results = await Promise.all(
+      VIBE_CHARTS.map(async ({ name, url }) => {
+        const chart = await fetchVibeChart(url);
+        return {
+          chart_name: name,
+          artist_ranks: chart.filter((entry) => entry.artist === artist)
+        };
+      })
+  );
+  return results;
 }
