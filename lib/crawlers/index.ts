@@ -33,7 +33,7 @@ function toKSTString(): string {
   });
 }
 
-export async function crawlAll(artist = '김성규'): Promise<CrawlData> {
+export async function crawlAll(artist = '한로로'): Promise<CrawlData> {
   const [chartResults, youtube] = await Promise.all([
     Promise.allSettled([
       crawlMelon(artist),
