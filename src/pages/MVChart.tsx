@@ -59,7 +59,7 @@ const MVChart: React.FC = () => {
                         params: {
                             part: 'statistics',
                             id: ids,
-                            key: 'AIzaSyA-6K53NASBQ-CcD-tYlnlV0e3qVJne9iU',
+                            key: process.env.YOUTUBE_API_KEY,
                         },
                     }
                 );

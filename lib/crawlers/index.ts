@@ -3,6 +3,7 @@ import { crawlGenie } from './genie';
 import { crawlBugs } from './bugs';
 import { crawlFlo } from './flo';
 import { crawlVibe } from './vibe';
+import { crawlYouTube, type YouTubeVideo } from './youtube';
 
 interface ChartEntry {
   rank: number;
@@ -18,6 +19,7 @@ export interface ChartResult {
 export interface CrawlData {
   updated_at: string;
   charts: ChartResult[];
+  youtube: YouTubeVideo[];
 }
 
 function toKSTString(): string {
@@ -32,17 +34,20 @@ function toKSTString(): string {
 }
 
 export async function crawlAll(artist = '김성규'): Promise<CrawlData> {
-  const results = await Promise.allSettled([
-    crawlMelon(artist),
-    crawlGenie(artist),
-    crawlBugs(artist),
-    crawlFlo(artist),
-    crawlVibe(artist),
+  const [chartResults, youtube] = await Promise.all([
+    Promise.allSettled([
+      crawlMelon(artist),
+      crawlGenie(artist),
+      crawlBugs(artist),
+      crawlFlo(artist),
+      crawlVibe(artist),
+    ]),
+    crawlYouTube().catch(() => [] as YouTubeVideo[]),
   ]);
 
   const charts: ChartResult[] = [];
 
-  for (const result of results) {
+  for (const result of chartResults) {
     if (result.status === 'fulfilled') {
       const value = result.value;
       if (Array.isArray(value)) {
@@ -56,5 +61,6 @@ export async function crawlAll(artist = '김성규'): Promise<CrawlData> {
   return {
     updated_at: toKSTString(),
     charts,
+    youtube,
   };
 }
