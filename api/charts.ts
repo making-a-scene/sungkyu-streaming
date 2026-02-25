@@ -9,9 +9,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const from = req.query.from as string | undefined;
     const to = req.query.to as string | undefined;
 
+    // KST 문자열을 UTC unix timestamp로 변환 (타임존 명시가 없으면 KST로 간주)
+    const toUtcSeconds = (s: string) => {
+      const hasTimezone = /[Zz]|[+-]\d{2}/.test(s);
+      const date = new Date(hasTimezone ? s : `${s}+09:00`);
+      return Math.floor(date.getTime() / 1000);
+    };
+
     // 특정 시각 조회: GET /api/charts?at=2026-02-24T15:00
     if (at) {
-      const target = Math.floor(new Date(at).getTime() / 1000);
+      const target = toUtcSeconds(at);
       const ONE_HOUR = 3600;
 
       const results = await redis.zRangeByScoreWithScores(
@@ -41,8 +48,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // 기간 범위 조회: GET /api/charts?from=...&to=...
     if (from) {
-      const fromTs = Math.floor(new Date(from).getTime() / 1000);
-      const toTs = to ? Math.floor(new Date(to).getTime() / 1000) : Math.floor(Date.now() / 1000);
+      const fromTs = toUtcSeconds(from);
+      const toTs = to ? toUtcSeconds(to) : Math.floor(Date.now() / 1000);
 
       const results = await redis.zRangeByScoreWithScores('charts:history', fromTs, toTs);
 
