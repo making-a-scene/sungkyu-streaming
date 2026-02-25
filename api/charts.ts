@@ -11,7 +11,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     // KST 문자열을 UTC unix timestamp로 변환 (타임존 명시가 없으면 KST로 간주)
     const toUtcSeconds = (s: string) => {
-      const hasTimezone = /[Zz]|[+-]\d{2}/.test(s);
+      const hasTimezone = /[Zz]$|[+-]\d{2}:?\d{0,2}$/.test(s);
       const date = new Date(hasTimezone ? s : `${s}+09:00`);
       return Math.floor(date.getTime() / 1000);
     };
