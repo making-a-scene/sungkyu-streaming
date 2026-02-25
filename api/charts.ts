@@ -9,47 +9,37 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const from = req.query.from as string | undefined;
     const to = req.query.to as string | undefined;
 
-    // KST 문자열을 UTC unix timestamp로 변환 (타임존 명시가 없으면 KST로 간주)
-    const toUtcSeconds = (s: string) => {
-      const hasTimezone = /[Zz]$|[+-]\d{2}:?\d{0,2}$/.test(s);
-      const date = new Date(hasTimezone ? s : `${s}+09:00`);
+    // KST "YYYY-MM-DDThh" 형식을 해당 시의 시작 UTC unix timestamp로 변환
+    const toHourTs = (s: string) => {
+      const hour = s.slice(0, 13); // "YYYY-MM-DDThh" 까지만 사용
+      const date = new Date(`${hour}:00+09:00`);
       return Math.floor(date.getTime() / 1000);
     };
 
-    // 특정 시각 조회: GET /api/charts?at=2026-02-24T15:00
+    // 특정 시각 조회: GET /api/charts?at=2026-02-24T15
     if (at) {
-      const target = toUtcSeconds(at);
-      const ONE_HOUR = 3600;
+      const hourStart = toHourTs(at);
+      const hourEnd = hourStart + 3600;
 
       const results = await redis.zRangeByScoreWithScores(
         'charts:history',
-        target - ONE_HOUR,
-        target + ONE_HOUR,
+        hourStart,
+        hourEnd,
       );
 
       if (results.length === 0) {
-        return res.status(404).json({ error: 'No chart data found near the specified time' });
+        return res.status(404).json({ error: 'No chart data found for the specified hour' });
       }
 
-      // 지정 시각에 가장 가까운 스냅샷 선택
-      let closest = results[0];
-      let minDiff = Math.abs(closest.score - target);
-      for (const entry of results) {
-        const diff = Math.abs(entry.score - target);
-        if (diff < minDiff) {
-          closest = entry;
-          minDiff = diff;
-        }
-      }
-
+      // 해당 시간대 첫 번째 스냅샷 반환
       res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
-      return res.status(200).json(JSON.parse(closest.value));
+      return res.status(200).json(JSON.parse(results[0].value));
     }
 
-    // 기간 범위 조회: GET /api/charts?from=...&to=...
+    // 기간 범위 조회: GET /api/charts?from=2026-02-24T09&to=2026-02-24T15
     if (from) {
-      const fromTs = toUtcSeconds(from);
-      const toTs = to ? toUtcSeconds(to) : Math.floor(Date.now() / 1000);
+      const fromTs = toHourTs(from);
+      const toTs = to ? toHourTs(to) + 3600 : Math.floor(Date.now() / 1000);
 
       const results = await redis.zRangeByScoreWithScores('charts:history', fromTs, toTs);
 
