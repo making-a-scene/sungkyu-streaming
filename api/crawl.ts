@@ -21,7 +21,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     // KST 오전 1시~6시 사이에는 트윗 포스팅 중지
     const kstHour = new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul', hour: 'numeric', hour12: false });
     const hour = parseInt(kstHour, 10);
-    const isSilentHour = hour >= 1 && hour <= 6;
+    const isSilentHour = hour >= 2 && hour <= 6;
 
     let tweeted = false;
     if (isSilentHour) {
