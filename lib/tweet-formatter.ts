@@ -11,8 +11,8 @@ function findTitleSongRank(
   return entry ? entry.rank : null;
 }
 
-function formatRankChange(currentRank: number | null, previousRank: number | null): string {
-  if (currentRank === null || previousRank === null) return '-';
+function formatRankChange(currentRank: number | null, previousRank: number | null): string | null {
+  if (currentRank === null || previousRank === null) return null;
   const diff = previousRank - currentRank;
   if (diff > 0) return `🔺${diff}`;
   if (diff < 0) return `🔻${Math.abs(diff)}`;
@@ -60,7 +60,11 @@ export function formatTweet(current: CrawlData, previous: CrawlData | null): str
     const rankStr = currentRank !== null ? `${currentRank}위` : '-';
     const changeStr = formatRankChange(currentRank, previousRank);
 
-    lines.push(`${chart.chart_name} ${rankStr} (${changeStr})`);
+    if (changeStr !== null) {
+      lines.push(`${chart.chart_name} ${rankStr} (${changeStr})`);
+    } else {
+      lines.push(`${chart.chart_name} ${rankStr}`);
+    }
   }
 
   // YouTube MV view count
