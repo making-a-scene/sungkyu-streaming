@@ -16,13 +16,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return Math.floor(date.getTime() / 1000);
     };
 
-    // 특정 시각 조회: GET /api/charts?at=2026-02-24T15
+    // 특정 시각 조회: GET /api/prompts?at=2026-02-24T15
     if (at) {
       const hourStart = toHourTs(at);
       const hourEnd = hourStart + 3600;
 
       const results = await redis.zRangeByScoreWithScores(
-        'charts:history',
+        'prompts:history',
         hourStart,
         hourEnd,
       );
@@ -36,12 +36,12 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(200).json(JSON.parse(results[0].value));
     }
 
-    // 기간 범위 조회: GET /api/charts?from=2026-02-24T09&to=2026-02-24T15
+    // 기간 범위 조회: GET /api/prompts?from=2026-02-24T09&to=2026-02-24T15
     if (from) {
       const fromTs = toHourTs(from);
       const toTs = to ? toHourTs(to) + 3600 : Math.floor(Date.now() / 1000);
 
-      const results = await redis.zRangeByScoreWithScores('charts:history', fromTs, toTs);
+      const results = await redis.zRangeByScoreWithScores('prompts:history', fromTs, toTs);
 
       if (results.length === 0) {
         return res.status(404).json({ error: 'No chart data found in the specified range' });
@@ -63,7 +63,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');
     return res.status(200).json(JSON.parse(data));
   } catch (error) {
-    console.error('Failed to fetch charts:', error);
-    return res.status(500).json({ error: 'Failed to fetch charts' });
+    console.error('Failed to fetch prompts:', error);
+    return res.status(500).json({ error: 'Failed to fetch prompts' });
   }
 }
