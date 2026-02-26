@@ -18,9 +18,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     await redis.zAdd('prompts:history', { score: now, value: json });
     await redis.zRemRangeByScore('prompts:history', 0, now - THIRTY_DAYS);
 
-    // Fetch previous snapshot for rank change comparison
+    // KST 오전 1시~6시 사이에는 트윗 포스팅 중지
+    const kstHour = new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul', hour: 'numeric', hour12: false });
+    const hour = parseInt(kstHour, 10);
+    const isSilentHour = hour >= 1 && hour <= 6;
+
     let tweeted = false;
-    try {
+    if (isSilentHour) {
+      console.log(`Skipping tweet: silent hour (KST ${hour}시)`);
+    } else try {
       let previous: CrawlData | null = null;
       const prevEntries = await redis.zRangeWithScores(
         'prompts:history',
