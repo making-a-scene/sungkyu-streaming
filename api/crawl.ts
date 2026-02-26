@@ -22,11 +22,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     let tweeted = false;
     try {
       let previous: CrawlData | null = null;
-      const prevEntries = await redis.zRangeByScoreWithScores(
+      const prevEntries = await redis.zRangeWithScores(
         'prompts:history',
-        0,
-        now - 1, // exclude the one we just saved
-        { LIMIT: { offset: 0, count: 1 }, REV: true },
+        now - 1,  // max (REV이므로 max 먼저)
+        0,        // min
+        { BY: 'SCORE', REV: true, LIMIT: { offset: 0, count: 1 } },
       );
       if (prevEntries.length > 0) {
         previous = JSON.parse(prevEntries[0].value);

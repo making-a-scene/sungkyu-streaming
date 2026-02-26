@@ -69,7 +69,21 @@ export function formatTweet(current: CrawlData, previous: CrawlData | null): str
   );
   if (titleVideo) {
     lines.push('');
-    lines.push(`MV ${formatViewCount(titleVideo.viewCount)}회`);
+
+    let mvLine = `MV ${formatViewCount(titleVideo.viewCount)}회`;
+    if (previous) {
+      const prevVideo = previous.youtube.find((v) =>
+        v.title.toLowerCase().includes(TITLE_SONG.toLowerCase()),
+      );
+      if (prevVideo) {
+        const viewDiff = titleVideo.viewCount - prevVideo.viewCount;
+        if (viewDiff > 0) {
+          mvLine += ` (🔺${formatViewCount(viewDiff)})`;
+        }
+      }
+    }
+
+    lines.push(mvLine);
   }
 
   // Footer hashtags
