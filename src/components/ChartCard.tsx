@@ -77,7 +77,7 @@ const ChartCard: React.FC<ChartCardProps> = ({ chartName, songs, updatedAt, prev
                 </div>
                 <span className="chart-card-time">{formatTime(updatedAt)}</span>
             </div>
-            {songs.length > 0 && (
+            {songs.length > 0 ? (
                 <div className="chart-card-songs">
                     {songs.map(song => {
                         const change = getRankChange(song.title, song.rank);
@@ -102,6 +102,8 @@ const ChartCard: React.FC<ChartCardProps> = ({ chartName, songs, updatedAt, prev
                         );
                     })}
                 </div>
+            ) : (
+                <div className="chart-card-empty">차트 아웃</div>
             )}
         </div>
     );
