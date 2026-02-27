@@ -14,7 +14,7 @@ const ChartMenu: React.FC = () => {
         { label: '벅스', path: '/chart/bugs', disabled: true },
         { label: '플로', path: '/chart/flo', disabled: true },
         { label: '바이브', path: '/chart/vibe', disabled: true },
-        { label: 'MV', path: '/chart/mv', disabled: false },
+        { label: 'MV', path: '/chart', disabled: false },
         { label: '틱톡', path: '/chart/tiktok', disabled: true },
     ];
 

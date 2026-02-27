@@ -12,7 +12,7 @@ const MENU_ITEMS = [
     { id: 'home', label: '홈', icon: '/home-icon.svg', path: '/', disabled: false },
     { id: 'guide', label: '가이드', icon: '/guide-icon.svg', path: '/guide', disabled: false },
     { id: 'schedule', label: '스케줄', icon: '/schedule-icon.svg', path: '/schedule', disabled: true },
-    { id: 'chart', label: '차트', icon: '/chart-icon.svg', path: '/chart/mv', disabled: false },
+    { id: 'chart', label: '차트', icon: '/chart-icon.svg', path: '/chart', disabled: false },
     { id: 'apply', label: '지원하기', icon: '/apply-icon.svg', path: '/apply', disabled: true },
 ];
 
