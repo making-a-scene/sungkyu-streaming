@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import MusicBroadcast from './pages/guide/MusicBroadcast';
 import Vote from "./pages/guide/Vote";
 import IdGeneration from "./pages/guide/IdGeneration";
-import MVChart from "./pages/MVChart";
+import Chart from "./pages/Chart";
 import MusicSharing from "./pages/guide/MusicSharing";
 import ShortsSns from "./pages/guide/ShortsSns";
 import MusicVideo from "./pages/guide/MusicVideo";
@@ -39,7 +39,7 @@ function App() {
                 <Route path="/guide/radio" element={<Radio />} />
                 <Route path="/guide/coloring" element={<Coloring />} />
                 <Route path="/guide/cheering" element={<Cheering />} />
-                <Route path="/chart/mv" element={<MVChart />} />
+                <Route path="/chart" element={<Chart />} />
             </Routes>
             <BottomNav />
             <Analytics />
