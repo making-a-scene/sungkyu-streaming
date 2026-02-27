@@ -39,21 +39,14 @@ function getPlatform(chartName: string): FilterType {
     return 'all';
 }
 
-function getPrevHourAt(updatedAt: string): string {
-    // updatedAt: "2026-02-24 20:28"
+/** updated_at ("2026-02-24 20:28") 기준 2시간 전의 KST "YYYY-MM-DDThh" 문자열 반환 */
+function getFromParam(updatedAt: string): string {
     const [datePart, timePart] = updatedAt.split(' ');
     const hour = parseInt(timePart.split(':')[0]);
-
-    if (hour === 0) {
-        const date = new Date(datePart + 'T00:00:00+09:00');
-        date.setDate(date.getDate() - 1);
-        const y = date.getFullYear();
-        const m = String(date.getMonth() + 1).padStart(2, '0');
-        const d = String(date.getDate()).padStart(2, '0');
-        return `${y}-${m}-${d}T23`;
-    }
-
-    return `${datePart}T${String(hour - 1).padStart(2, '0')}`;
+    const date = new Date(`${datePart}T${String(hour).padStart(2, '0')}:00+09:00`);
+    date.setTime(date.getTime() - 2 * 3600 * 1000);
+    const kst = date.toLocaleString('sv-SE', { timeZone: 'Asia/Seoul' });
+    return kst.slice(0, 13).replace(' ', 'T');
 }
 
 const MusicChartView: React.FC = () => {
@@ -69,10 +62,14 @@ const MusicChartView: React.FC = () => {
                 const current: CrawlData = res.data;
                 setChartData(current);
 
+                // 이전 스냅샷 가져오기: 최근 2시간 범위 조회 후 두 번째로 최근 데이터 사용
                 try {
-                    const prevAt = getPrevHourAt(current.updated_at);
-                    const prevRes = await axios.get(`/api/charts?at=${prevAt}`);
-                    setPrevData(prevRes.data);
+                    const from = getFromParam(current.updated_at);
+                    const rangeRes = await axios.get(`/api/charts?from=${from}`);
+                    const snapshots: CrawlData[] = rangeRes.data.snapshots ?? [];
+                    if (snapshots.length >= 2) {
+                        setPrevData(snapshots[snapshots.length - 2]);
+                    }
                 } catch {
                     // 이전 시간 데이터 없을 수 있음
                 }
