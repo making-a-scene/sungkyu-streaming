@@ -14,9 +14,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     const now = Math.floor(Date.now() / 1000);
     const THIRTY_DAYS = 30 * 24 * 60 * 60;
 
-    await redis.set('prompts:latest', json);
-    await redis.zAdd('prompts:history', { score: now, value: json });
-    await redis.zRemRangeByScore('prompts:history', 0, now - THIRTY_DAYS);
+    await redis.set('charts:latest', json);
+    await redis.zAdd('charts:history', { score: now, value: json });
+    await redis.zRemRangeByScore('charts:history', 0, now - THIRTY_DAYS);
 
     // KST 오전 1시~6시 사이에는 트윗 포스팅 중지
     const kstHour = new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul', hour: 'numeric', hour12: false });
@@ -29,7 +29,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     } else try {
       let previous: CrawlData | null = null;
       const prevEntries = await redis.zRangeWithScores(
-        'prompts:history',
+        'charts:history',
         now - 1,  // max (REV이므로 max 먼저)
         0,        // min
         { BY: 'SCORE', REV: true, LIMIT: { offset: 0, count: 1 } },

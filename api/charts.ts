@@ -22,7 +22,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const hourEnd = hourStart + 3600;
 
       const results = await redis.zRangeByScoreWithScores(
-        'prompts:history',
+        'charts:history',
         hourStart,
         hourEnd,
       );
@@ -41,7 +41,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       const fromTs = toHourTs(from);
       const toTs = to ? toHourTs(to) + 3600 : Math.floor(Date.now() / 1000);
 
-      const results = await redis.zRangeByScoreWithScores('prompts:history', fromTs, toTs);
+      const results = await redis.zRangeByScoreWithScores('charts:history', fromTs, toTs);
 
       if (results.length === 0) {
         return res.status(404).json({ error: 'No chart data found in the specified range' });
