@@ -23,6 +23,21 @@ function getPlatformIcon(chartName: string): string {
     return '';
 }
 
+// API 차트명 → 피그마 디자인 차트명 매핑
+const CHART_NAME_MAP: Record<string, string> = {
+    '멜론 TOP 100': '멜론 TOP100',
+    '멜론 HOT 100(30일)': '멜론 HOT100(30일)',
+    '멜론 HOT 100(100일)': '멜론 HOT100(100일)',
+    '지니 TOP 200': '지니 TOP200',
+    '벅스': '벅스 실시간',
+    '플로': '플로 차트',
+    '바이브 TOP 100': '바이브 TOP100',
+};
+
+function displayChartName(name: string): string {
+    return CHART_NAME_MAP[name] ?? name;
+}
+
 export interface ChartEntry {
     rank: number;
     title: string;
@@ -58,7 +73,7 @@ const ChartCard: React.FC<ChartCardProps> = ({ chartName, songs, updatedAt, prev
             <div className="chart-card-header">
                 <div className="chart-card-platform">
                     {icon && <img src={icon} alt="" className="chart-platform-icon" />}
-                    <span className="chart-card-name">{chartName}</span>
+                    <span className="chart-card-name">{displayChartName(chartName)}</span>
                 </div>
                 <span className="chart-card-time">{formatTime(updatedAt)}</span>
             </div>
