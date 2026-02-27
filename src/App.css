@@ -1436,6 +1436,10 @@ html, body {
     color: #2E96FF;
 }
 
+.chart-rank-change.same {
+    color: #696969;
+}
+
 /* MV Chart Styles */
 .mv-content {
     display: flex;

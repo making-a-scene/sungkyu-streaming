@@ -77,9 +77,9 @@ const ChartCard: React.FC<ChartCardProps> = ({ chartName, songs, updatedAt, prev
                                 </div>
                                 <div className="chart-song-rank">
                                     <span className="chart-rank-number">{song.rank}위</span>
-                                    {change !== null && change !== 0 && (
-                                        <span className={`chart-rank-change ${change > 0 ? 'up' : 'down'}`}>
-                                            {change > 0 ? `${change}↑` : `${Math.abs(change)}↓`}
+                                    {change !== null && (
+                                        <span className={`chart-rank-change ${change > 0 ? 'up' : change < 0 ? 'down' : 'same'}`}>
+                                            {change > 0 ? `${change}↑` : change < 0 ? `${Math.abs(change)}↓` : '-'}
                                         </span>
                                     )}
                                 </div>
