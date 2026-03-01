@@ -17,7 +17,7 @@ const Home = () => {
             <Header />
             <main className="home-content">
                 <div className="home-top-group">
-                    <YoutubeBanner youtubeSrc="https://www.youtube.com/embed/AdOaQpwYx0c" />
+                    <YoutubeBanner youtubeSrc="https://www.youtube.com/embed/_7YoHhY5CSM" />
                     <div className="home-countdown-section">
                         <CountdownTimer releaseKST={new Date('2026-03-02T18:00:00+09:00')} albumName="6th Mini Album [OFF THE MAP]"/>
                         <ActionButtons />
