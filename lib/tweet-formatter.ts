@@ -36,7 +36,7 @@ function parseDateTime(updatedAt: string): { dateStr: string; hour: number } {
 
 export function formatTweet(current: CrawlData, previous: CrawlData | null): string {
   const { dateStr, hour } = parseDateTime(current.updated_at);
-  const hashtag = `#${TITLE_SONG.replace(/ /g, '_')}`;
+  const hashtag = `#${TITLE_SONG}`;
 
   const lines: string[] = [];
 
