@@ -2,12 +2,6 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import '../App.css';
 
-const newSong_melon = '601332981';
-const newSong_genie = '113971444';
-const newSong_bugs = '6426606';
-const newSong_flo = '576129937';
-const newSong_vibe = '100900428';
-
 type DeviceType = 'android' | 'ios' | 'ipad' | 'windows' | 'mac';
 
 const getDeviceType = (): DeviceType => {
