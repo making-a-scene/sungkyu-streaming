@@ -6,7 +6,7 @@ const AnnouncementSection: React.FC = () => {
 
     return (
         <div className="announcement-section">
-            <h2 className="home-section-title">🔥 2/21 선공개곡 발매 🔥</h2>
+            <h2 className="home-section-title">🎉 김성규 6th Mini Album [OFF THE MAP] 발매 🎉</h2>
             <div className="announcement-links">
                 <div className="announcement-link-item" onClick={() => setPopupImage(process.env.PUBLIC_URL + '/streaming-list-final.png')}>
                     <span className="announcement-link-text">권장 스트리밍 리스트</span>
