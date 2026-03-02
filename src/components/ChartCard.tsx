@@ -4,7 +4,7 @@ import '../App.css';
 // 현재 앨범 정보 (신곡 발매 시 여기만 변경)
 const CURRENT_ALBUM = {
     name: 'OFF THE MAP',
-    art: '/assets/31d16c2716416214ac6a6e8127086ffc2cb85419.png',
+    art: '/off-the-map-album-art.png',
 };
 
 // 차트명 키워드 → 플랫폼 아이콘
