@@ -26,7 +26,7 @@ const Home = () => {
                 <div className="home-bottom-group">
                     <AnnouncementSection />
                     <StreamingPills />
-                    <StreamingCounter releaseKST={new Date('2026-03-02T18:00:00+09:00')} songName="널 떠올리면 (When I think about you)" />
+                    <StreamingCounter releaseKST={new Date('2026-03-02T18:00:00+09:00')} songName="널 떠올리면" />
                     <div className="home-guide-section">
                         <h2 className="home-section-title">음원 총공 방법이 궁금하다면!</h2>
                         <div className="home-guide-content">
