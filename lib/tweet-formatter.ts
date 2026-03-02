@@ -6,7 +6,7 @@ function findTitleSongRank(
   chart: { chart_name: string; artist_ranks: { rank: number; title: string; artist: string }[] },
 ): number | null {
   const entry = chart.artist_ranks.find(
-    (e) => e.title.toLowerCase() === TITLE_SONG.toLowerCase(),
+    (e) => e.title.toLowerCase().includes(TITLE_SONG.toLowerCase()),
   );
   return entry ? entry.rank : null;
 }
