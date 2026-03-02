@@ -1,6 +1,6 @@
 import type { CrawlData } from './crawlers';
 
-const TITLE_SONG = 'Over it';
+const TITLE_SONG = '널 떠올리면';
 
 function findTitleSongRank(
   chart: { chart_name: string; artist_ranks: { rank: number; title: string; artist: string }[] },
