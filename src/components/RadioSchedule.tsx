@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getCurrentPrograms, getStationByBroadcaster, type RadioProgram } from '../data/radioSchedule';
+import { Analytics } from '@vercel/analytics/react';
 
 const formatHour = (h: number): string => `${h % 24}:00`;
 
@@ -36,6 +37,7 @@ const RadioCard: React.FC<{ program: RadioProgram }> = ({ program }) => {
                         </span>
                     </div>
                     <a className="radio-card-button" href={station.smsLink}>
+                        <Analytics />
                         사연 보내기
                     </a>
                 </div>
