@@ -2670,6 +2670,17 @@ html, body {
     margin: 0;
 }
 
+.radio-schedule-desc {
+    font-family: Pretendard;
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #FFFFFF;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}
+
 .radio-schedule-cards {
     display: flex;
     flex-direction: column;

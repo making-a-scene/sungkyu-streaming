@@ -67,6 +67,10 @@ const RadioSchedule: React.FC = () => {
     return (
         <div className="radio-schedule-section">
             <h2 className="radio-schedule-title">라디오 신청 원클릭</h2>
+            <p className="radio-schedule-desc">
+                라디오 주제에 맞는 사연과 함께 신청하기!<br />
+                신청 도배 절대 금지!
+            </p>
             <div className="radio-schedule-cards">
                 {programs.map((program, idx) => (
                     <RadioCard
