@@ -11,6 +11,7 @@ import StreamingPills from '../components/StreamingPills';
 import StreamingCounter from '../components/StreamingCounter';
 import GuideGrid from '../components/GuideGrid';
 import RadioSchedule from '../components/RadioSchedule';
+import Analytics  from '@vercel/analytics/react';
 
 const Home = () => {
     return (
