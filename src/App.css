@@ -2654,7 +2654,7 @@ html, body {
 .radio-schedule-section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 13px;
     align-items: flex-start;
     width: 100%;
 }
@@ -2672,7 +2672,7 @@ html, body {
 
 .radio-schedule-desc {
     font-family: Pretendard;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     line-height: 1.5;
     color: #FFFFFF;
