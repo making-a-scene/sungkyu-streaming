@@ -10,6 +10,7 @@ import AnnouncementSection from '../components/AnnouncementSection';
 import StreamingPills from '../components/StreamingPills';
 import StreamingCounter from '../components/StreamingCounter';
 import GuideGrid from '../components/GuideGrid';
+import RadioSchedule from '../components/RadioSchedule';
 
 const Home = () => {
     return (
@@ -27,6 +28,7 @@ const Home = () => {
                     <AnnouncementSection />
                     <StreamingPills />
                     <StreamingCounter releaseKST={new Date('2026-03-02T18:00:00+09:00')} songName="널 떠올리면" />
+                    <RadioSchedule />
                     <div className="home-guide-section">
                         <h2 className="home-section-title">음원 총공 방법이 궁금하다면!</h2>
                         <div className="home-guide-content">

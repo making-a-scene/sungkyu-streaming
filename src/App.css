@@ -2589,17 +2589,24 @@ html, body {
 .streaming-counter {
     background: #313131;
     border-radius: 12px;
-    padding: 16px 0;
+    padding: 16px 24px;
     width: 100%;
-    display: flex;
-    justify-content: center;
 }
 
 .streaming-counter-inner {
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    justify-content: center;
     gap: 12px;
+    width: 100%;
+}
+
+.streaming-counter-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
 }
 
 .streaming-counter-title {
@@ -2607,7 +2614,6 @@ html, body {
     font-size: 16px;
     font-weight: 700;
     line-height: 24px;
-    text-align: center;
     color: #FFFFFF;
 }
 
@@ -2615,34 +2621,9 @@ html, body {
     margin: 0;
 }
 
-.streaming-counter-info {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-}
-
-.streaming-counter-desc {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 6px;
-    padding: 2px 0;
-}
-
-.streaming-counter-desc-text {
-    color: #696969;
-    font-family: Pretendard;
-    font-size: 15px;
-    font-weight: 600;
-    line-height: normal;
-    text-align: center;
-}
-
 .streaming-counter-time {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: flex-start;
     gap: 4px;
 }
 
@@ -2656,16 +2637,165 @@ html, body {
     font-size: 13px;
     font-weight: 600;
     line-height: normal;
-    text-align: center;
 }
 
 .streaming-counter-count {
     color: #FFFFFF;
     font-family: Pretendard;
-    font-size: 26px;
+    font-size: 24px;
     font-weight: 600;
     line-height: normal;
     text-align: center;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* Radio Schedule */
+.radio-schedule-section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.radio-schedule-title {
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: normal;
+    color: #FFFFFF;
+    text-align: center;
+    width: 100%;
+    margin: 0;
+}
+
+.radio-schedule-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.radio-card {
+    background: #313131;
+    border-radius: 12px;
+    padding: 16px 20px;
+    width: 100%;
+}
+
+.radio-card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+}
+
+.radio-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.radio-card-station {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.radio-card-station-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.radio-card-logo {
+    width: 24px;
+    height: 24px;
+    border-radius: 21px;
+    object-fit: cover;
+}
+
+.radio-card-station-name {
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFFFFF;
+    white-space: nowrap;
+}
+
+.radio-card-freq {
+    font-family: Pretendard;
+    font-size: 12px;
+    font-weight: 600;
+    color: #696969;
+    white-space: nowrap;
+}
+
+.radio-card-tag {
+    background: #FFFFFF;
+    border-radius: 80px;
+    padding: 4px 8px;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-weight: 700;
+    color: #313131;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.radio-card-content {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.radio-card-program {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.radio-card-program-name {
+    font-family: Pretendard;
+    font-size: 16px;
+    font-weight: 700;
+    color: #FFFFFF;
+    line-height: normal;
+}
+
+.radio-card-dj {
+    font-family: Pretendard;
+    font-size: 12px;
+    font-weight: 600;
+    color: #FFFFFF;
+    line-height: normal;
+}
+
+.radio-card-time {
+    font-family: Pretendard;
+    font-size: 12px;
+    font-weight: 600;
+    color: #696969;
+    line-height: normal;
+}
+
+.radio-card-button {
+    background: #2E2E2E;
+    border: 1px solid #626262;
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-family: Pretendard;
+    font-size: 15px;
+    font-weight: 600;
+    color: #FFFFFF;
+    white-space: nowrap;
+    text-decoration: none;
+    flex-shrink: 0;
 }
 
 /* Home page overrides for existing components */
