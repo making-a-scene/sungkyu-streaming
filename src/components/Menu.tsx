@@ -13,7 +13,7 @@ const MENU_ITEMS = [
     { id: 'guide', label: '가이드', icon: '/guide-icon.svg', path: '/guide', disabled: false },
     { id: 'schedule', label: '스케줄', icon: '/schedule-icon.svg', path: '/schedule', disabled: true },
     { id: 'chart', label: '차트', icon: '/chart-icon.svg', path: '/chart', disabled: false },
-    { id: 'apply', label: '지원하기', icon: '/apply-icon.svg', path: '/apply', disabled: true },
+    { id: 'event', label: '이벤트', icon: '/event-icon.svg', path: '/event', disabled: false },
 ];
 
 const Menu: React.FC<MenuProps> = ({ isOpen, onClose }) => {
