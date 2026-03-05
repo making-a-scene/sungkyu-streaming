@@ -1,6 +1,6 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import '../App.css';
 
 const EVENT_CATEGORIES = ["전체", "스트리밍", "다운로드", "앨범 초동", "헬퍼"] as const;
@@ -26,38 +26,92 @@ const TWEET_LIST: TweetItem[] = [
     { tweetId: "2029568985285689619", category: "앨범 초동" },
 ];
 
+const TweetSkeleton: React.FC = () => (
+    <div className="event-tweet-skeleton">
+        <div className="tweet-skeleton-header">
+            <div className="tweet-skeleton-avatar" />
+            <div className="tweet-skeleton-name-group">
+                <div className="tweet-skeleton-name" />
+                <div className="tweet-skeleton-handle" />
+            </div>
+        </div>
+        <div className="tweet-skeleton-body">
+            <div className="tweet-skeleton-line" />
+            <div className="tweet-skeleton-line short" />
+        </div>
+        <div className="tweet-skeleton-image" />
+    </div>
+);
+
 const TweetEmbed: React.FC<{ tweetId: string }> = ({ tweetId }) => {
-    const ref = React.useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const sentinelRef = useRef<HTMLDivElement>(null);
+    const [isVisible, setIsVisible] = useState(false);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        if (!ref.current) return;
-        ref.current.innerHTML = '';
+        const sentinel = sentinelRef.current;
+        if (!sentinel) return;
 
-        const anchor = document.createElement('a');
-        anchor.href = `https://twitter.com/i/status/${tweetId}`;
-        ref.current.appendChild(anchor);
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: '200px' }
+        );
+        observer.observe(sentinel);
+        return () => observer.disconnect();
+    }, []);
 
-        if ((window as any).twttr?.widgets) {
-            (window as any).twttr.widgets.createTweet(tweetId, ref.current, {
+    useEffect(() => {
+        if (!isVisible || !containerRef.current) return;
+        containerRef.current.innerHTML = '';
+
+        const tryCreate = () => {
+            if (!containerRef.current) return;
+            (window as any).twttr.widgets.createTweet(tweetId, containerRef.current, {
                 theme: 'dark',
                 align: 'center',
                 dnt: true,
-            });
-        }
-    }, [tweetId]);
+            }).then(() => setIsLoaded(true));
+        };
 
-    return <div className="event-tweet-container" ref={ref} />;
+        if ((window as any).twttr?.widgets) {
+            tryCreate();
+        } else {
+            document.addEventListener('twttr:loaded', tryCreate, { once: true });
+        }
+    }, [isVisible, tweetId]);
+
+    return (
+        <div className="event-tweet-container" ref={sentinelRef}>
+            {!isLoaded && <TweetSkeleton />}
+            <div ref={containerRef} style={{ display: isLoaded ? 'block' : 'none' }} />
+        </div>
+    );
 };
 
 const Event = () => {
     const [activeCategory, setActiveCategory] = useState<Category>("전체");
 
     const loadTwitterWidget = useCallback(() => {
-        if ((window as any).twttr) return;
+        if ((window as any).twttr?.widgets) return;
+        (window as any).twttr = (window as any).twttr || {};
         const script = document.createElement('script');
         script.src = 'https://platform.twitter.com/widgets.js';
         script.async = true;
         script.charset = 'utf-8';
+        script.onload = () => {
+            const check = setInterval(() => {
+                if ((window as any).twttr?.widgets) {
+                    clearInterval(check);
+                    document.dispatchEvent(new Event('twttr:loaded'));
+                }
+            }, 100);
+        };
         document.body.appendChild(script);
     }, []);
 
