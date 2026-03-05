@@ -21,7 +21,7 @@ const TWEET_LIST: TweetItem[] = [
     // 다운로드
     { tweetId: "2029460634505466162", category: "다운로드" },
     // 헬퍼
-    { tweetId: "2026650597106266526", category: "헬퍼" },
+    { tweetId: "2026649084564759008", category: "헬퍼" },
     // 앨범 초동
     { tweetId: "2029568985285689619", category: "앨범 초동" },
 ];
@@ -108,7 +108,7 @@ const Event = () => {
             const check = setInterval(() => {
                 if ((window as any).twttr?.widgets) {
                     clearInterval(check);
-                    document.dispatchEvent(new Event('twttr:loaded'));
+                    document.dispatchEvent(new CustomEvent('twttr:loaded'));
                 }
             }, 100);
         };
