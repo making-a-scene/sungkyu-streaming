@@ -2828,3 +2828,105 @@ html, body {
         margin: 0 auto;
     }
 }
+
+/* Event Page Styles */
+.event-page-title-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 24px;
+    gap: 10px;
+    background: #1E1E1E;
+    width: 880px;
+    margin: 0 auto;
+}
+
+.event-title-icon {
+    width: 22px;
+    height: 22px;
+}
+
+.event-title-text {
+    font-family: 'Pretendard';
+    font-weight: 700;
+    font-size: 20px;
+    color: white;
+    letter-spacing: 0.4px;
+    line-height: 14px;
+}
+
+.event-main {
+    padding-top: 0;
+}
+
+.event-filter-bar {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    gap: 0;
+}
+
+.event-filter-pill {
+    padding: 8px 12px;
+    font-family: 'Pretendard';
+    font-weight: 600;
+    font-size: 14px;
+    color: #696969;
+    cursor: pointer;
+    border-radius: 8px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+}
+
+.event-filter-pill.active {
+    background: #313131;
+    color: white;
+}
+
+.event-tweet-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 8px 0 24px;
+}
+
+.event-tweet-container {
+    width: 100%;
+    max-width: 550px;
+}
+
+/* 모바일 이벤트 페이지 */
+@media (max-width: 767px) {
+    .event-page-title-section {
+        width: 100%;
+        padding: 16px 24px;
+    }
+
+    .event-filter-bar {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        justify-content: center;
+    }
+
+    .event-filter-bar::-webkit-scrollbar {
+        display: none;
+    }
+}
+
+/* 태블릿 이벤트 페이지 */
+@media (min-width: 768px) and (max-width: 927px) {
+    .event-page-title-section {
+        width: 100%;
+        padding: 16px 30px;
+    }
+}
+
+/* PC 이벤트 페이지 */
+@media (min-width: 928px) {
+    .event-page-title-section {
+        width: 880px;
+    }
+}
