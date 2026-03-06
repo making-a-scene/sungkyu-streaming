@@ -43,80 +43,54 @@ const TweetSkeleton: React.FC = () => (
     </div>
 );
 
-function useSequentialTweetLoader(tweetIds: string[]) {
-    const [loadedSet, setLoadedSet] = useState<Set<string>>(new Set());
-    const containerRefs = useRef<Map<string, HTMLDivElement>>(new Map());
-    const queueRef = useRef<string[]>([]);
-    const loadingRef = useRef(false);
-
-    const setRef = useCallback((id: string, el: HTMLDivElement | null) => {
-        if (el) containerRefs.current.set(id, el);
-        else containerRefs.current.delete(id);
-    }, []);
-
-    const processQueue = useCallback(async () => {
-        if (loadingRef.current) return;
-        loadingRef.current = true;
-
-        while (queueRef.current.length > 0) {
-            const id = queueRef.current.shift()!;
-            const el = containerRefs.current.get(id);
-            if (!el) continue;
-
-            try {
-                await (window as any).twttr.widgets.createTweet(id, el, {
-                    theme: 'dark',
-                    align: 'center',
-                    dnt: true,
-                });
-            } catch { /* skip failed tweet */ }
-            setLoadedSet(prev => new Set(prev).add(id));
-        }
-
-        loadingRef.current = false;
-    }, []);
-
-    const startLoading = useCallback((ids: string[]) => {
-        queueRef.current = [...ids];
-        loadingRef.current = false;
-        setLoadedSet(new Set());
-
-        const tryStart = () => {
-            if ((window as any).twttr?.widgets) {
-                processQueue();
-            } else {
-                document.addEventListener('twttr:loaded', () => processQueue(), { once: true });
-            }
-        };
-        // 약간의 딜레이로 refs가 연결될 시간 확보
-        requestAnimationFrame(tryStart);
-    }, [processQueue]);
+const TweetEmbed: React.FC<{ tweetId: string }> = ({ tweetId }) => {
+    const ref = useRef<HTMLDivElement>(null);
+    const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        startLoading(tweetIds);
-    }, [tweetIds.join(',')]); // eslint-disable-line react-hooks/exhaustive-deps
+        if (!ref.current) return;
+        ref.current.innerHTML = '';
 
-    return { loadedSet, setRef };
-}
+        const anchor = document.createElement('a');
+        anchor.href = `https://twitter.com/i/status/${tweetId}`;
+        ref.current.appendChild(anchor);
+
+        // iframe 삽입을 감지해서 스켈레톤 해제
+        const observer = new MutationObserver(() => {
+            if (ref.current?.querySelector('iframe')) {
+                setIsLoaded(true);
+                observer.disconnect();
+            }
+        });
+        observer.observe(ref.current, { childList: true, subtree: true });
+
+        if ((window as any).twttr?.widgets) {
+            (window as any).twttr.widgets.createTweet(tweetId, ref.current, {
+                theme: 'dark',
+                align: 'center',
+                dnt: true,
+            });
+        }
+
+        return () => observer.disconnect();
+    }, [tweetId]);
+
+    return (
+        <div className="event-tweet-container">
+            {!isLoaded && <TweetSkeleton />}
+            <div ref={ref} style={{ display: isLoaded ? 'block' : 'none' }} />
+        </div>
+    );
+};
 
 const Event = () => {
     const [activeCategory, setActiveCategory] = useState<Category>("전체");
 
     const loadTwitterWidget = useCallback(() => {
-        if ((window as any).twttr?.widgets) return;
-        (window as any).twttr = (window as any).twttr || {};
+        if ((window as any).twttr) return;
         const script = document.createElement('script');
         script.src = 'https://platform.twitter.com/widgets.js';
         script.async = true;
-        script.charset = 'utf-8';
-        script.onload = () => {
-            const check = setInterval(() => {
-                if ((window as any).twttr?.widgets) {
-                    clearInterval(check);
-                    document.dispatchEvent(new CustomEvent('twttr:loaded'));
-                }
-            }, 100);
-        };
         document.body.appendChild(script);
     }, []);
 
@@ -127,9 +101,6 @@ const Event = () => {
     const filteredTweets = activeCategory === "전체"
         ? TWEET_LIST
         : TWEET_LIST.filter(t => t.category === activeCategory);
-
-    const filteredIds = filteredTweets.map(t => t.tweetId);
-    const { loadedSet, setRef } = useSequentialTweetLoader(filteredIds);
 
     return (
         <div className="app">
@@ -151,18 +122,9 @@ const Event = () => {
                     ))}
                 </div>
                 <div className="event-tweet-list">
-                    {filteredTweets.map((tweet) => {
-                        const loaded = loadedSet.has(tweet.tweetId);
-                        return (
-                            <div className="event-tweet-container" key={tweet.tweetId}>
-                                {!loaded && <TweetSkeleton />}
-                                <div
-                                    ref={(el) => setRef(tweet.tweetId, el)}
-                                    style={{ display: loaded ? 'block' : 'none' }}
-                                />
-                            </div>
-                        );
-                    })}
+                    {filteredTweets.map((tweet) => (
+                        <TweetEmbed key={tweet.tweetId} tweetId={tweet.tweetId} />
+                    ))}
                 </div>
             </main>
             <Footer />
