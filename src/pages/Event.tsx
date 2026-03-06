@@ -43,56 +43,61 @@ const TweetSkeleton: React.FC = () => (
     </div>
 );
 
-const TweetEmbed: React.FC<{ tweetId: string }> = ({ tweetId }) => {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const sentinelRef = useRef<HTMLDivElement>(null);
-    const [isVisible, setIsVisible] = useState(false);
-    const [isLoaded, setIsLoaded] = useState(false);
+function useSequentialTweetLoader(tweetIds: string[]) {
+    const [loadedSet, setLoadedSet] = useState<Set<string>>(new Set());
+    const containerRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+    const queueRef = useRef<string[]>([]);
+    const loadingRef = useRef(false);
 
-    useEffect(() => {
-        const sentinel = sentinelRef.current;
-        if (!sentinel) return;
-
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                    observer.disconnect();
-                }
-            },
-            { rootMargin: '200px' }
-        );
-        observer.observe(sentinel);
-        return () => observer.disconnect();
+    const setRef = useCallback((id: string, el: HTMLDivElement | null) => {
+        if (el) containerRefs.current.set(id, el);
+        else containerRefs.current.delete(id);
     }, []);
 
-    useEffect(() => {
-        if (!isVisible || !containerRef.current) return;
-        containerRef.current.innerHTML = '';
+    const processQueue = useCallback(async () => {
+        if (loadingRef.current) return;
+        loadingRef.current = true;
 
-        const tryCreate = () => {
-            if (!containerRef.current) return;
-            (window as any).twttr.widgets.createTweet(tweetId, containerRef.current, {
-                theme: 'dark',
-                align: 'center',
-                dnt: true,
-            }).then(() => setIsLoaded(true));
-        };
+        while (queueRef.current.length > 0) {
+            const id = queueRef.current.shift()!;
+            const el = containerRefs.current.get(id);
+            if (!el) continue;
 
-        if ((window as any).twttr?.widgets) {
-            tryCreate();
-        } else {
-            document.addEventListener('twttr:loaded', tryCreate, { once: true });
+            try {
+                await (window as any).twttr.widgets.createTweet(id, el, {
+                    theme: 'dark',
+                    align: 'center',
+                    dnt: true,
+                });
+            } catch { /* skip failed tweet */ }
+            setLoadedSet(prev => new Set(prev).add(id));
         }
-    }, [isVisible, tweetId]);
 
-    return (
-        <div className="event-tweet-container" ref={sentinelRef}>
-            {!isLoaded && <TweetSkeleton />}
-            <div ref={containerRef} style={{ display: isLoaded ? 'block' : 'none' }} />
-        </div>
-    );
-};
+        loadingRef.current = false;
+    }, []);
+
+    const startLoading = useCallback((ids: string[]) => {
+        queueRef.current = [...ids];
+        loadingRef.current = false;
+        setLoadedSet(new Set());
+
+        const tryStart = () => {
+            if ((window as any).twttr?.widgets) {
+                processQueue();
+            } else {
+                document.addEventListener('twttr:loaded', () => processQueue(), { once: true });
+            }
+        };
+        // 약간의 딜레이로 refs가 연결될 시간 확보
+        requestAnimationFrame(tryStart);
+    }, [processQueue]);
+
+    useEffect(() => {
+        startLoading(tweetIds);
+    }, [tweetIds.join(',')]); // eslint-disable-line react-hooks/exhaustive-deps
+
+    return { loadedSet, setRef };
+}
 
 const Event = () => {
     const [activeCategory, setActiveCategory] = useState<Category>("전체");
@@ -123,6 +128,9 @@ const Event = () => {
         ? TWEET_LIST
         : TWEET_LIST.filter(t => t.category === activeCategory);
 
+    const filteredIds = filteredTweets.map(t => t.tweetId);
+    const { loadedSet, setRef } = useSequentialTweetLoader(filteredIds);
+
     return (
         <div className="app">
             <Header />
@@ -143,9 +151,18 @@ const Event = () => {
                     ))}
                 </div>
                 <div className="event-tweet-list">
-                    {filteredTweets.map((tweet) => (
-                        <TweetEmbed key={tweet.tweetId} tweetId={tweet.tweetId} />
-                    ))}
+                    {filteredTweets.map((tweet) => {
+                        const loaded = loadedSet.has(tweet.tweetId);
+                        return (
+                            <div className="event-tweet-container" key={tweet.tweetId}>
+                                {!loaded && <TweetSkeleton />}
+                                <div
+                                    ref={(el) => setRef(tweet.tweetId, el)}
+                                    style={{ display: loaded ? 'block' : 'none' }}
+                                />
+                            </div>
+                        );
+                    })}
                 </div>
             </main>
             <Footer />
