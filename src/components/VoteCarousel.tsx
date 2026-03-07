@@ -152,7 +152,7 @@ const VoteCarousel: React.FC = () => {
                     {filteredList.length > 0 ? (
                         <>
                             {filteredList.map((info, i) => (
-                                <VoteCard key={i} info={info} />
+                                <VoteCard key={info.title} info={info} />
                             ))}
                             <div className="vote-carousel-spacer" />
                         </>
