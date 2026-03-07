@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
 import ImagePopup from './ImagePopup';
+import {track} from "@vercel/analytics/react";
 
 const ALBUM_NAME = "OFF THE MAP";
 
