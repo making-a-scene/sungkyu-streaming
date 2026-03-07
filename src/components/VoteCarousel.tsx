@@ -152,12 +152,9 @@ const VoteCarousel: React.FC = () => {
                     onMouseLeave={onMouseUp}
                 >
                     {filteredList.length > 0 ? (
-                        <>
-                            {filteredList.map((info, i) => (
-                                <VoteCard key={info.title} info={info} />
-                            ))}
-                            <div className="vote-carousel-spacer" />
-                        </>
+                        filteredList.map((info, i) => (
+                            <VoteCard key={info.title} info={info} />
+                        ))
                     ) : (
                         <div className="vote-carousel-empty">해당하는 투표가 없습니다.</div>
                     )}

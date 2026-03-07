@@ -3060,19 +3060,15 @@ html, body {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding: 0 20px;
-    width: 100%;
+    padding-left: 24px;
+    margin: 0 -24px;
+    width: calc(100% + 48px);
     cursor: grab;
     user-select: none;
 }
 
 .vote-carousel-scroll::-webkit-scrollbar {
     display: none;
-}
-
-.vote-carousel-spacer {
-    flex-shrink: 0;
-    width: calc(100% - 278px - 20px);
 }
 
 .vote-carousel-empty {
