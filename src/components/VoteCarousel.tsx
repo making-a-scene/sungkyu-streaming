@@ -152,7 +152,7 @@ const VoteCarousel: React.FC = () => {
                     onMouseLeave={onMouseUp}
                 >
                     {filteredList.length > 0 ? (
-                        filteredList.map((info, i) => (
+                        filteredList.map((info) => (
                             <VoteCard key={info.title} info={info} />
                         ))
                     ) : (

@@ -3060,9 +3060,8 @@ html, body {
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
-    padding-left: 24px;
-    margin: 0 -24px;
-    width: calc(100% + 48px);
+    padding: 0 20px;
+    width: 100%;
     cursor: grab;
     user-select: none;
 }
