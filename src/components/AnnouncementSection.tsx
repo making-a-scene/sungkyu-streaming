@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css';
+import ImagePopup from './ImagePopup';
 
 const AnnouncementSection: React.FC = () => {
     const [popupImage, setPopupImage] = useState<string | null>(null);
@@ -35,14 +36,7 @@ const AnnouncementSection: React.FC = () => {
             </div>
 
             {popupImage && (
-                <div className="image-popup-overlay" onClick={() => setPopupImage(null)}>
-                    <div className="image-popup-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="image-popup-close" onClick={() => setPopupImage(null)}>
-                            <img src={process.env.PUBLIC_URL + '/close-icon.svg'} alt="닫기" />
-                        </button>
-                        <img src={popupImage} alt="" className="image-popup-img" />
-                    </div>
-                </div>
+                <ImagePopup imageSrc={popupImage} onClose={() => setPopupImage(null)} />
             )}
         </div>
     );

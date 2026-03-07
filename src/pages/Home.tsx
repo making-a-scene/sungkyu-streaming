@@ -11,6 +11,7 @@ import StreamingPills from '../components/StreamingPills';
 import StreamingCounter from '../components/StreamingCounter';
 import GuideGrid from '../components/GuideGrid';
 import RadioSchedule from '../components/RadioSchedule';
+import VoteCarousel from '../components/VoteCarousel';
 
 const Home = () => {
     return (
@@ -25,6 +26,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="home-bottom-group">
+                    <VoteCarousel />
                     <AnnouncementSection />
                     <StreamingPills />
                     <StreamingCounter releaseKST={new Date('2026-03-02T18:00:00+09:00')} songName="널 떠올리면" />
