@@ -27,6 +27,8 @@ const VoteCarousel: React.FC = () => {
                 return !isExpired;
             case 'ended':
                 return isExpired;
+            default:
+                return false;
         }
     }).sort((a, b) => a.dueDate.getTime() - b.dueDate.getTime());
 
