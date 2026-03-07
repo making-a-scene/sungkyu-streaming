@@ -135,7 +135,9 @@ const VoteCard: React.FC<VoteCardProps> = ({ info }) => {
                         <span className="vote-card-countdown-time">{timeLeft}</span>
                     </div>
                     {info.votingLink && (
-                        <a href={info.votingLink} target="_blank" rel="noreferrer" className="vote-card-button">
+                        <a href={info.votingLink} target="_blank" rel="noreferrer" className="vote-card-button" onClick={() => {
+                            track('vote');
+                        }}>
                             투표하기
                         </a>
                     )}
