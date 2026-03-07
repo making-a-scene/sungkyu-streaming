@@ -15,11 +15,11 @@ export type VotingInfo = {
 }
 
 export const VOTING_INFO_LIST: VotingInfo[] = [
-    { title: "뮤직뱅크 · 팬 스테이지 픽", description: "🏆1위 시, Fan's Stage Pick 트로피 수여", method: "Fancast 앱, 무제한 투표, 무료/유료 재화", dueDate: new Date('2026-03-12T17:00:00+09:00'), guideImgPath: "/guide-vote-musicbank.png", votingLink: "https://fancast.go.link/d8UJW", isImportant: true },
+    { title: "뮤직뱅크 · 팬 스테이지 픽", description: "🏆 1위 시, Fan's Stage Pick 트로피 수여", method: "Fancast 앱, 무제한 투표, 무료/유료 재화", dueDate: new Date('2026-03-12T17:00:00+09:00'), guideImgPath: "/guide-vote-musicbank.png", votingLink: "https://fancast.go.link/d8UJW", isImportant: true },
     { title: "엠카운트다운 · 사전투표", description: "엠카운트다운 차트 집계 10% 반영", method: "엠넷플러스 앱, 매일 최대 5표, 다계정 가능", dueDate: new Date('2026-03-10T23:59:59+09:00'), guideImgPath: "/guide-vote-mcd.png", votingLink: "https://mnetplus.onelink.me/TRa8/t9zck1c1?custom_link_value=vote%2Fv2%2F69a7e47c7f785f2002486a45", isImportant: false },
     { title: "쇼챔피언 · 사전투표", description: "쇼챔피언 차트 집계 20% 반영", method: "아이돌챔프 앱, 무제한 투표, 무료/유료 재화,\n다계정 가능", dueDate: new Date('2026-03-09T14:59:59+09:00'), guideImgPath: "/guide-vote-showchamp.png", votingLink: "https://promo-web.idolchamp.com/app_proxy.html?deeplink=https%3A%2F%2Fapp.idolchamp.com%2Fopen%2Fvote%2F01KJTF316DSMV3VZG77SK3BPFE", isImportant: false },
-    { title: "음중 · STAGE M PICK", description: "🏆1위 시, STAGE M PICK 트로피 수여", method: "Muniverse 어플(권장) 또는 웹사이트,\n무제한 투표, 무료/유료 재화, 다계정 가능", dueDate: new Date('2026-03-12T11:00:00+09:00'), guideImgPath: "/guide-vote-musiccore.png", votingLink: "https://www.muniverse.io/votes/e9fc0a7c-9061-41ce-8ec1-973ba8835e9c", isImportant: true },
-    { title: "엠카 · 엠카PICK 스테이지", description: "🏆1위 시, 비하인드 영상 공개 + 먼슬리 후보", method: "엠넷플러스 앱, 매일 최대 5표, 다계정 가능,\n무제한 집계 영상 조회수와 합산", dueDate: new Date('2026-03-09T11:59:59+09:00'), guideImgPath: "/guide-vote-mcd-stage.png", votingLink: "https://mnetplus.onelink.me/TRa8/t9zck1c1?custom_link_value=vote%2Fv2%2F69a64417362edd561ed06d86", isImportant: true },
+    { title: "음중 · STAGE M PICK", description: "🏆 1위 시, STAGE M PICK 트로피 수여", method: "Muniverse 어플(권장) 또는 웹사이트,\n무제한 투표, 무료/유료 재화, 다계정 가능", dueDate: new Date('2026-03-12T11:00:00+09:00'), guideImgPath: "/guide-vote-musiccore.png", votingLink: "https://www.muniverse.io/votes/e9fc0a7c-9061-41ce-8ec1-973ba8835e9c", isImportant: true },
+    { title: "엠카 · 엠카PICK 스테이지", description: "🏆 1위 시, 비하인드 영상 공개 + 먼슬리 후보", method: "엠넷플러스 앱, 매일 최대 5표, 다계정 가능,\n무제한 집계 영상 조회수와 합산", dueDate: new Date('2026-03-09T11:59:59+09:00'), guideImgPath: "/guide-vote-mcd-stage.png", votingLink: "https://mnetplus.onelink.me/TRa8/t9zck1c1?custom_link_value=vote%2Fv2%2F69a64417362edd561ed06d86", isImportant: true },
     { title: "인기가요 · 사전투표", description: "인기가요 차트 집계 5% 반영", method: "LiNC 앱, 매일 최대 10표, 다계정 가능", dueDate: new Date('2026-03-06T23:59:59+09:00'), guideImgPath: "", votingLink: "", isImportant: false }
 ];
 
