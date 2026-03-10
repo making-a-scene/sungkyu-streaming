@@ -48,11 +48,12 @@ const TweetEmbed: React.FC<{ tweetId: string; ready: boolean }> = ({ tweetId, re
         anchor.href = `https://twitter.com/i/status/${tweetId}`;
         ref.current.appendChild(anchor);
 
-        // iframe 삽입을 감지해서 스켈레톤 해제
+        // iframe이 삽입되면 load 이벤트를 기다려서 콘텐츠 렌더 완료 후 스켈레톤 해제
         const observer = new MutationObserver(() => {
-            if (ref.current?.querySelector('iframe')) {
-                setIsLoaded(true);
+            const iframe = ref.current?.querySelector('iframe');
+            if (iframe) {
                 observer.disconnect();
+                iframe.addEventListener('load', () => setIsLoaded(true));
             }
         });
         observer.observe(ref.current, { childList: true, subtree: true });
