@@ -1,9 +1,9 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import '../App.css';
 
-const EVENT_CATEGORIES = ["전체", "스트리밍", "다운로드", "앨범 초동", "헬퍼"] as const;
+const EVENT_CATEGORIES = ["전체", "핫스테이지 투표"] as const;
 type Category = typeof EVENT_CATEGORIES[number];
 
 interface TweetItem {
@@ -12,18 +12,11 @@ interface TweetItem {
 }
 
 const TWEET_LIST: TweetItem[] = [
-    // 스트리밍
-    { tweetId: "2029518660063441366", category: "스트리밍" },
-    { tweetId: "2029366271805145398", category: "스트리밍" },
-    { tweetId: "2029454809552830491", category: "스트리밍" },
-    { tweetId: "2029449466902966439", category: "스트리밍" },
-    { tweetId: "2029205893469102515", category: "스트리밍" },
-    // 다운로드
-    { tweetId: "2029460634505466162", category: "다운로드" },
-    // 헬퍼
-    { tweetId: "2026649084564759008", category: "헬퍼" },
-    // 앨범 초동
-    { tweetId: "2029568985285689619", category: "앨범 초동" },
+    // 핫스테이지 투표
+    { tweetId: "2031202345372233831", category: "핫스테이지 투표" },
+    { tweetId: "2031004486601502817", category: "핫스테이지 투표" },
+    { tweetId: "2031264566605394309", category: "핫스테이지 투표" },
+    { tweetId: "2031308885928325472", category: "핫스테이지 투표" }
 ];
 
 const TweetSkeleton: React.FC = () => (
@@ -43,12 +36,12 @@ const TweetSkeleton: React.FC = () => (
     </div>
 );
 
-const TweetEmbed: React.FC<{ tweetId: string }> = ({ tweetId }) => {
+const TweetEmbed: React.FC<{ tweetId: string; ready: boolean }> = ({ tweetId, ready }) => {
     const ref = useRef<HTMLDivElement>(null);
     const [isLoaded, setIsLoaded] = useState(false);
 
     useEffect(() => {
-        if (!ref.current) return;
+        if (!ref.current || !ready) return;
         ref.current.innerHTML = '';
 
         const anchor = document.createElement('a');
@@ -64,16 +57,14 @@ const TweetEmbed: React.FC<{ tweetId: string }> = ({ tweetId }) => {
         });
         observer.observe(ref.current, { childList: true, subtree: true });
 
-        if ((window as any).twttr?.widgets) {
-            (window as any).twttr.widgets.createTweet(tweetId, ref.current, {
-                theme: 'dark',
-                align: 'center',
-                dnt: true,
-            });
-        }
+        (window as any).twttr.widgets.createTweet(tweetId, ref.current, {
+            theme: 'dark',
+            align: 'center',
+            dnt: true,
+        });
 
         return () => observer.disconnect();
-    }, [tweetId]);
+    }, [tweetId, ready]);
 
     return (
         <div className="event-tweet-container">
@@ -85,18 +76,21 @@ const TweetEmbed: React.FC<{ tweetId: string }> = ({ tweetId }) => {
 
 const Event = () => {
     const [activeCategory, setActiveCategory] = useState<Category>("전체");
+    const [twttrReady, setTwttrReady] = useState(false);
 
-    const loadTwitterWidget = useCallback(() => {
-        if ((window as any).twttr) return;
+    useEffect(() => {
+        if ((window as any).twttr?.widgets) {
+            setTwttrReady(true);
+            return;
+        }
         const script = document.createElement('script');
         script.src = 'https://platform.twitter.com/widgets.js';
         script.async = true;
         document.body.appendChild(script);
+        script.onload = () => {
+            (window as any).twttr?.ready?.(() => setTwttrReady(true));
+        };
     }, []);
-
-    useEffect(() => {
-        loadTwitterWidget();
-    }, [loadTwitterWidget]);
 
     const filteredTweets = activeCategory === "전체"
         ? TWEET_LIST
@@ -123,7 +117,7 @@ const Event = () => {
                 </div>
                 <div className="event-tweet-list">
                     {filteredTweets.map((tweet) => (
-                        <TweetEmbed key={tweet.tweetId} tweetId={tweet.tweetId} />
+                        <TweetEmbed key={tweet.tweetId} tweetId={tweet.tweetId} ready={twttrReady} />
                     ))}
                 </div>
             </main>
