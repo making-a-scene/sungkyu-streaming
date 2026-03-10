@@ -13,8 +13,8 @@ interface TweetItem {
 
 const TWEET_LIST: TweetItem[] = [
     // 핫스테이지 투표
-    { tweetId: "2031202345372233831", category: "핫스테이지 투표" },
     { tweetId: "2031004486601502817", category: "핫스테이지 투표" },
+    { tweetId: "2031202345372233831", category: "핫스테이지 투표" },
     { tweetId: "2031264566605394309", category: "핫스테이지 투표" },
     { tweetId: "2031308885928325472", category: "핫스테이지 투표" }
 ];
