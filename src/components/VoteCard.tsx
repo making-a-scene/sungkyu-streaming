@@ -23,7 +23,7 @@ export const VOTING_INFO_LIST: VotingInfo[] = [
     { title: "엠카 · 엠카PICK 스테이지", description: "1위 시, 비하인드 영상 공개 + 먼슬리 후보", method: "엠넷플러스 앱, 매일 최대 5표, 다계정 가능,\n무제한 집계 영상 조회수와 합산", dueDate: new Date('2026-03-09T11:59:59+09:00'), guideImgPath: "/guide-vote-mcd-stage.png", votingLink: "https://mnetplus.onelink.me/TRa8/t9zck1c1?custom_link_value=vote%2Fv2%2F69a64417362edd561ed06d86", isImportant: false },
     { title: "인기가요 · 사전투표", description: "인기가요 차트 집계 5% 반영", method: "LiNC 앱, 매일 최대 10표, 다계정 가능", dueDate: new Date('2026-03-06T23:59:59+09:00'), guideImgPath: "", votingLink: "", isImportant: false },
     { title: "인기가요 · 핫스테이지", description: "🏆 1위 시, HOT STAGE 트로피 수여", method: "Higher 앱, 무료/유료 재화, 다계정 가능", dueDate: new Date('2026-03-12T12:00:00+09:00'), guideImgPath: "/guide-vote-inga-stage.png", votingLink: "https://higher.fan/app/hotstage/69a64e77ff3a685c72da29d2?params=eyJ0aXRsZSI6IlsxMzAx7ZqMXSDtlavsiqTthYzsnbTsp4Ag7Yis7ZGcIiwiZGVzY3JpcHRpb24iOiIyMDI2LiAwMy4gMDggMTY6MjUgfiAyMDI2LiAwMy4gMTIgMTI6MDAiLCJpbWFnZSI6Imh0dHBzOi8vY2RuLmhpZ2hlci5mYW4vdXBsb2Fkcy92b3RpbmdfZXZlbnQvY21tYTBva25rMDAwdDAxY2ZmbHZ3MDBnNy0xNzcyNTA2NjI5Nzc2LndlYnAifQ", isImportant: true },
-    { title: "음중 · 글로벌 사전투표", description: "쇼!음악중심 차트 집계 5% 반영", method: "뮤빗 앱, 무제한 투표, 다계정 가능\n투표 1회당 3하트비트", dueDate: new Date('2026-03-12T11:00:00+09:00'), guideImgPath: "/guide-vote-musiccore.png", votingLink: "https://mubeat.applink.info/F9Pr79gr0U", isImportant: false }
+    { title: "음중 · 글로벌 사전투표", description: "쇼!음악중심 차트 집계 5% 반영", method: "뮤빗 앱, 무제한 투표, 다계정 가능\n투표 1회당 3하트비트", dueDate: new Date('2026-03-12T11:00:00+09:00'), guideImgPath: "/guide-vote-musiccore.jpeg", votingLink: "https://mubeat.applink.info/F9Pr79gr0U", isImportant: false }
 
 ];
 
