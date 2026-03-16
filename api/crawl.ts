@@ -42,17 +42,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         previous = JSON.parse(prevEntries[0].value);
       }
 
-      let tweetText: string | null = null;
+      let tweetText: string | null;
       const currentTime = new Date();
 
-      if (currentTime < OLD_FORMAT_END) {
-        // 기존 포맷: 모든 차트 포스팅
-        tweetText = formatTweet(data, previous);
-      } else if (currentTime >= NEW_FORMAT_START) {
-        // 새 포맷: 차트인된 차트만 포스팅
-        tweetText = formatChartInTweet(data, previous);
-      }
-      // OLD_FORMAT_END ~ NEW_FORMAT_START 사이는 포스팅 중지
+      tweetText = formatChartInTweet(data, previous); // 차트인한 차트만 트윗
 
       if (tweetText) {
         await postTweet(tweetText);

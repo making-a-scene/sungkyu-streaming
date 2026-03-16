@@ -78,29 +78,6 @@ export function formatChartInTweet(current: CrawlData, previous: CrawlData | nul
     }
   }
 
-  // YouTube MV view count
-  const titleVideo = current.youtube.find((v) =>
-    v.title.toLowerCase().includes(TITLE_SONG.toLowerCase()),
-  );
-  if (titleVideo) {
-    lines.push('');
-
-    let mvLine = `MV ${formatViewCount(titleVideo.viewCount)}회`;
-    if (previous) {
-      const prevVideo = previous.youtube.find((v) =>
-        v.title.toLowerCase().includes(TITLE_SONG.toLowerCase()),
-      );
-      if (prevVideo) {
-        const viewDiff = titleVideo.viewCount - prevVideo.viewCount;
-        if (viewDiff > 0) {
-          mvLine += ` (🔺${formatViewCount(viewDiff)})`;
-        }
-      }
-    }
-
-    lines.push(mvLine);
-  }
-
   // Footer hashtags
   lines.push('');
   lines.push('#김성규 #KIMSUNGKYU #OFFTHEMAP');
