@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { createClient } from 'redis';
 import { crawlAll, type CrawlData } from '../lib/crawlers';
-import { formatTweet } from '../lib/tweet-formatter';
+import { formatTweet, formatChartInTweet } from '../lib/tweet-formatter';
 import { postTweet } from '../lib/twitter';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -18,10 +18,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     await redis.zAdd('charts:history', { score: now, value: json });
     await redis.zRemRangeByScore('charts:history', 0, now - THIRTY_DAYS);
 
-    // KST 오전 1시~6시 사이에는 트윗 포스팅 중지
-    const kstHour = new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul', hour: 'numeric', hour12: false });
-    const hour = parseInt(kstHour, 10);
+    // KST 시간 계산
+    const kstNow = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Seoul' }));
+    const hour = kstNow.getHours();
     const isSilentHour = hour >= 2 && hour <= 6;
+
+    // 트윗 포맷 전환 시점
+    const OLD_FORMAT_END = new Date('2026-03-17T01:00:00+09:00');   // 기존 포맷 마지막
+    const NEW_FORMAT_START = new Date('2026-03-17T07:00:00+09:00'); // 새 포맷 시작
 
     let tweeted = false;
     if (isSilentHour) {
@@ -38,9 +42,26 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         previous = JSON.parse(prevEntries[0].value);
       }
 
-      const tweetText = formatTweet(data, previous);
-      await postTweet(tweetText);
-      tweeted = true;
+      let tweetText: string | null = null;
+      const currentTime = new Date();
+
+      if (currentTime < OLD_FORMAT_END) {
+        // 기존 포맷: 모든 차트 포스팅
+        tweetText = formatTweet(data, previous);
+      } else if (currentTime >= NEW_FORMAT_START) {
+        // 새 포맷: 차트인된 차트만 포스팅
+        tweetText = formatChartInTweet(data, previous);
+      }
+      // OLD_FORMAT_END ~ NEW_FORMAT_START 사이는 포스팅 중지
+
+      if (tweetText) {
+        await postTweet(tweetText);
+        tweeted = true;
+      } else if (currentTime >= OLD_FORMAT_END && currentTime < NEW_FORMAT_START) {
+        console.log('Skipping tweet: transition period (01:00~07:00 KST 2026-03-17)');
+      } else {
+        console.log('Skipping tweet: no charts currently charting');
+      }
     } catch (tweetError) {
       console.error('Tweet failed:', tweetError);
     }

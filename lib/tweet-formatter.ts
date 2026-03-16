@@ -34,6 +34,81 @@ function parseDateTime(updatedAt: string): { dateStr: string; hour: number } {
   };
 }
 
+/**
+ * 차트인된 차트만 포함하여 트윗 포맷팅.
+ * 하나도 차트인되어 있지 않으면 null 반환.
+ */
+export function formatChartInTweet(current: CrawlData, previous: CrawlData | null): string | null {
+  const { dateStr, hour } = parseDateTime(current.updated_at);
+  const hashtag = `#${TITLE_SONG.replace(/ /g, '')}`;
+
+  // 차트인된 차트만 필터링
+  const chartInCharts = current.charts.filter((chart) => findTitleSongRank(chart) !== null);
+
+  if (chartInCharts.length === 0) {
+    return null;
+  }
+
+  const lines: string[] = [];
+
+  // Header
+  lines.push(`${dateStr} ${hour}시`);
+  lines.push(`김성규 ${hashtag} 음원 차트 순위`);
+  lines.push('');
+
+  // Chart lines (차트인된 것만)
+  for (const chart of chartInCharts) {
+    const currentRank = findTitleSongRank(chart)!;
+
+    let previousRank: number | null = null;
+    if (previous) {
+      const prevChart = previous.charts.find((c) => c.chart_name === chart.chart_name);
+      if (prevChart) {
+        previousRank = findTitleSongRank(prevChart);
+      }
+    }
+
+    const rankStr = `${currentRank}위`;
+    const changeStr = formatRankChange(currentRank, previousRank);
+
+    if (changeStr !== null) {
+      lines.push(`${chart.chart_name} ${rankStr} (${changeStr})`);
+    } else {
+      lines.push(`${chart.chart_name} ${rankStr}`);
+    }
+  }
+
+  // YouTube MV view count
+  const titleVideo = current.youtube.find((v) =>
+    v.title.toLowerCase().includes(TITLE_SONG.toLowerCase()),
+  );
+  if (titleVideo) {
+    lines.push('');
+
+    let mvLine = `MV ${formatViewCount(titleVideo.viewCount)}회`;
+    if (previous) {
+      const prevVideo = previous.youtube.find((v) =>
+        v.title.toLowerCase().includes(TITLE_SONG.toLowerCase()),
+      );
+      if (prevVideo) {
+        const viewDiff = titleVideo.viewCount - prevVideo.viewCount;
+        if (viewDiff > 0) {
+          mvLine += ` (🔺${formatViewCount(viewDiff)})`;
+        }
+      }
+    }
+
+    lines.push(mvLine);
+  }
+
+  // Footer hashtags
+  lines.push('');
+  lines.push('#김성규 #KIMSUNGKYU #OFFTHEMAP');
+
+  return lines.join('\n');
+}
+
+/** 모든 차트를 포함하여 트윗 포맷팅 (차트인 여부 무관). */
 export function formatTweet(current: CrawlData, previous: CrawlData | null): string {
   const { dateStr, hour } = parseDateTime(current.updated_at);
   const hashtag = `#${TITLE_SONG.replace(/ /g, '')}`;
