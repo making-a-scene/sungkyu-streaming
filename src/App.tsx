@@ -19,6 +19,7 @@ import Streaming from "./pages/guide/Streaming";
 import Download from "./pages/guide/Download";
 import Guide from "./pages/Guide";
 import Event from "./pages/Event";
+import LV from "./pages/LV";
 
 // Main App Component
 function App() {
@@ -42,6 +43,7 @@ function App() {
                 <Route path="/guide/cheering" element={<Cheering />} />
                 <Route path="/chart" element={<Chart />} />
                 <Route path="/event" element={<Event />}/>
+                <Route path="/lv4" element={<LV />}/>
             </Routes>
             <BottomNav />
             <Analytics />
