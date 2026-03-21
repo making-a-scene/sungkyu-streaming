@@ -21,7 +21,6 @@ const Home = () => {
                 <div className="home-top-group">
                     <YoutubeBanner youtubeSrc="https://www.youtube.com/embed/bK_1FZYO0pg" />
                     <div className="home-countdown-section">
-                        <CountdownTimer releaseKST={new Date('2026-03-02T18:00:00+09:00')} albumName="6th Mini Album [OFF THE MAP]"/>
                         <ActionButtons />
                     </div>
                 </div>
