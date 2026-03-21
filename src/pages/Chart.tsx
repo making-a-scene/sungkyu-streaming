@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import '../App.css';
 import Header from "../components/Header";
+import PageTitle from "../components/PageTitle";
 import Footer from "../components/Footer";
 import axios from "axios";
 import MusicChartView from "../components/MusicChartView";
@@ -111,10 +112,7 @@ const Chart: React.FC = () => {
     return (
         <div className="app">
             <Header />
-            <div className="chart-page-title-section">
-                <img src="/chart-icon-filled.svg" alt="" className="chart-title-icon" />
-                <span className="chart-title-text">차트</span>
-            </div>
+            <PageTitle icon="/chart-icon-filled.svg" title="차트" />
             <main className="main-content chart-main">
                 <div className="chart-tab-bar">
                     <div

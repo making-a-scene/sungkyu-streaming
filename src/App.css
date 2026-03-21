@@ -1212,8 +1212,8 @@ html, body {
     opacity: 0.1;
 }
 
-/* Chart Page Styles */
-.chart-page-title-section {
+/* Page Title */
+.page-title-section {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1224,12 +1224,12 @@ html, body {
     margin: 0 auto;
 }
 
-.chart-title-icon {
+.page-title-icon {
     width: 22px;
     height: 22px;
 }
 
-.chart-title-text {
+.page-title-text {
     font-family: 'Pretendard';
     font-weight: 700;
     font-size: 20px;
@@ -1237,6 +1237,8 @@ html, body {
     letter-spacing: 0.4px;
     line-height: 14px;
 }
+
+/* Chart Page Styles */
 
 .chart-main {
     padding-top: 0;
@@ -1601,7 +1603,7 @@ html, body {
 
 /* 모바일 차트 페이지 */
 @media (max-width: 767px) {
-    .chart-page-title-section {
+    .page-title-section {
         width: 100%;
         padding: 16px 24px;
     }
@@ -1621,7 +1623,7 @@ html, body {
 
 /* 태블릿 차트 페이지 */
 @media (min-width: 768px) and (max-width: 927px) {
-    .chart-page-title-section {
+    .page-title-section {
         width: 100%;
         padding: 16px 30px;
     }
@@ -1629,7 +1631,7 @@ html, body {
 
 /* PC 차트 페이지 */
 @media (min-width: 928px) {
-    .chart-page-title-section {
+    .page-title-section {
         width: 880px;
     }
 }
@@ -2832,31 +2834,6 @@ html, body {
 }
 
 /* Event Page Styles */
-.event-page-title-section {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 24px;
-    gap: 10px;
-    background: #1E1E1E;
-    width: 880px;
-    margin: 0 auto;
-}
-
-.event-title-icon {
-    width: 22px;
-    height: 22px;
-}
-
-.event-title-text {
-    font-family: 'Pretendard';
-    font-weight: 700;
-    font-size: 20px;
-    color: white;
-    letter-spacing: 0.4px;
-    line-height: 14px;
-}
-
 .event-main {
     padding-top: 0;
 }
@@ -2900,11 +2877,6 @@ html, body {
 
 /* 모바일 이벤트 페이지 */
 @media (max-width: 767px) {
-    .event-page-title-section {
-        width: 100%;
-        padding: 16px 24px;
-    }
-
     .event-filter-bar {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
@@ -2915,21 +2887,6 @@ html, body {
 
     .event-filter-bar::-webkit-scrollbar {
         display: none;
-    }
-}
-
-/* 태블릿 이벤트 페이지 */
-@media (min-width: 768px) and (max-width: 927px) {
-    .event-page-title-section {
-        width: 100%;
-        padding: 16px 30px;
-    }
-}
-
-/* PC 이벤트 페이지 */
-@media (min-width: 928px) {
-    .event-page-title-section {
-        width: 880px;
     }
 }
 

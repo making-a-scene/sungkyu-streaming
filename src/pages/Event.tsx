@@ -1,4 +1,5 @@
 import Header from "../components/Header";
+import PageTitle from "../components/PageTitle";
 import Footer from "../components/Footer";
 import React, { useState, useEffect, useRef } from "react";
 import '../App.css';
@@ -100,10 +101,7 @@ const Event = () => {
     return (
         <div className="app">
             <Header />
-            <div className="event-page-title-section">
-                <img src="/event-icon-filled.svg" alt="" className="event-title-icon" />
-                <span className="event-title-text">이벤트</span>
-            </div>
+            <PageTitle icon="/event-icon-filled.svg" title="이벤트" />
             <main className="main-content event-main">
                 <div className="event-filter-bar">
                     {EVENT_CATEGORIES.map((cat) => (
