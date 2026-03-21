@@ -25,7 +25,6 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="home-bottom-group">
-                    <VoteCarousel />
                     <AnnouncementSection />
                     <StreamingPills />
                     <StreamingCounter releaseKST={new Date('2026-03-02T18:00:00+09:00')} songName="널 떠올리면" />
