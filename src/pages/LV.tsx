@@ -9,6 +9,14 @@ import '../App.css';
 const CONCERT_TABS = ["첫콘(3/27)", "중콘(3/28)", "막콘(3/29)"] as const;
 type ConcertTab = typeof CONCERT_TABS[number];
 
+function rotateByKSTHour<T>(arr: T[]): T[] {
+    if (arr.length === 0) return arr;
+    const now = new Date();
+    const kstHour = (now.getUTCHours() + 9) % 24;
+    const offset = kstHour % arr.length;
+    return [...arr.slice(offset), ...arr.slice(0, offset)];
+}
+
 const GIVEAWAY_TWEETS: Record<ConcertTab, string[]> = {
     "첫콘(3/27)": [
         "2034580124218396851",
@@ -105,7 +113,7 @@ const LV = () => {
                     </div>
                     <TweetEmbedList
                         key={activeTab}
-                        tweetIds={GIVEAWAY_TWEETS[activeTab]}
+                        tweetIds={rotateByKSTHour(GIVEAWAY_TWEETS[activeTab])}
                         pageSize={3}
                     />
                 </div>
