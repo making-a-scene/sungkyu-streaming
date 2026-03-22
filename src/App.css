@@ -2972,7 +2972,11 @@ html, body {
 
 /* LV4 Page */
 .lv-main {
-    padding-top: 0;
+    padding-top: 20px;
+}
+
+.lv-giveaway-section .event-filter-bar {
+    padding: 0;
 }
 
 .lv-top-row {
@@ -3056,6 +3060,7 @@ html, body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 20px;
     width: 100%;
 }
 
@@ -3065,7 +3070,6 @@ html, body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    margin-bottom: 20px;
 }
 
 .lv-section-title {
