@@ -98,7 +98,7 @@ const LV = () => {
                 <div className="lv-giveaway-section">
                     <div className="lv-section-header">
                         <span className="lv-section-title">나눔</span>
-                        <span className="lv-section-subtitle">Give Aways</span>
+                        <span className="lv-section-subtitle">Giveaways</span>
                     </div>
                     <div className="event-filter-bar">
                         {CONCERT_TABS.map((tab) => (
