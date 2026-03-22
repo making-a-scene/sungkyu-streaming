@@ -1,15 +1,115 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import PageTitle from "../components/PageTitle";
+import TweetEmbedList from "../components/TweetEmbedList";
+import '../App.css';
+
+const CONCERT_TABS = ["첫콘(3/27)", "중콘(3/28)", "막콘(3/29)"] as const;
+type ConcertTab = typeof CONCERT_TABS[number];
+
+const GIVEAWAY_TWEETS: Record<ConcertTab, string[]> = {
+    "첫콘(3/27)": [
+        "2034580124218396851",
+        "2034225137130865077",
+        "2029502793455919122",
+        "2034054978638356833",
+        "2033928527717003768",
+        "2033904948900204842",
+        "2033879804228051315",
+        "2027316361404592136",
+        "2034239836027281534",
+        "2029435329665744907",
+    ],
+    "중콘(3/28)": [
+        "2034580124218396851",
+        "2034234511148630431",
+        "2034225137130865077",
+        "2029502793455919122",
+        "2034054978638356833",
+        "2029718625247215707",
+        "2034239836027281534",
+        "2033762258380333098",
+    ],
+    "막콘(3/29)": [
+        "2034580124218396851",
+        "2034961341556171266",
+        "2034669094642049485",
+        "2034506273467867198",
+        "2034246901374279988",
+        "2034234511148630431",
+        "2034225137130865077",
+        "2029502793455919122",
+        "2034127558288281671",
+        "2026890301076594934",
+        "2033879804228051315",
+        "2032365702204854272",
+        "2027316361404592136",
+        "2032358110757863940",
+        "2034239836027281534",
+        "2033762258380333098",
+        "2029469412399681848",
+    ],
+};
 
 const LV = () => {
+    const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState<ConcertTab>("첫콘(3/27)");
+
     return (
         <div className="app">
             <Header />
             <PageTitle icon="/lv4-icon-filled.svg" title="LV4" />
-            <main className="main-content">
+            <main className="main-content lv-main">
+                <div className="lv-top-row">
+                    <div className="lv-card lv-card-disabled" onClick={() => {}}>
+                        <div className="lv-card-content">
+                            <div className="lv-card-text">
+                                <span className="lv-card-title">팬 이벤트</span>
+                                <span className="lv-card-subtitle">Fan Event</span>
+                            </div>
+                            <div className="lv-card-footer">
+                                <span className="lv-card-coming-soon">Coming Soon</span>
+                                <img src="/arrow-icon.svg" alt="" className="lv-card-arrow" />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="lv-card" onClick={() => navigate('/guide/cheering')}>
+                        <div className="lv-card-content">
+                            <div className="lv-card-text">
+                                <span className="lv-card-title">응원법·떼창곡</span>
+                                <span className="lv-card-subtitle">Fan Chant</span>
+                            </div>
+                            <div className="lv-card-footer lv-card-footer-end">
+                                <img src="/arrow-icon.svg" alt="" className="lv-card-arrow" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
+                <div className="lv-giveaway-section">
+                    <div className="lv-section-header">
+                        <span className="lv-section-title">나눔</span>
+                        <span className="lv-section-subtitle">Give Aways</span>
+                    </div>
+                    <div className="event-filter-bar">
+                        {CONCERT_TABS.map((tab) => (
+                            <div
+                                key={tab}
+                                className={`event-filter-pill ${activeTab === tab ? 'active' : ''}`}
+                                onClick={() => setActiveTab(tab)}
+                            >
+                                {tab}
+                            </div>
+                        ))}
+                    </div>
+                    <TweetEmbedList
+                        key={activeTab}
+                        tweetIds={GIVEAWAY_TWEETS[activeTab]}
+                        pageSize={3}
+                    />
+                </div>
             </main>
             <Footer />
         </div>
