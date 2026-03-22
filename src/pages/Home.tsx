@@ -4,14 +4,12 @@ import '../App.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import YoutubeBanner from '../components/YoutubeBanner';
-import CountdownTimer from '../components/CountdownTimer';
 import ActionButtons from '../components/ActionButtons';
 import AnnouncementSection from '../components/AnnouncementSection';
 import StreamingPills from '../components/StreamingPills';
 import StreamingCounter from '../components/StreamingCounter';
 import GuideGrid from '../components/GuideGrid';
 import RadioSchedule from '../components/RadioSchedule';
-import VoteCarousel from '../components/VoteCarousel';
 
 const Home = () => {
     return (
