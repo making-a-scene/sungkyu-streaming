@@ -2868,6 +2868,7 @@ html, body {
     align-items: center;
     gap: 16px;
     padding: 8px 0 24px;
+    width: 100%;
 }
 
 .event-tweet-container {
@@ -3054,6 +3055,7 @@ html, body {
 .lv-giveaway-section {
     display: flex;
     flex-direction: column;
+    align-items: center;
     width: 100%;
 }
 
@@ -3061,6 +3063,7 @@ html, body {
     display: flex;
     gap: 8px;
     align-items: center;
+    justify-content: center;
     width: 100%;
     margin-bottom: 20px;
 }
