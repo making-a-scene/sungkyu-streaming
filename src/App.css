@@ -2283,6 +2283,7 @@ html, body {
     flex-direction: column;
     gap: 14px;
     width: 100%;
+    padding-top: 20px;
 }
 
 /* Hero Banner */
