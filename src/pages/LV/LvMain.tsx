@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import PageTitle from "../components/PageTitle";
-import TweetEmbedList from "../components/TweetEmbedList";
-import '../App.css';
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import PageTitle from "../../components/PageTitle";
+import TweetEmbedList from "../../components/TweetEmbedList";
+import '../../App.css';
 
 const CONCERT_TABS = ["첫콘(3/27)", "중콘(3/28)", "막콘(3/29)"] as const;
 type ConcertTab = typeof CONCERT_TABS[number];
@@ -70,7 +70,7 @@ const GIVEAWAY_TWEETS: Record<ConcertTab, string[]> = {
     ],
 };
 
-const LV = () => {
+const LvMain = () => {
     const navigate = useNavigate();
     const [activeTab, setActiveTab] = useState<ConcertTab>("첫콘(3/27)");
 
@@ -80,14 +80,13 @@ const LV = () => {
             <PageTitle icon="/lv4-icon-filled.svg" title="LV4" />
             <main className="main-content lv-main">
                 <div className="lv-top-row">
-                    <div className="lv-card lv-card-disabled" onClick={() => {}}>
+                    <div className="lv-card" onClick={() => navigate('/lv4-ko')}>
                         <div className="lv-card-content">
                             <div className="lv-card-text">
                                 <span className="lv-card-title">팬 이벤트</span>
                                 <span className="lv-card-subtitle">Fan Event</span>
                             </div>
-                            <div className="lv-card-footer">
-                                <span className="lv-card-coming-soon">Coming Soon</span>
+                            <div className="lv-card-footer lv-card-footer-end">
                                 <img src="/arrow-icon.svg" alt="" className="lv-card-arrow" />
                             </div>
                         </div>
@@ -133,4 +132,4 @@ const LV = () => {
     );
 }
 
-export default LV;
+export default LvMain;
