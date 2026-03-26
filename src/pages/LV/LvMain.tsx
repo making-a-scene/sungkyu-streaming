@@ -86,7 +86,8 @@ const LvMain = () => {
                                 <span className="lv-card-title">팬 이벤트</span>
                                 <span className="lv-card-subtitle">Fan Event</span>
                             </div>
-                            <div className="lv-card-footer lv-card-footer-end">
+                            <div className="lv-card-footer">
+                                <span className="lv-card-coming-soon">2026.03.27</span>
                                 <img src="/arrow-icon.svg" alt="" className="lv-card-arrow" />
                             </div>
                         </div>
