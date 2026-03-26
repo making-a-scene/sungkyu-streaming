@@ -1835,6 +1835,11 @@ html, body {
     color: #FFFFFF;
 }
 
+.cheering-item-badge.otm {
+    background: #626262;
+    color: #FFFFFF;
+}
+
 .cheering-item-arrow {
     width: 24px;
     height: 24px;
@@ -2182,6 +2187,20 @@ html, body {
     font-size: 13px;
     font-weight: 600;
     line-height: 22px;
+}
+
+.cheering-modal-youtube {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 24px;
+}
+
+.cheering-modal-youtube iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 .cheering-modal-lyrics {
