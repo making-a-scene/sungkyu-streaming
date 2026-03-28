@@ -11,7 +11,7 @@ interface LvFanEventProps {
     eventImage: string;
 }
 
-const YOUTUBE_EMBED_URL = 'https://www.youtube.com/embed/-5UYT-YDVRU';
+const YOUTUBE_EMBED_URL = 'https://www.youtube.com/embed/WVCVWLLzgk8';
 
 const LvFanEvent: React.FC<LvFanEventProps> = ({ currentPath, guideTitle, eventImage }) => {
     return (

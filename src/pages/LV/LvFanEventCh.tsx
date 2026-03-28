@@ -4,7 +4,7 @@ const LvFanEventCh = () => {
     return (
         <LvFanEvent
             currentPath="/lv4-ch"
-            guideTitle="《꼭(Like a dream)》合唱应援指南视频"
+            guideTitle="《True Love》合唱应援指南视频"
             eventImage="/fan-event-info-ch.png"
         />
     );
