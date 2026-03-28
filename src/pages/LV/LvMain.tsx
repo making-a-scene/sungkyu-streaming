@@ -90,7 +90,7 @@ const GIVEAWAY_TWEETS: Record<ConcertTab, string[]> = {
 
 const LvMain = () => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState<ConcertTab>("첫콘(3/27)");
+    const [activeTab, setActiveTab] = useState<ConcertTab>("중콘(3/28)");
 
     return (
         <div className="app">
