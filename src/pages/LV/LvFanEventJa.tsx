@@ -4,7 +4,7 @@ const LvFanEventJa = () => {
     return (
         <LvFanEvent
             currentPath="/lv4-ja"
-            guideTitle="「True Love」掛け声（合唱）ガイド動画"
+            guideTitle="「나의 하루」掛け声（合唱）ガイド動画"
             eventImage="/fan-event-info-ko.png"
         />
     );
