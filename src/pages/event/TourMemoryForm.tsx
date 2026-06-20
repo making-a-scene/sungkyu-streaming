@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { upload } from '@vercel/blob/client';
 import { toast } from 'react-toastify';
 import Header from '../../components/Header';
 import ImagePopup from '../../components/ImagePopup';
+import { uploadImage } from '../../utils/uploadImage';
 import './tourMemoryForm.css';
 import {
   TOUR_CITIES,
@@ -155,11 +155,8 @@ const TourMemoryForm: React.FC = () => {
         const entry = getEntry(c.id);
         const photos: { url: string; caption: string }[] = [];
         for (const p of entry.photos) {
-          const blob = await upload(p.file.name, p.file, {
-            access: 'public',
-            handleUploadUrl: '/api/upload',
-          });
-          photos.push({ url: blob.url, caption: p.caption });
+          const url = await uploadImage(p.file);
+          photos.push({ url, caption: p.caption });
         }
         cities.push({ cityId: c.id, message: entry.message, photos });
       }

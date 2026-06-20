@@ -1,41 +1,35 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { handleUpload, type HandleUploadBody } from '@vercel/blob/client';
+import { put } from '@vercel/blob';
 
-// 이미지 업로드용 클라이언트 업로드 토큰 발급 (Vercel Blob)
+// 서버 경유 이미지 업로드.
+// 클라이언트는 same-origin(/api/upload)으로만 요청 → CORS 발생 자체가 없음.
+// 클라에서 압축한 base64 를 받아 Blob 에 저장하고 URL 을 돌려준다.
+// (서버리스 함수 body 한도 4.5MB 대비, 업로드 전 클라 압축이 전제)
 //
-// 프론트(폼)에서 @vercel/blob/client 의 upload() 가 이 엔드포인트를 호출하면,
-// 토큰을 발급해 브라우저가 Blob 스토리지로 파일을 직접 PUT 한다.
-// (서버리스 함수 4.5MB body 제한을 우회 + 여러 장 업로드에 적합)
-//
-// 필요 환경변수: BLOB_READ_WRITE_TOKEN (Vercel Blob 스토어 연결 시 자동 주입)
+// 필요 환경변수: BLOB_READ_WRITE_TOKEN
+
+export const config = {
+  api: { bodyParser: { sizeLimit: '5mb' } },
+};
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'method not allowed' });
   }
-
-  // Vercel Node 함수에서 body 가 문자열로 들어오는 경우 방어
-  const body = (typeof req.body === 'string' ? JSON.parse(req.body) : req.body) as HandleUploadBody;
-
   try {
-    const jsonResponse = await handleUpload({
-      body,
-      request: req,
-      onBeforeGenerateToken: async () => ({
-        allowedContentTypes: [
-          'image/jpeg', 'image/png', 'image/webp', 'image/gif',
-          'image/heic', 'image/heif', 'image/bmp', 'image/tiff',
-        ],
-        maximumSizeInBytes: 20 * 1024 * 1024, // 20MB (모바일 고화질 대응)
-      }),
-      // 업로드 완료 콜백 (로컬 dev 에선 호출되지 않음 — 운영에서만 동작)
-      onUploadCompleted: async () => {
-        /* 필요 시 후처리 */
-      },
+    const { filename, contentType, dataBase64 } = req.body || {};
+    if (!dataBase64 || typeof dataBase64 !== 'string') {
+      return res.status(400).json({ error: 'missing image data' });
+    }
+    const buffer = Buffer.from(dataBase64, 'base64');
+    const blob = await put(filename || 'image.jpg', buffer, {
+      access: 'public',
+      contentType: contentType || 'image/jpeg',
+      addRandomSuffix: true,
     });
-    return res.status(200).json(jsonResponse);
+    return res.status(200).json({ url: blob.url });
   } catch (error) {
     console.error('blob upload error:', error);
-    return res.status(400).json({ error: (error as Error).message });
+    return res.status(500).json({ error: (error as Error).message });
   }
 }

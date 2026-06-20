@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { upload } from '@vercel/blob/client';
 import { toast } from 'react-toastify';
 import Header from '../../components/Header';
 import ImagePopup from '../../components/ImagePopup';
+import { uploadImage } from '../../utils/uploadImage';
 import './tourMemoryForm.css';
 import './fanartForm.css';
 import { getStoredLang, eventMessages, formatCount } from '../../data/eventLocale';
@@ -83,11 +83,8 @@ const FanartForm: React.FC = () => {
     if (!canSubmit || !imageFile) return;
     setSubmitting(true);
     try {
-      // 제출 시점에 이미지 업로드
-      const blob = await upload(imageFile.name, imageFile, {
-        access: 'public',
-        handleUploadUrl: '/api/upload',
-      });
+      // 제출 시점에 이미지 압축 후 업로드 (서버 경유 → CORS 없음)
+      const imageUrl = await uploadImage(imageFile);
       const r = await fetch('/api/submissions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -97,7 +94,7 @@ const FanartForm: React.FC = () => {
           data: {
             nickname: nickname.trim() || undefined,
             email: email.trim() || undefined,
-            imageUrl: blob.url,
+            imageUrl,
             message,
           },
         }),
