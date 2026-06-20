@@ -21,8 +21,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       body,
       request: req,
       onBeforeGenerateToken: async () => ({
-        allowedContentTypes: ['image/jpeg', 'image/png', 'image/webp', 'image/gif'],
-        maximumSizeInBytes: 10 * 1024 * 1024, // 10MB
+        allowedContentTypes: [
+          'image/jpeg', 'image/png', 'image/webp', 'image/gif',
+          'image/heic', 'image/heif', 'image/bmp', 'image/tiff',
+        ],
+        maximumSizeInBytes: 20 * 1024 * 1024, // 20MB (모바일 고화질 대응)
       }),
       // 업로드 완료 콜백 (로컬 dev 에선 호출되지 않음 — 운영에서만 동작)
       onUploadCompleted: async () => {

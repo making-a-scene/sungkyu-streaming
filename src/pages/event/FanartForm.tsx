@@ -49,14 +49,14 @@ const FanartForm: React.FC = () => {
   const em = eventMessages[lang];
 
   const [step, setStep] = useState<Step>('consent');
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageFile, setImageFile] = useState<File | null>(null);
+  const [imagePreview, setImagePreview] = useState('');
   const [message, setMessage] = useState('');
   const [consentData, setConsentData] = useState(false);
   const [nickname, setNickname] = useState('');
   const [email, setEmail] = useState('');
   const [consentEmail, setConsentEmail] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [counts, setCounts] = useState<EventCounts | null>(null);
   const [popup, setPopup] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
@@ -68,29 +68,26 @@ const FanartForm: React.FC = () => {
       .catch(() => {});
   }, []);
 
-  const canSubmit = !submitting && !!imageUrl && (email.trim() === '' || consentEmail);
+  const canSubmit = !submitting && !!imageFile && (email.trim() === '' || consentEmail);
 
-  const handleFile = async (files: FileList | null) => {
+  // 이미지 선택 (업로드는 제출 시)
+  const handleFile = (files: FileList | null) => {
     if (!files || !files[0]) return;
-    setUploading(true);
-    try {
-      const blob = await upload(files[0].name, files[0], {
-        access: 'public',
-        handleUploadUrl: '/api/upload',
-      });
-      setImageUrl(blob.url);
-    } catch {
-      toast.error(t.uploadError, { autoClose: 2000, hideProgressBar: true });
-    } finally {
-      setUploading(false);
-      if (fileRef.current) fileRef.current.value = '';
-    }
+    if (imagePreview) URL.revokeObjectURL(imagePreview);
+    setImageFile(files[0]);
+    setImagePreview(URL.createObjectURL(files[0]));
+    if (fileRef.current) fileRef.current.value = '';
   };
 
   const submit = async () => {
-    if (!canSubmit) return;
+    if (!canSubmit || !imageFile) return;
     setSubmitting(true);
     try {
+      // 제출 시점에 이미지 업로드
+      const blob = await upload(imageFile.name, imageFile, {
+        access: 'public',
+        handleUploadUrl: '/api/upload',
+      });
       const r = await fetch('/api/submissions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -100,7 +97,7 @@ const FanartForm: React.FC = () => {
           data: {
             nickname: nickname.trim() || undefined,
             email: email.trim() || undefined,
-            imageUrl,
+            imageUrl: blob.url,
             message,
           },
         }),
@@ -119,10 +116,18 @@ const FanartForm: React.FC = () => {
   const renderWrite = () => (
     <div className="tour-body-inner">
       <p className="tour-prompt">{t.uploadTitle}</p>
-      {imageUrl ? (
+      {imagePreview ? (
         <div className="fanart-preview">
-          <img src={imageUrl} alt="" onClick={() => setPopup(imageUrl)} />
-          <button type="button" className="fanart-remove" onClick={() => setImageUrl('')}>
+          <img src={imagePreview} alt="" onClick={() => setPopup(imagePreview)} />
+          <button
+            type="button"
+            className="fanart-remove"
+            onClick={() => {
+              URL.revokeObjectURL(imagePreview);
+              setImageFile(null);
+              setImagePreview('');
+            }}
+          >
             <CloseIcon />
           </button>
         </div>
@@ -131,10 +136,9 @@ const FanartForm: React.FC = () => {
           type="button"
           className="fanart-upload-box"
           onClick={() => fileRef.current?.click()}
-          disabled={uploading}
         >
           <UploadIcon />
-          <span className="fanart-upload-cta">{uploading ? '업로드 중…' : t.uploadCta}</span>
+          <span className="fanart-upload-cta">{t.uploadCta}</span>
           <span className="fanart-upload-hint">{t.uploadHint}</span>
         </button>
       )}
@@ -271,7 +275,7 @@ const FanartForm: React.FC = () => {
           <button type="button" className="tour-nav-back" onClick={() => { setStep('consent'); window.scrollTo(0, 0); }}>
             <ChevronLeft /> {t.backConsent}
           </button>
-          <button type="button" className="tour-nav-next" disabled={!imageUrl} onClick={() => { setStep('review'); window.scrollTo(0, 0); }}>
+          <button type="button" className="tour-nav-next" disabled={!imageFile} onClick={() => { setStep('review'); window.scrollTo(0, 0); }}>
             {t.writeComplete} <ChevronRight />
           </button>
         </div>

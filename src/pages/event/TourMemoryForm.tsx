@@ -48,7 +48,8 @@ const OTM_IMG = process.env.PUBLIC_URL + '/event/961578577c85d6ce53e83cd38fdbc6d
 type Step = 'cities' | 'consent' | 'upload' | 'review' | 'done';
 interface Entry {
   message: string;
-  photos: { url: string; caption: string }[];
+  // 선택 시점엔 로컬 File + 미리보기만 보관, 제출 시 업로드한다
+  photos: { file: File; preview: string; caption: string }[];
 }
 
 const MAX_MESSAGE = 428;
@@ -68,7 +69,6 @@ const TourMemoryForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [consentEmail, setConsentEmail] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [uploading, setUploading] = useState(false);
   const [counts, setCounts] = useState<EventCounts | null>(null);
   const [popup, setPopup] = useState<string | null>(null);
   const [activeDot, setActiveDot] = useState(0);
@@ -96,8 +96,8 @@ const TourMemoryForm: React.FC = () => {
   const toggleCity = (id: string) =>
     setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));
 
-  // ---------- 이미지 업로드 (PC/모바일 공통) ----------
-  const handleFiles = async (files: FileList | null) => {
+  // ---------- 이미지 선택 (PC/모바일 공통, 업로드는 제출 시) ----------
+  const handleFiles = (files: FileList | null) => {
     if (!files || !currentCity) return;
     let photos = [...getEntry(currentCity.id).photos];
     for (let i = 0; i < files.length; i++) {
@@ -105,25 +105,16 @@ const TourMemoryForm: React.FC = () => {
         toast.info(t.maxPhotoError, { autoClose: 1500, hideProgressBar: true });
         break;
       }
-      setUploading(true);
-      try {
-        const blob = await upload(files[i].name, files[i], {
-          access: 'public',
-          handleUploadUrl: '/api/upload',
-        });
-        photos = [...photos, { url: blob.url, caption: '' }];
-        setEntry(currentCity.id, { ...getEntry(currentCity.id), photos });
-      } catch {
-        toast.error(t.uploadError, { autoClose: 2000, hideProgressBar: true });
-      } finally {
-        setUploading(false);
-      }
+      photos = [...photos, { file: files[i], preview: URL.createObjectURL(files[i]), caption: '' }];
     }
+    setEntry(currentCity.id, { ...getEntry(currentCity.id), photos });
     if (fileInputRef.current) fileInputRef.current.value = '';
   };
 
   const removePhoto = (idx: number) => {
     const e = getEntry(currentCity!.id);
+    const target = e.photos[idx];
+    if (target) URL.revokeObjectURL(target.preview);
     setEntry(currentCity!.id, { ...e, photos: e.photos.filter((_, i) => i !== idx) });
   };
   const updateCaption = (idx: number, cap: string) => {
@@ -158,11 +149,20 @@ const TourMemoryForm: React.FC = () => {
     if (!canSubmit) return;
     setSubmitting(true);
     try {
-      const cities: TourCityEntry[] = orderedSelected.map((c) => ({
-        cityId: c.id,
-        message: getEntry(c.id).message,
-        photos: getEntry(c.id).photos,
-      }));
+      // 제출 시점에 모든 사진을 업로드한다
+      const cities: TourCityEntry[] = [];
+      for (const c of orderedSelected) {
+        const entry = getEntry(c.id);
+        const photos: { url: string; caption: string }[] = [];
+        for (const p of entry.photos) {
+          const blob = await upload(p.file.name, p.file, {
+            access: 'public',
+            handleUploadUrl: '/api/upload',
+          });
+          photos.push({ url: blob.url, caption: p.caption });
+        }
+        cities.push({ cityId: c.id, message: entry.message, photos });
+      }
       const r = await fetch('/api/submissions', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -259,7 +259,7 @@ const TourMemoryForm: React.FC = () => {
             <div className="tour-photo-slide" key={idx}>
               <div className="tour-polaroid">
                 <div className="tour-photo-wrap">
-                  <img src={p.url} alt="" onClick={() => setPopup(p.url)} />
+                  <img src={p.preview} alt="" onClick={() => setPopup(p.preview)} />
                   <button type="button" className="tour-photo-remove" onClick={() => removePhoto(idx)}>
                     <CloseIcon />
                   </button>
@@ -281,10 +281,9 @@ const TourMemoryForm: React.FC = () => {
                   type="button"
                   className="tour-upload-box"
                   onClick={() => fileInputRef.current?.click()}
-                  disabled={uploading}
                 >
                   <UploadIcon />
-                  <span className="tour-upload-cta">{uploading ? '업로드 중…' : t.uploadCta}</span>
+                  <span className="tour-upload-cta">{t.uploadCta}</span>
                   <span className="tour-upload-hint">{t.uploadHint}</span>
                 </button>
                 <span className="tour-photo-caption-placeholder" />
