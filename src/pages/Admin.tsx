@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import * as XLSX from 'xlsx';
 import ImagePopup from '../components/ImagePopup';
 import './admin.css';
 import {
@@ -29,11 +28,12 @@ const toRow = (s: EventSubmission): Record<string, string> => {
       const d = s.data as MessageFormData;
       return {
         ...base,
+        '이름/닉네임': d.nickname || '',
         '나에게 성규는': d.aboutSungkyu,
         '좋은 이유': d.whyLike,
         '좋았던 무대': d.bestStage,
-        'Leap to Vector': d.leapToVector,
         '성규에게': d.letter,
+        '이메일': d.email || '',
       };
     }
     case 'album': {
@@ -98,11 +98,12 @@ const DetailView: React.FC<{ sub: EventSubmission; onImage: (u: string) => void 
       const d = sub.data as MessageFormData;
       return (
         <>
+          {d.nickname && <Field label="이름/닉네임" value={d.nickname} />}
           <Field label="나에게 성규는 …(이)다!" value={d.aboutSungkyu} />
-          <Field label="김성규가 좋은 이유" value={d.whyLike} />
+          <Field label="성규가 좋은 이유" value={d.whyLike} />
           <Field label="가장 좋았던 무대" value={d.bestStage} />
-          <Field label="나에게 Leap to Vector는 …(이)다!" value={d.leapToVector} />
           <Field label="성규에게" value={d.letter} />
+          {d.email && <Field label="이메일" value={d.email} />}
         </>
       );
     }
@@ -207,8 +208,9 @@ const Admin: React.FC = () => {
     if (token) await load(type, token);
   };
 
-  const handleExport = () => {
+  const handleExport = async () => {
     if (!submissions.length) return;
+    const XLSX = await import('xlsx'); // 관리자가 누를 때만 로드 (메인 번들 분리)
     const ws = XLSX.utils.json_to_sheet(submissions.map(toRow));
     const wb = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(wb, ws, activeType);

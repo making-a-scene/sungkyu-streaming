@@ -14,8 +14,8 @@ const BottomNav = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    // 관리자 페이지에선 하단 네비 숨김
-    if (location.pathname.startsWith('/admin')) return null;
+    // 관리자/이벤트 폼 페이지에선 하단 네비 숨김 (폼 자체 네비와 겹침)
+    if (location.pathname.startsWith('/admin') || location.pathname.startsWith('/event/')) return null;
 
     const isActive = (path: string) => {
         if (path === '/') {

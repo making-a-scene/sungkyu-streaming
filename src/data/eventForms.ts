@@ -16,12 +16,12 @@ export interface TourCity {
 // Figma 도시 선택 화면(2032:237) 기준. 새 공연 추가 시 여기만 수정.
 export const TOUR_CITIES: TourCity[] = [
   { id: 'seoul', name: '서울', dateLabel: '2026.03.27-29' },
-  { id: 'macau', name: '마카오', dateLabel: '2026.03.27' },
-  { id: 'hongkong', name: '홍콩', dateLabel: '2026.03.27-28' },
-  { id: 'taiwan', name: '대만', dateLabel: '2026.03.27' },
-  { id: 'hochiminh', name: '호치민', dateLabel: '2026.03.27' },
-  { id: 'kaohsiung', name: '가오슝', dateLabel: '2026.06.20' },
-  { id: 'manila', name: '마닐라', dateLabel: '2026.06.20' },
+  { id: 'macau', name: '마카오', dateLabel: '2026.04.11' },
+  { id: 'hongkong', name: '홍콩', dateLabel: '2026.05.02-03' },
+  { id: 'taiwan', name: '대만', dateLabel: '2026.05.16' },
+  { id: 'hochiminh', name: '호치민', dateLabel: '2026.06.13' },
+  { id: 'kaohsiung', name: '가오슝', dateLabel: '2026.06.21' },
+  { id: 'manila', name: '마닐라', dateLabel: '2026.06.27' },
 ];
 
 export const MAX_PHOTOS_PER_CITY = 3;
@@ -48,10 +48,11 @@ export type EventFormType = 'message' | 'album' | 'fanart' | 'tour';
 
 // To. 성규 (2032:86)
 export interface MessageFormData {
+  nickname?: string;    // 이름 또는 닉네임 (선택)
+  email?: string;       // 이메일 (선택)
   aboutSungkyu: string; // "나에게 성규는 ___ (이)다!"
-  whyLike: string;      // "김성규가 좋은 이유!" (~428자)
-  bestStage: string;    // "LV4 공연에서 가장 좋았던 무대는?" (~428자)
-  leapToVector: string; // "나에게 이번 Leap to Vector는 ___ (이)다!"
+  whyLike: string;      // "성규가 좋은 428가지 이유" (~428자)
+  bestStage: string;    // "이번 LV4에서 가장 좋았던 무대와 그 이유" (~428자)
   letter: string;       // "LV4 투어를 마치는 성규에게!" (~4280자)
 }
 

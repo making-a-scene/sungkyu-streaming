@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import EventEntryCard from './EventEntryCard';
 import { EventMessages, formatCount } from '../../data/eventLocale';
@@ -19,11 +20,13 @@ const CARD_META: CardMeta[] = [
     key: 'memory',
     image: process.env.PUBLIC_URL + '/event/ccff584c723a2504004a0abf2afdd8155377bf0d.png',
     imageWidth: 90,
+    formPath: '/event/memory',
   },
   {
     key: 'letter',
     image: process.env.PUBLIC_URL + '/event/631f4974ef0a745dd01d2a214cbc20870d7582fd.png',
     imageWidth: 105,
+    formPath: '/event/message',
   },
   {
     key: 'otm',
@@ -59,6 +62,7 @@ interface EventEntrySectionProps {
 }
 
 const EventEntrySection: React.FC<EventEntrySectionProps> = ({ messages }) => {
+  const navigate = useNavigate();
   const [counts, setCounts] = useState<EventCounts | null>(null);
 
   useEffect(() => {
@@ -78,7 +82,7 @@ const EventEntrySection: React.FC<EventEntrySectionProps> = ({ messages }) => {
 
   const handleClick = (meta: CardMeta) => {
     if (meta.formPath) {
-      // TODO: 폼 라우트 연결 후 navigate(meta.formPath)
+      navigate(meta.formPath);
       return;
     }
     toast.info('폼은 준비 중입니다. 곧 오픈됩니다!', { autoClose: 1500, hideProgressBar: true });
