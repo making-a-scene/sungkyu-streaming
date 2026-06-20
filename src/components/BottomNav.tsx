@@ -14,6 +14,9 @@ const BottomNav = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
+    // 관리자 페이지에선 하단 네비 숨김
+    if (location.pathname.startsWith('/admin')) return null;
+
     const isActive = (path: string) => {
         if (path === '/') {
             return location.pathname === '/';

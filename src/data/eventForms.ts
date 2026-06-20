@@ -84,6 +84,7 @@ export interface TourCityEntry {
   photos: TourPhoto[]; // 최대 MAX_PHOTOS_PER_CITY 장
 }
 export interface TourFormData {
+  email?: string;          // 제출자 이메일 (선택)
   cities: TourCityEntry[]; // 선택한 도시들
 }
 

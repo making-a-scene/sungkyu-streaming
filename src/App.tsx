@@ -24,6 +24,7 @@ import LvFanEventKo from "./pages/LV/LvFanEventKo";
 import LvFanEventEn from "./pages/LV/LvFanEventEn";
 import LvFanEventCh from "./pages/LV/LvFanEventCh";
 import LvFanEventJa from "./pages/LV/LvFanEventJa";
+import Admin from "./pages/Admin";
 
 // Main App Component
 function App() {
@@ -52,6 +53,7 @@ function App() {
                 <Route path="/lv4-en" element={<LvFanEventEn />}/>
                 <Route path="/lv4-ch" element={<LvFanEventCh />}/>
                 <Route path="/lv4-ja" element={<LvFanEventJa />}/>
+                <Route path="/admin" element={<Admin />}/>
             </Routes>
             <BottomNav />
             <Analytics />
