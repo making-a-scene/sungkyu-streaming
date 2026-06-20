@@ -26,6 +26,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       access: 'public',
       contentType: contentType || 'image/jpeg',
       addRandomSuffix: true,
+      // Blob 스토어를 BLOB_V2 prefix 로 연결했으므로 토큰 이름이 다름.
+      // (put 은 기본적으로 BLOB_READ_WRITE_TOKEN 만 자동 인식)
+      token: process.env.BLOB_V2_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN,
     });
     return res.status(200).json({ url: blob.url });
   } catch (error) {
