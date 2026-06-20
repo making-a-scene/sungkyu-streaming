@@ -19,7 +19,11 @@ import Streaming from "./pages/guide/Streaming";
 import Download from "./pages/guide/Download";
 import Guide from "./pages/Guide";
 import Event from "./pages/Event";
-import LV from "./pages/LV";
+import LvMain from "./pages/LV/LvMain";
+import LvFanEventKo from "./pages/LV/LvFanEventKo";
+import LvFanEventEn from "./pages/LV/LvFanEventEn";
+import LvFanEventCh from "./pages/LV/LvFanEventCh";
+import LvFanEventJa from "./pages/LV/LvFanEventJa";
 
 // Main App Component
 function App() {
@@ -43,7 +47,11 @@ function App() {
                 <Route path="/guide/cheering" element={<Cheering />} />
                 <Route path="/chart" element={<Chart />} />
                 <Route path="/event" element={<Event />}/>
-                <Route path="/lv4" element={<LV />}/>
+                <Route path="/lv4" element={<LvMain />}/>
+                <Route path="/lv4-ko" element={<LvFanEventKo />}/>
+                <Route path="/lv4-en" element={<LvFanEventEn />}/>
+                <Route path="/lv4-ch" element={<LvFanEventCh />}/>
+                <Route path="/lv4-ja" element={<LvFanEventJa />}/>
             </Routes>
             <BottomNav />
             <Analytics />

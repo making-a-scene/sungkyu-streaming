@@ -5,17 +5,28 @@ import Footer from '../../components/Footer';
 import GuideMenu from '../../components/GuideMenu';
 import chantData from '../../data/sungkyu-chant.json';
 
-type FilterType = 'all' | 'fanchat' | 'chorus';
+type FilterType = 'all' | 'otm' | 'fanchat' | 'chorus';
 
 type ChantItem = {
     title: string;
     is_fanchat: boolean;
+    is_otm?: boolean;
     aliases: string[];
     chant: string;
+    youtube_url?: string;
 };
 
 // Album cover mapping
+const getYoutubeEmbedUrl = (url: string): string => {
+    const match = url.match(/youtu\.be\/([^?]+)/);
+    if (match) return `https://www.youtube.com/embed/${match[1]}`;
+    return url;
+};
+
 const albumCovers: { [key: string]: string } = {
+    'Over It': '/album-otm.png',
+    'Dreaming': '/album-otm.png',
+    '모범답안 (Answer)': '/album-otm.png',
     '60초': '/album-another-me.png',
     'Shine': '/album-another-me.png',
     'Kontrol': '/album-27.png',
@@ -122,6 +133,7 @@ const Cheering: React.FC = () => {
 
     const filteredData = (chantData as ChantItem[]).filter((item) => {
         // Filter by type
+        if (filter === 'otm' && !item.is_otm) return false;
         if (filter === 'fanchat' && !item.is_fanchat) return false;
         if (filter === 'chorus' && item.is_fanchat) return false;
 
@@ -178,6 +190,12 @@ const Cheering: React.FC = () => {
                             전체
                         </button>
                         <button
+                            className={`cheering-filter-tab ${filter === 'otm' ? 'active' : ''}`}
+                            onClick={() => setFilter('otm')}
+                        >
+                            OTM
+                        </button>
+                        <button
                             className={`cheering-filter-tab ${filter === 'fanchat' ? 'active' : ''}`}
                             onClick={() => setFilter('fanchat')}
                         >
@@ -213,6 +231,9 @@ const Cheering: React.FC = () => {
                                 <span className="cheering-item-title">{item.title}</span>
                             </div>
                             <div className="cheering-item-right">
+                                {item.is_otm && (
+                                    <span className="cheering-item-badge otm">OTM</span>
+                                )}
                                 <span className={`cheering-item-badge ${item.is_fanchat ? 'fanchat' : 'chorus'}`}>
                                     {item.is_fanchat ? '응원법' : '떼창곡'}
                                 </span>
@@ -251,6 +272,16 @@ const Cheering: React.FC = () => {
                                 <span className="info-text-blue">파란색</span>
                                 <span className="info-text">은 응원법만 크게 외치기</span>
                             </div>
+                            {selectedItem.youtube_url && (
+                                <div className="cheering-modal-youtube">
+                                    <iframe
+                                        src={getYoutubeEmbedUrl(selectedItem.youtube_url)}
+                                        title={selectedItem.title}
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    />
+                                </div>
+                            )}
                             <div className="cheering-modal-lyrics">
                                 {parseChant(selectedItem.chant)}
                             </div>

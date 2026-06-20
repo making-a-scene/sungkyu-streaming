@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import PageTitle from "../components/PageTitle";
-import TweetEmbedList from "../components/TweetEmbedList";
-import '../App.css';
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import PageTitle from "../../components/PageTitle";
+import TweetEmbedList from "../../components/TweetEmbedList";
+import '../../App.css';
 
 const CONCERT_TABS = ["첫콘(3/27)", "중콘(3/28)", "막콘(3/29)"] as const;
 type ConcertTab = typeof CONCERT_TABS[number];
@@ -30,7 +30,14 @@ const GIVEAWAY_TWEETS: Record<ConcertTab, string[]> = {
         "2034239836027281534",
         "2029435329665744907",
         "2035637799748247577",
-        "2035717167573082357"
+        "2035717167573082357",
+        "2029806952348537049",
+        "2036790586699927705",
+        "2030997365935751652",
+        "2037114789684707698",
+        "2037209245020803404",
+        "2037161920449700091",
+        "2037350478544269662"
     ],
     "중콘(3/28)": [
         "2034234511148630431",
@@ -44,7 +51,14 @@ const GIVEAWAY_TWEETS: Record<ConcertTab, string[]> = {
         "2035637799748247577",
         "2035911361763696803",
         "2036042291333476793",
-        "2035717167573082357"
+        "2035717167573082357",
+        "2036986633233608822",
+        "2029806952348537049",
+        "2032435531494375876",
+        "2037114789684707698",
+        "2037187092191862847",
+        "2036384486225834354",
+        "2037350478544269662"
     ],
     "막콘(3/29)": [
         "2034961341556171266",
@@ -66,13 +80,17 @@ const GIVEAWAY_TWEETS: Record<ConcertTab, string[]> = {
         "2035724497224094022",
         "2035637799748247577",
         "2035882157034647619",
-        "2035717167573082357"
+        "2035717167573082357",
+        "2029806952348537049",
+        "2030997365935751652",
+        "2037321638765867452",
+        "2037350478544269662"
     ],
 };
 
-const LV = () => {
+const LvMain = () => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState<ConcertTab>("첫콘(3/27)");
+    const [activeTab, setActiveTab] = useState<ConcertTab>("막콘(3/29)");
 
     return (
         <div className="app">
@@ -80,14 +98,14 @@ const LV = () => {
             <PageTitle icon="/lv4-icon-filled.svg" title="LV4" />
             <main className="main-content lv-main">
                 <div className="lv-top-row">
-                    <div className="lv-card lv-card-disabled" onClick={() => {}}>
+                    <div className="lv-card" onClick={() => navigate('/lv4-ko')}>
                         <div className="lv-card-content">
                             <div className="lv-card-text">
                                 <span className="lv-card-title">팬 이벤트</span>
                                 <span className="lv-card-subtitle">Fan Event</span>
                             </div>
                             <div className="lv-card-footer">
-                                <span className="lv-card-coming-soon">Coming Soon</span>
+                                <span className="lv-card-coming-soon">2026.03.29</span>
                                 <img src="/arrow-icon.svg" alt="" className="lv-card-arrow" />
                             </div>
                         </div>
@@ -133,4 +151,4 @@ const LV = () => {
     );
 }
 
-export default LV;
+export default LvMain;
