@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import EventEntryCard from './EventEntryCard';
 import { EventMessages, formatCount } from '../../data/eventLocale';
+import type { EventCounts } from '../../data/eventForms';
 
 // 4개 진입 카드의 정적 메타데이터 (이미지/폭/폼 경로).
-// 텍스트는 messages 에서, 누적 수치는 counts 에서 주입.
+// 텍스트는 messages 에서, 누적 수치는 /api/submissions?action=counts 에서 주입.
 // 폼 경로(formPath)는 폼 페이지 디자인 확정 후 라우트 연결 예정 (현재 미연결).
 interface CardMeta {
   key: keyof EventMessages['cards'];
@@ -36,15 +37,45 @@ const CARD_META: CardMeta[] = [
   },
 ];
 
+// 카드별 누적 수치 매핑 (추억=사진 총 장수, 나머지=제출 건수)
+const countFor = (key: CardMeta['key'], counts: EventCounts | null): number => {
+  if (!counts) return 0;
+  switch (key) {
+    case 'memory':
+      return counts.tourPhotosTotal;
+    case 'letter':
+      return counts.message;
+    case 'otm':
+      return counts.album;
+    case 'fanart':
+      return counts.fanart;
+    default:
+      return 0;
+  }
+};
+
 interface EventEntrySectionProps {
   messages: EventMessages;
-  // 도시/항목별 누적 수치. 폼 제출 API 연동 후 실제 값 주입. 미지정 시 디자인 더미값.
-  counts?: Partial<Record<keyof EventMessages['cards'], number>>;
 }
 
-const DEFAULT_COUNT = 428; // 디자인 더미값 (Redis 연동 전까지)
+const EventEntrySection: React.FC<EventEntrySectionProps> = ({ messages }) => {
+  const [counts, setCounts] = useState<EventCounts | null>(null);
 
-const EventEntrySection: React.FC<EventEntrySectionProps> = ({ messages, counts }) => {
+  useEffect(() => {
+    let alive = true;
+    fetch('/api/submissions?action=counts')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (alive && d) setCounts(d as EventCounts);
+      })
+      .catch(() => {
+        /* 로컬 dev 등 /api 미동작 시 무시 (카운트 0 표시) */
+      });
+    return () => {
+      alive = false;
+    };
+  }, []);
+
   const handleClick = (meta: CardMeta) => {
     if (meta.formPath) {
       // TODO: 폼 라우트 연결 후 navigate(meta.formPath)
@@ -57,14 +88,13 @@ const EventEntrySection: React.FC<EventEntrySectionProps> = ({ messages, counts 
     <div className="event-cards">
       {CARD_META.map((meta) => {
         const text = messages.cards[meta.key];
-        const n = counts?.[meta.key] ?? DEFAULT_COUNT;
         return (
           <EventEntryCard
             key={meta.key}
             title={text.title}
             desc={text.desc}
             cta={text.cta}
-            count={formatCount(text.countLabel, n)}
+            count={formatCount(text.countLabel, countFor(meta.key, counts))}
             image={meta.image}
             imageWidth={meta.imageWidth}
             onClick={() => handleClick(meta)}
