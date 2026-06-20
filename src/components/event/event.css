@@ -1,0 +1,305 @@
+/* ============================================================
+   LV4 FINAL 팬이벤트 - 메인 페이지 이벤트 영역 스타일
+   (Figma node 2032:1951 기준 / 모바일 우선)
+   ============================================================ */
+
+.event-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  padding: 24px 24px 30px;
+  box-sizing: border-box;
+}
+
+/* ---------- 언어 토글 ---------- */
+.lang-toggle {
+  position: relative;
+}
+
+.lang-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #2e2e2e;
+  border: 1px solid #626262;
+  border-radius: 50px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.lang-toggle-globe {
+  width: 24px;
+  height: 24px;
+}
+
+.lang-toggle-label {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-size: 15px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.lang-toggle-arrow {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.2s ease;
+}
+
+.lang-toggle-arrow.open {
+  transform: rotate(180deg);
+}
+
+.lang-toggle-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 30;
+  min-width: 120px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: #2e2e2e;
+  border: 1px solid #626262;
+  border-radius: 12px;
+}
+
+.lang-toggle-item {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-family: 'Pretendard';
+  font-size: 14px;
+  color: #bbbbbb;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.lang-toggle-item:hover {
+  background: #3e3e3e;
+  color: #ffffff;
+}
+
+.lang-toggle-item.active {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* ---------- 이벤트 공지 ---------- */
+.event-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.event-notice-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #8b2028;
+  border-radius: 100px;
+  padding: 6px 16px;
+}
+
+.event-notice-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffffff;
+  flex-shrink: 0;
+}
+
+.event-notice-badge-text {
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-size: 14px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.event-notice-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+}
+
+.event-notice-body {
+  margin: 0;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 21px;
+  color: #ffffff;
+  text-align: center;
+  white-space: pre-line;
+}
+
+.event-notice-footnote {
+  margin: 0;
+  font-family: 'Pretendard';
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  color: #777777;
+  text-align: center;
+}
+
+.event-notice-countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.event-notice-countdown-label {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.event-notice-countdown-time {
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-size: 26px;
+  color: #ffffff;
+}
+
+/* 카운트다운 전 정적 마감 안내 (볼드 16px, 카운트다운과 동일 위치) */
+.event-notice-deadline {
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* ---------- 4개 진입 카드 ---------- */
+.event-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+}
+
+.event-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  background: #313131;
+  border-radius: 8px;
+  padding: 20px 16px 16px;
+  box-sizing: border-box;
+}
+
+.event-card-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+}
+
+.event-card-texts {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  text-align: center;
+}
+
+.event-card-title {
+  margin: 0;
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  color: #ffffff;
+}
+
+.event-card-desc {
+  margin: 0;
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  color: #696969;
+  white-space: pre-line;
+}
+
+.event-card-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+}
+
+.event-card-image img {
+  object-fit: contain;
+}
+
+.event-card-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #8b2028;
+  cursor: pointer;
+}
+
+.event-card-btn-cta {
+  margin: 0;
+  font-family: 'Pretendard';
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 16px;
+  color: #ffffff;
+}
+
+.event-card-btn-count {
+  margin: 0;
+  font-family: 'Pretendard';
+  font-weight: 600;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ============================================================
+   히어로 배너 (풀블리드, 좌우 패딩 없음)
+   ============================================================ */
+.event-hero-banner {
+  width: 100%;
+  aspect-ratio: 375 / 125;
+  overflow: hidden;
+}
+
+.event-hero-banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* PC(928px+): 헤더·기존 홈 콘텐츠와 동일하게 880px 중앙 정렬.
+   (이벤트 영역이 헤더보다 넓게 퍼져 좌우 정렬이 어긋나던 문제 수정) */
+@media (min-width: 928px) {
+  .event-hero-banner,
+  .event-hero {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

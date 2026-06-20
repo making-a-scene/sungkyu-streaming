@@ -129,11 +129,8 @@ html, body {
 
 /* Header Styles */
 .header {
-    width: 100%;
-    max-width: 1440px;
+    width: 880px;
     height: 72px;
-    padding: 0 24px;
-    box-sizing: border-box;
     background: #1E1E1E;
     display: flex;
     align-items: center;
@@ -437,7 +434,7 @@ html, body {
 }
 
 .submenu-container {
-    max-width: 1440px;
+    width: 880px;
     margin: 0 auto;
     display: flex;
     gap: 32px;
@@ -477,9 +474,9 @@ html, body {
 
 /* Main Content */
 .main-content {
-    max-width: 1440px;
+    width: 880px;
     margin: 0 auto;
-    padding: 0 24px 8px 24px;
+    padding: 0 0 8px 0;
 }
 
 /* Notification Banner */
@@ -544,7 +541,7 @@ html, body {
 
 /* Cheering Guide Banner */
 .cheering-guide-banner {
-    max-width: 1440px;
+    width: 880px;
     margin: 20px auto;
     padding: 14px 16px;
     background: #2E2E2E;
@@ -594,7 +591,7 @@ html, body {
 /* Guide Grid */
 .guide-grid {
     display: grid;
-    max-width: 1440px;
+    width: 880px;
     row-gap: 16px;
     column-gap: 16px;
     grid-template-rows: repeat(2, fit-content(100%));
@@ -700,7 +697,7 @@ html, body {
 
 /* Tab View Styles */
 .tab-view {
-    max-width: 1440px;
+    width: 880px;
     margin: 0 auto 24px auto;
     overflow: hidden;
     position: sticky;
@@ -737,7 +734,7 @@ html, body {
 .tab-list {
     display: flex;
     gap: 0;
-    max-width: 1440px;
+    width: 880px;
     border-bottom: 1px solid #686868;
     overflow: hidden;
 }
@@ -780,9 +777,9 @@ html, body {
 
 /* Footer */
 .footer {
-    max-width: 1440px;
+    width: 880px;
     margin: 60px auto 0;
-    padding: 0 24px 40px 24px;
+    padding: 0 0 40px 0;
 }
 
 .header-social-icons {
@@ -850,7 +847,7 @@ html, body {
 /* 모바일: 375-767px */
 @media (max-width: 767px) {
     .header {
-        width: 100%;
+        width: calc(100% - 32px);
         padding: 0 16px;
     }
 
@@ -1145,7 +1142,7 @@ html, body {
 .sub-menu-wrapper {
     padding: 0 30px;
     position: relative;
-    max-width: 1440px;
+    max-width: 880px;
     margin: 0 auto;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
@@ -1168,12 +1165,12 @@ html, body {
 }
 
 .sub-gradient-left {
-    left: calc((100% - 1440px) / 2);
+    left: calc((100% - 880px) / 2);
     background: linear-gradient(to right, #282828 0%, rgba(40, 40, 40, 0) 100%);
 }
 
 .sub-gradient-right {
-    right: calc((100% - 1440px) / 2);
+    right: calc((100% - 880px) / 2);
     background: linear-gradient(to left, #282828 0%, rgba(40, 40, 40, 0) 100%);
 }
 
@@ -1223,7 +1220,7 @@ html, body {
     padding: 16px 24px;
     gap: 10px;
     background: #1E1E1E;
-    max-width: 1440px;
+    width: 880px;
     margin: 0 auto;
 }
 
@@ -1596,11 +1593,11 @@ html, body {
     .tab-view,
     .tab-list,
     .footer {
-        max-width: 1440px;
+        width: 880px;
     }
 
     .sub-menu-wrapper {
-        max-width: 1440px;
+        max-width: 880px;
     }
 }
 
@@ -1635,7 +1632,7 @@ html, body {
 /* PC 차트 페이지 */
 @media (min-width: 928px) {
     .page-title-section {
-        max-width: 1440px;
+        width: 880px;
     }
 }
 
@@ -1666,7 +1663,7 @@ html, body {
 }
 
 .cheering-sub-menu-container {
-    max-width: 1440px;
+    width: 880px;
     margin: 0 auto;
     display: flex;
     gap: 20px;
@@ -2021,17 +2018,17 @@ html, body {
 /* Cheering PC Responsive */
 @media (min-width: 928px) {
     .cheering-sub-menu-container {
-        max-width: 1440px;
+        width: 880px;
     }
 
     .cheering-detail-header {
-        max-width: 1440px;
+        width: 880px;
         margin: 0 auto;
         padding: 0;
     }
 
     .cheering-detail-content {
-        max-width: 1440px;
+        width: 880px;
         margin: 0 auto;
         padding: 16px 0;
     }
@@ -2832,7 +2829,7 @@ html, body {
 
 @media (min-width: 928px) {
     .home-content {
-        max-width: 1440px;
+        max-width: 880px;
         margin: 0 auto;
     }
 }
