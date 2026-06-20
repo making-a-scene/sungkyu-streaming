@@ -38,6 +38,7 @@ const CARD_META: CardMeta[] = [
     key: 'fanart',
     image: process.env.PUBLIC_URL + '/event/bbbe6f047cc115cfb6679019828b1d2bcd26e490.png',
     imageWidth: 110,
+    formPath: '/event/fanart',
   },
 ];
 

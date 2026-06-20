@@ -48,7 +48,13 @@ const toRow = (s: EventSubmission): Record<string, string> => {
     }
     case 'fanart': {
       const d = s.data as FanartFormData;
-      return { ...base, 닉네임: d.nickname, 메시지: d.message, '이미지 URL': d.imageUrl };
+      return {
+        ...base,
+        '이름/닉네임': d.nickname || '',
+        메시지: d.message,
+        '이미지 URL': d.imageUrl,
+        이메일: d.email || '',
+      };
     }
     case 'tour': {
       const d = s.data as TourFormData;
@@ -132,13 +138,14 @@ const DetailView: React.FC<{ sub: EventSubmission; onImage: (u: string) => void 
       const d = sub.data as FanartFormData;
       return (
         <>
-          <Field label="닉네임" value={d.nickname} />
+          {d.nickname && <Field label="이름/닉네임" value={d.nickname} />}
           <Field label="메시지" value={d.message} />
           {d.imageUrl && (
             <div className="admin-thumbs">
               <Thumb url={d.imageUrl} onImage={onImage} />
             </div>
           )}
+          {d.email && <Field label="이메일" value={d.email} />}
         </>
       );
     }

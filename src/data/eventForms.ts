@@ -71,9 +71,10 @@ export interface AlbumFormData {
 
 // 팬아트 (2032:197)
 export interface FanartFormData {
-  nickname: string;  // 보내시는 분 성함 또는 닉네임
-  imageUrl: string;  // 업로드된 팬아트 이미지 URL (Vercel Blob)
-  message: string;   // 함께 전달할 메시지 (~500자)
+  nickname?: string; // 이름 또는 닉네임 (선택)
+  email?: string;    // 이메일 (선택)
+  imageUrl: string;  // 팬아트 이미지 URL (Vercel Blob)
+  message: string;   // 함께 전달할 메시지 (~428자)
 }
 
 // LV4 추억 모으기 (2032:237~460)
