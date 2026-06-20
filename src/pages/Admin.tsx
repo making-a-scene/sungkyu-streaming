@@ -40,8 +40,10 @@ const toRow = (s: EventSubmission): Record<string, string> => {
       const d = s.data as AlbumFormData;
       return {
         ...base,
-        '앨범이 좋은 이유': d.whyLike,
+        '이름/닉네임': d.nickname || '',
+        '가장 기억에 남는 순간': d.whyLike,
         '좋아하는 곡': (d.songs || []).map((x) => `${x.title}: ${x.reason}`).join(' | '),
+        '이메일': d.email || '',
       };
     }
     case 'fanart': {
@@ -111,7 +113,8 @@ const DetailView: React.FC<{ sub: EventSubmission; onImage: (u: string) => void 
       const d = sub.data as AlbumFormData;
       return (
         <>
-          <Field label="앨범이 좋은 이유" value={d.whyLike} />
+          {d.nickname && <Field label="이름/닉네임" value={d.nickname} />}
+          <Field label="가장 기억에 남는 순간" value={d.whyLike} />
           <div className="admin-field">
             <span className="admin-field-label">좋아하는 곡</span>
             <div className="admin-field-value">

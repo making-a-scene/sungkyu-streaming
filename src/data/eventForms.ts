@@ -63,8 +63,10 @@ export interface AlbumLikedSong {
   reason: string; // 좋아하는 이유 (~4280자)
 }
 export interface AlbumFormData {
-  whyLike: string;        // "앨범/활동이 좋은 이유!" (~428자)
-  songs: AlbumLikedSong[]; // 여러 곡 선택 가능
+  nickname?: string;       // 이름 또는 닉네임 (선택)
+  email?: string;          // 이메일 (선택)
+  whyLike: string;         // "OTM 활동에서 가장 기억에 남는 순간은?" (~4280자)
+  songs: AlbumLikedSong[]; // 좋아하는 곡 + 이유 (여러 곡 선택 가능)
 }
 
 // 팬아트 (2032:197)

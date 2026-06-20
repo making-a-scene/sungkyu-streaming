@@ -1,29 +1,21 @@
-// To. 성규 폼 - 다국어 텍스트 (Figma 2042)
+// 우리가 사랑한 OFF THE MAP 폼 - 다국어 텍스트 (Figma 2049)
 // 메인 언어 토글(localStorage 'event-lang')대로 표시. ko 정확, en/zh/ja 는 ko fallback.
 
 import type { Lang } from './eventLocale';
 
-export const MSG_MAX_WHY = 428;
-export const MSG_MAX_STAGE = 428;
-export const MSG_MAX_LETTER = 4280;
-export const MSG_MAX_ABOUT = 40;
+export const ALBUM_MAX_MOMENT = 4280;
+export const ALBUM_MAX_REASON = 428;
 
-export interface MessageFormMessages {
+export interface AlbumFormMessages {
   title: string;
-  // 작성
   guides: string[];
-  aboutLabel: string;
-  aboutSuffix: string;
-  aboutPlaceholder: string;
-  whyLikeTitle: string;
-  whyLikePlaceholder: string;
-  bestStageTitle: string;
-  bestStagePlaceholder: string;
-  letterTitle: string;
-  letterPlaceholder: string;
+  momentTitle: string;
+  momentPlaceholder: string;
+  songsTitle: string;
+  songSelect: string;
+  songReasonPlaceholder: string;
   writeComplete: string;
   backHome: string;
-  // 동의
   consentTitle: string;
   consentIntro: string[];
   consentCautionTitle: string;
@@ -35,7 +27,6 @@ export interface MessageFormMessages {
   cont: string;
   backConsent: string;
   backWrite: string;
-  // 제출 확인
   reviewTitle: string;
   nicknameTitle: string;
   nicknameDesc: string;
@@ -49,37 +40,32 @@ export interface MessageFormMessages {
   back: string;
   submit: string;
   submitting: string;
-  // 완료
   doneTitle: string;
   doneSub: string;
   doneMore: string;
   submitError: string;
 }
 
-const ko: MessageFormMessages = {
-  title: 'To. 성규',
+const ko: AlbumFormMessages = {
+  title: '우리가 사랑한 OFF THE MAP',
   guides: [
     '가장 마음이 머무는 질문부터 적어보세요.',
     '부담없이 질문 하나에만 답해주셔도 좋아요.',
     '여러 번 참여하셔도 됩니다!',
   ],
-  aboutLabel: '나에게 성규는',
-  aboutSuffix: '(이)다!',
-  aboutPlaceholder: '예: 위로, 슬픔',
-  whyLikeTitle: '성규가 좋은 428가지 이유',
-  whyLikePlaceholder: '지금 문득 떠오르는 이유부터 적어보세요.',
-  bestStageTitle: '이번 LV4에서 가장 좋았던 무대와 그 이유',
-  bestStagePlaceholder: '그 무대가 특별했던 이유를 들려주세요.',
-  letterTitle: 'LV4 투어를 마치는 성규에게!',
-  letterPlaceholder:
-    '성규 덕분에 힘이 되었던 순간, 성규에게 고마웠던 순간, 앞으로의 활동을 응원하거나 전하고 싶었던 말을 모두 보내주세요!',
+  momentTitle: 'OTM 활동에서 가장 기억에 남는 순간은?',
+  momentPlaceholder:
+    'otm.log, 음감회, 앨범발매, 음악방송, 라디오, 유튜브, 팬사인회, 콘서트 등 OTM과 함께한 순간이라면 무엇이든 좋아요.',
+  songsTitle: '내가 사랑한 OTM 곡과 그 이유',
+  songSelect: '선택하기',
+  songReasonPlaceholder: '이 곡을 사랑하는 이유를 들려주세요.',
   writeComplete: '작성 완료',
   backHome: '뒤로: 홈',
   consentTitle: '자료 제출 및 이용 안내',
   consentIntro: [
-    'LV4 FINAL IN BUSAN 콘서트에서 진행될 영상 이벤트와 메시지북 제작을 위해 시민둥이 여러분의 사진과 사연을 모집합니다.',
-    '서울을 시작으로 각 도시를 지나 부산 파이널에 이르기까지, 시민둥이의 시선으로 담아낸 소중한 순간들과 추억들을 함께 기록하고자 합니다.',
-    '제출해 주신 자료는 팬이벤트 영상 및 메시지북 제작에 사용되며, 해당 목적 외의 용도로는 사용되지 않습니다.',
+    'LV4 FINAL IN BUSAN 공연 기간 중 아티스트에게 전달될 메시지북 제작을 위해 시민둥이 여러분의 이야기를 모집합니다.',
+    'OFF THE MAP 앨범과 활동을 함께하며 느꼈던 감정, 오래도록 기억에 남은 순간, 그리고 좋아하는 곡에 대한 이야기를 함께 기록하고자 합니다.',
+    '제출해 주신 메시지는 메시지북 제작에 사용되며, 해당 목적 외의 용도로는 사용되지 않습니다.',
   ],
   consentCautionTitle: '자료 제출 시 유의사항',
   consentCautions: [
@@ -89,12 +75,13 @@ const ko: MessageFormMessages = {
   ],
   consentUseTitle: '자료 이용 안내',
   consentUses: [
-    '이용 목적: LV4 FINAL IN BUSAN 콘서트 팬이벤트 영상 및 메시지북 제작',
+    '이용 목적: 메시지북 제작',
     '이용 항목: 제출한 메시지, 이름 또는 닉네임(선택)',
   ],
   consentOutro: [
-    '제출된 사진 및 메시지는 위 목적 범위 내에서만 사용되며, 팬이벤트 영상 및 메시지북 제작 완료 후 제출된 원본 자료는 일괄 삭제됩니다.',
-    '다만, 제작된 팬이벤트 영상과 메시지북은 공연 및 팬이벤트 관련 기록 영상 또는 콘텐츠에 활용될 수 있으며, 이 경우 제출해 주신 메시지, 이름 또는 닉네임이 포함될 수 있습니다.',
+    '제출된 메시지는 위 목적 범위 내에서만 사용되며, 메시지북 제작 완료 후 원본 자료는 일괄 삭제됩니다.',
+    '제작된 메시지북은 LV4 FINAL IN BUSAN 공연 기간 중 아티스트에게 전달될 예정입니다.',
+    '제작된 메시지북은 공연 및 팬이벤트 관련 기록 영상 또는 콘텐츠에 활용될 수 있으며, 이 경우 제출해 주신 메시지, 이름 또는 닉네임이 포함될 수 있습니다.',
   ],
   consentCheck: '위 내용을 확인하였으며, 안내 사항에 동의합니다.',
   cont: '계속하기',
@@ -105,12 +92,12 @@ const ko: MessageFormMessages = {
   nicknameDesc: '보내주신 내용과 함께 메시지북에 수록됩니다.',
   nicknamePlaceholder: '예: 김규식',
   emailTitle: '완성된 결과물을 받아보시겠어요?(선택)',
-  emailDesc: '이벤트 종료 후 팬이벤트 영상과 메시지북 일부를 이메일로 보내드립니다.',
+  emailDesc: '이벤트 종료 후 메시지북 일부를 이메일로 보내드립니다.',
   emailPlaceholder: '이메일 주소',
   emailConsentTitle: '이메일 수집 및 이용 안내',
   emailConsentItems: [
     '수집 항목: 이메일 주소',
-    '수집 목적: 팬이벤트 영상 및 메시지북 결과물(일부) 제공',
+    '수집 목적: 메시지북 결과물(일부) 제공',
     '보유 기간: 결과물 발송 후 7일간 보관 후 삭제',
   ],
   emailConsentCheck: '결과물 제공을 위한 이메일 주소 수집 및 이용에 동의합니다.',
@@ -124,8 +111,8 @@ const ko: MessageFormMessages = {
 };
 
 // TODO(번역): en/zh/ja Figma 텍스트로 교체. 현재 ko fallback.
-const en: MessageFormMessages = ko;
-const zh: MessageFormMessages = ko;
-const ja: MessageFormMessages = ko;
+const en: AlbumFormMessages = ko;
+const zh: AlbumFormMessages = ko;
+const ja: AlbumFormMessages = ko;
 
-export const messageFormMessages: Record<Lang, MessageFormMessages> = { ko, en, zh, ja };
+export const albumFormMessages: Record<Lang, AlbumFormMessages> = { ko, en, zh, ja };

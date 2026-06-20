@@ -32,6 +32,7 @@ const CARD_META: CardMeta[] = [
     key: 'otm',
     image: process.env.PUBLIC_URL + '/event/961578577c85d6ce53e83cd38fdbc6d7a50249e0.png',
     imageWidth: 108,
+    formPath: '/event/album',
   },
   {
     key: 'fanart',

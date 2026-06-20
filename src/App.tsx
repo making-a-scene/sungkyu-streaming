@@ -27,6 +27,7 @@ import LvFanEventJa from "./pages/LV/LvFanEventJa";
 import Admin from "./pages/Admin";
 import TourMemoryForm from "./pages/event/TourMemoryForm";
 import MessageForm from "./pages/event/MessageForm";
+import AlbumForm from "./pages/event/AlbumForm";
 
 // Main App Component
 function App() {
@@ -58,6 +59,7 @@ function App() {
                 <Route path="/admin" element={<Admin />}/>
                 <Route path="/event/memory" element={<TourMemoryForm />}/>
                 <Route path="/event/message" element={<MessageForm />}/>
+                <Route path="/event/album" element={<AlbumForm />}/>
             </Routes>
             <BottomNav />
             <Analytics />

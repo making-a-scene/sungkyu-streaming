@@ -1,0 +1,72 @@
+/* ============================================================
+   우리가 사랑한 OFF THE MAP 폼 전용 스타일
+   (공통: tourMemoryForm.css, 작성 항목: messageForm.css 재사용)
+   곡 선택 드롭다운만 전용
+   ============================================================ */
+
+.otm-songs-box {
+  background: #313131;
+  border-radius: 12px;
+  padding: 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.otm-songs-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 15px;
+  color: #ffffff;
+}
+
+.otm-song {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.otm-select-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.otm-select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 40px 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #525252;
+  background: #282828;
+  color: #ffffff;
+  font-size: 14px;
+  font-family: 'Pretendard';
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  cursor: pointer;
+}
+
+.otm-select:focus {
+  outline: none;
+}
+
+/* 추가용 빈 드롭다운("선택하기")은 placeholder 색 */
+.otm-select-empty {
+  color: #777777;
+}
+
+.otm-select option {
+  background: #282828;
+  color: #ffffff;
+}
+
+.otm-select-arrow {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #aaaaaa;
+  display: flex;
+}
