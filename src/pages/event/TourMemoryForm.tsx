@@ -15,6 +15,7 @@ import { getStoredLang, eventMessages, formatCount } from '../../data/eventLocal
 import { tourFormMessages } from '../../data/tourFormLocale';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
 import { isValidEmail } from '../../utils/validateEmail';
+import AutoGrowTextarea from '../../components/AutoGrowTextarea';
 
 // ---------- 인라인 아이콘 ----------
 const ChevronRight = () => (
@@ -346,7 +347,7 @@ const TourMemoryForm: React.FC = () => {
         )}
 
         <div className="tour-message-box">
-          <textarea
+          <AutoGrowTextarea
             value={entry.message}
             onChange={(e) => updateMessage(e.target.value)}
             placeholder={t.cityMessagePlaceholder(currentCity.name)}

@@ -400,6 +400,7 @@
   font-size: 14px;
   line-height: 1.5;
   resize: none;
+  overflow: hidden;
   font-family: 'Pretendard';
 }
 .tour-message-box textarea::placeholder {

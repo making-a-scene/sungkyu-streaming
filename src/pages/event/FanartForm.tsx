@@ -11,6 +11,7 @@ import { fanartFormMessages, FANART_MAX_MESSAGE } from '../../data/fanartFormLoc
 import type { EventCounts } from '../../data/eventForms';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
 import { isValidEmail } from '../../utils/validateEmail';
+import AutoGrowTextarea from '../../components/AutoGrowTextarea';
 
 const ChevronRight = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -152,7 +153,7 @@ const FanartForm: React.FC = () => {
         </button>
       )}
       <div className="tour-message-box">
-        <textarea
+        <AutoGrowTextarea
           value={message}
           onChange={(e) => setMessage(e.target.value.slice(0, FANART_MAX_MESSAGE))}
           placeholder={t.messagePlaceholder}

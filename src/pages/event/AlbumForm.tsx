@@ -10,6 +10,7 @@ import { albumFormMessages, ALBUM_MAX_MOMENT, ALBUM_MAX_REASON } from '../../dat
 import { OTM_TRACKS, type EventCounts } from '../../data/eventForms';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
 import { isValidEmail } from '../../utils/validateEmail';
+import AutoGrowTextarea from '../../components/AutoGrowTextarea';
 
 const ChevronRight = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -142,7 +143,7 @@ const AlbumForm: React.FC = () => {
             <p className="msg-field-subtitle">{t.momentSubtitle}</p>
           </div>
           <div className="msg-field-input">
-            <textarea
+            <AutoGrowTextarea
               className="msg-field-textarea msg-field-textarea-lg"
               value={moment}
               onChange={(e) => setMoment(e.target.value.slice(0, ALBUM_MAX_MOMENT))}
@@ -171,7 +172,7 @@ const AlbumForm: React.FC = () => {
                 <span className="otm-select-arrow"><ChevronDown /></span>
               </div>
               <div className="msg-field-input">
-                <textarea
+                <AutoGrowTextarea
                   className="msg-field-textarea"
                   value={s.reason}
                   onChange={(e) => updateReason(i, e.target.value)}

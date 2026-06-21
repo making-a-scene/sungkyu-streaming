@@ -15,6 +15,7 @@ import {
 import type { EventCounts } from '../../data/eventForms';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
 import { isValidEmail } from '../../utils/validateEmail';
+import AutoGrowTextarea from '../../components/AutoGrowTextarea';
 
 // ---------- 인라인 아이콘 ----------
 const ChevronRight = () => (
@@ -132,7 +133,7 @@ const MessageForm: React.FC = () => {
       <div className="msg-field">
         <p className="msg-field-title">{t.whyLikeTitle}</p>
         <div className="msg-field-input">
-          <textarea
+          <AutoGrowTextarea
             className="msg-field-textarea"
             value={whyLike}
             onChange={(e) => setWhyLike(e.target.value.slice(0, MSG_MAX_WHY))}
@@ -145,7 +146,7 @@ const MessageForm: React.FC = () => {
       <div className="msg-field">
         <p className="msg-field-title">{t.bestStageTitle}</p>
         <div className="msg-field-input">
-          <textarea
+          <AutoGrowTextarea
             className="msg-field-textarea"
             value={bestStage}
             onChange={(e) => setBestStage(e.target.value.slice(0, MSG_MAX_STAGE))}
@@ -158,7 +159,7 @@ const MessageForm: React.FC = () => {
       <div className="msg-field">
         <p className="msg-field-title">{t.letterTitle}</p>
         <div className="msg-field-input">
-          <textarea
+          <AutoGrowTextarea
             className="msg-field-textarea msg-field-textarea-lg"
             value={letter}
             onChange={(e) => setLetter(e.target.value.slice(0, MSG_MAX_LETTER))}
