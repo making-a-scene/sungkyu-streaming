@@ -11,13 +11,18 @@
   flex-direction: column;
 }
 
-/* 빨강 그라데이션 타이틀바 */
+/* 빨강 그라데이션 타이틀바 (헤더 바로 아래 sticky 고정) */
 .tour-form-titlebar {
+  position: sticky;
+  top: 72px; /* 헤더 높이(72px) 바로 아래 */
+  z-index: 99; /* 헤더(z-index:100) 바로 아래 */
   height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to top, #8b2028 0%, rgba(37, 9, 11, 0) 100%);
+  /* sticky 시 본문이 비쳐 보이지 않도록 헤더와 동일한 베이스 색을 깔고 그 위에 그라데이션 */
+  background-color: #1e1e1e;
+  background-image: linear-gradient(to top, #8b2028 0%, rgba(37, 9, 11, 0) 100%);
 }
 .tour-form-titlebar span {
   font-weight: 700;
