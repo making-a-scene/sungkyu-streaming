@@ -131,6 +131,7 @@ const DetailView: React.FC<{ sub: EventSubmission; onImage: (u: string) => void 
                 </div>
               ))}
             </div>
+            {d.email && <Field label="이메일" value={d.email} />}
           </div>
         </>
       );
