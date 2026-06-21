@@ -633,3 +633,31 @@
   color: #1e1e1e;
   cursor: default;
 }
+
+/* ============================================================
+   태블릿/PC: 폼이 모바일 폭(480px)이라 좌우가 비어 보여 콘텐츠 폭을 넓혀 채운다.
+   (PC/태블릿 시안 미정 — 자체 판단. 모든 폼이 .tour-body-inner / .tour-nav 공유)
+   ============================================================ */
+@media (min-width: 768px) {
+  .tour-body-inner {
+    max-width: 720px;
+  }
+  /* 하단 네비 버튼이 넓어진 본문(720px) 가장자리에 맞도록 (네비 자체 좌우 패딩 24px 포함 = 768) */
+  .tour-nav {
+    max-width: 768px;
+  }
+  /* (추억 폼) 도시 카드: 넓은 폭에 맞춰 2열 → 4열 */
+  .tour-city-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  /* (추억 폼) 폴라로이드가 모두 들어가므로 단일 중앙 스냅용 여백을 없애고 가운데 줄로 표시 */
+  .tour-carousel {
+    padding-left: 0;
+    padding-right: 0;
+    justify-content: center;
+  }
+  /* 스크롤이 없으니 페이지 점 표시는 숨김 */
+  .tour-dots {
+    display: none;
+  }
+}

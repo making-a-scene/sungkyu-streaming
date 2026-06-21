@@ -482,6 +482,13 @@ html, body {
     padding: 0 0 8px;
 }
 
+/* 가이드 페이지 등 main-content 직속 이미지는 가운데 정렬
+   (풀폭 전환으로 컨테이너가 1440px 가 되면서 880px 이미지가 좌측으로 치우치던 문제) */
+.main-content > img {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /* Notification Banner */
 .notification-banner {
     margin: 16px auto;
@@ -1601,6 +1608,19 @@ html, body {
 
     .sub-menu-wrapper {
         max-width: 1440px;
+    }
+
+    /* PC 좌우 여백: 모바일/태블릿은 margin(calc 폭)으로 주지만 PC 는 중앙정렬이라
+       여백이 없어진다. 헤더와 동일하게 좌우 24px 패딩으로 복구. */
+    .main-content {
+        padding: 0 24px 8px;
+    }
+}
+
+/* 가이드 페이지 탭: 태블릿/PC 에서 가운데 정렬 (탭이 넘치면 좌측 정렬+스크롤로 자동 폴백) */
+@media (min-width: 768px) {
+    .tab-list {
+        justify-content: safe center;
     }
 }
 
