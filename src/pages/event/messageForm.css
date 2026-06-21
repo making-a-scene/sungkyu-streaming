@@ -58,6 +58,7 @@
 }
 .msg-about-input:focus {
   outline: none;
+  border-color: #8b2028;
 }
 
 /* 텍스트 항목: 바깥 박스 */
@@ -84,6 +85,10 @@
   padding: 12px 16px;
   display: flex;
   flex-direction: column;
+}
+/* 내부 textarea 포커스 시 테두리 강조 */
+.msg-field-input:focus-within {
+  border-color: #8b2028;
 }
 .msg-field-textarea {
   width: 100%;

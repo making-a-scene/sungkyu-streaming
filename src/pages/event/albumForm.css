@@ -49,6 +49,7 @@
 
 .otm-select:focus {
   outline: none;
+  border-color: #8b2028;
 }
 
 /* 추가용 빈 드롭다운("선택하기")은 placeholder 색 */
