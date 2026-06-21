@@ -13,6 +13,7 @@ import {
   MSG_MAX_ABOUT,
 } from '../../data/messageFormLocale';
 import type { EventCounts } from '../../data/eventForms';
+import { usePreventZoom } from '../../hooks/usePreventZoom';
 
 // ---------- 인라인 아이콘 ----------
 const ChevronRight = () => (
@@ -41,6 +42,8 @@ const MessageForm: React.FC = () => {
   const lang = getStoredLang();
   const t = messageFormMessages[lang];
   const em = eventMessages[lang];
+
+  usePreventZoom();
 
   const [step, setStep] = useState<Step>('consent');
   const [about, setAbout] = useState('');

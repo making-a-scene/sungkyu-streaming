@@ -9,6 +9,7 @@ import './fanartForm.css';
 import { getStoredLang, eventMessages, formatCount } from '../../data/eventLocale';
 import { fanartFormMessages, FANART_MAX_MESSAGE } from '../../data/fanartFormLocale';
 import type { EventCounts } from '../../data/eventForms';
+import { usePreventZoom } from '../../hooks/usePreventZoom';
 
 const ChevronRight = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -47,6 +48,8 @@ const FanartForm: React.FC = () => {
   const lang = getStoredLang();
   const t = fanartFormMessages[lang];
   const em = eventMessages[lang];
+
+  usePreventZoom();
 
   const [step, setStep] = useState<Step>('consent');
   const [imageFile, setImageFile] = useState<File | null>(null);

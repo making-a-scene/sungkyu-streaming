@@ -13,6 +13,7 @@ import {
 } from '../../data/eventForms';
 import { getStoredLang, eventMessages, formatCount } from '../../data/eventLocale';
 import { tourFormMessages } from '../../data/tourFormLocale';
+import { usePreventZoom } from '../../hooks/usePreventZoom';
 
 // ---------- 인라인 아이콘 ----------
 const ChevronRight = () => (
@@ -60,6 +61,8 @@ const TourMemoryForm: React.FC = () => {
   const lang = getStoredLang();
   const t = tourFormMessages[lang];
   const em = eventMessages[lang];
+
+  usePreventZoom();
 
   const [step, setStep] = useState<Step>('cities');
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
