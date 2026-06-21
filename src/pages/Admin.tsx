@@ -51,9 +51,9 @@ const toRow = (s: EventSubmission): Record<string, string> => {
       return {
         ...base,
         '이름/닉네임': d.nickname || '',
-        메시지: d.message,
+        '메시지': d.message,
         '이미지 URL': d.imageUrl,
-        이메일: d.email || '',
+        '이메일': d.email || '',
       };
     }
     case 'tour': {
@@ -68,6 +68,7 @@ const toRow = (s: EventSubmission): Record<string, string> => {
                 .join(', ')}`,
           )
           .join('  ||  '),
+        '이메일': d.email || '',
       };
     }
     default:
@@ -164,6 +165,7 @@ const DetailView: React.FC<{ sub: EventSubmission; onImage: (u: string) => void 
                   ))}
                 </div>
               )}
+              {d.email && <Field label="이메일" value={d.email} />}
             </div>
           ))}
         </>
