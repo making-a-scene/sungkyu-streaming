@@ -79,6 +79,8 @@ const TourMemoryForm: React.FC = () => {
   const [activeDot, setActiveDot] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
+  // 직전 렌더의 (도시별) 사진 수 — 새 사진이 추가됐을 때만 중앙 스크롤하기 위함
+  const photoCountRef = useRef<{ city: string; len: number }>({ city: '', len: 0 });
 
   useEffect(() => {
     fetch('/api/submissions?action=counts')
@@ -86,11 +88,6 @@ const TourMemoryForm: React.FC = () => {
       .then((d) => d && setCounts(d as EventCounts))
       .catch(() => {});
   }, []);
-
-  useEffect(() => {
-    setActiveDot(0);
-    if (carouselRef.current) carouselRef.current.scrollLeft = 0;
-  }, [uploadIndex]);
 
   // 단계/도시 전환 시 페이지 최상단으로
   // (html,body 의 overflow-x:hidden + height:100% 로 body 가 스크롤 컨테이너라 둘 다 리셋)
@@ -105,6 +102,27 @@ const TourMemoryForm: React.FC = () => {
   const currentCity = orderedSelected[uploadIndex];
   const getEntry = (id: string): Entry => entries[id] || emptyEntry();
   const setEntry = (id: string, e: Entry) => setEntries((prev) => ({ ...prev, [id]: e }));
+
+  // 캐러셀: 마지막 사진을 항상 중앙에 둔다.
+  // - 도시 전환/초기 진입: 즉시 중앙
+  // - 같은 도시에서 사진 추가: 부드럽게 중앙 (업로드 카드는 오른쪽에 살짝 보이고, 스크롤해야 중앙)
+  // - 캡션/메시지 수정 시에는 스크롤하지 않음
+  useEffect(() => {
+    if (!currentCity) return;
+    const n = entries[currentCity.id]?.photos.length ?? 0;
+    const prev = photoCountRef.current;
+    const sameCity = prev.city === currentCity.id;
+    const added = sameCity && n > prev.len;
+    photoCountRef.current = { city: currentCity.id, len: n };
+    if (sameCity && !added) return; // 캡션/메시지 수정 등은 스크롤하지 않음
+    const el = carouselRef.current;
+    if (!el) return;
+    const idx = n >= 1 ? n - 1 : 0; // 마지막 사진(없으면 업로드 카드)
+    const slide = el.querySelector('.tour-photo-slide') as HTMLElement | null;
+    const w = slide ? slide.offsetWidth + 16 : 0;
+    el.scrollTo({ left: idx * w, behavior: added ? 'smooth' : 'auto' });
+    setActiveDot(idx);
+  }, [entries, currentCity]);
 
   const toggleCity = (id: string) =>
     setSelectedIds((prev) => (prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]));

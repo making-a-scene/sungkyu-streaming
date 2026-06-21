@@ -176,7 +176,8 @@
   width: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding-bottom: 4px;
+  /* 첫/마지막 슬라이드도 중앙에 올 수 있도록 좌우 여백(폴라로이드 165px의 절반) */
+  padding: 0 calc(50% - 82.5px) 4px;
   scrollbar-width: none;
 }
 .tour-carousel::-webkit-scrollbar {
@@ -185,8 +186,6 @@
 .tour-photo-slide {
   flex: 0 0 auto;
   scroll-snap-align: center;
-  /* 캐러셀 가운데 정렬 위해 첫/끝 여백 */
-  margin: 0 auto;
 }
 .tour-polaroid {
   width: 165px;
