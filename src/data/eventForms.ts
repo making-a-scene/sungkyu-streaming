@@ -18,7 +18,7 @@ export const TOUR_CITIES: TourCity[] = [
   { id: 'seoul', name: { ko: '서울', en: 'Seoul', zh: '首尔', ja: 'ソウル' }, dateLabel: '2026.03.27-29' },
   { id: 'macau', name: { ko: '마카오', en: 'Macau', zh: '澳门', ja: 'マカオ' }, dateLabel: '2026.04.11' },
   { id: 'hongkong', name: { ko: '홍콩', en: 'Hong Kong', zh: '香港', ja: '香港' }, dateLabel: '2026.05.02-03' },
-  { id: 'taiwan', name: { ko: '대만', en: 'Taiwan', zh: '台湾', ja: '台湾' }, dateLabel: '2026.05.16' },
+  { id: 'taiwan', name: { ko: '타이베이', en: 'Taipei', zh: '臺北', ja: '臺北' }, dateLabel: '2026.05.16' },
   { id: 'hochiminh', name: { ko: '호치민', en: 'Ho Chi Minh', zh: '胡志明市', ja: 'ホーチミン' }, dateLabel: '2026.06.13' },
   { id: 'kaohsiung', name: { ko: '가오슝', en: 'Kaohsiung', zh: '高雄', ja: '高雄' }, dateLabel: '2026.06.20' },
   { id: 'manila', name: { ko: '마닐라', en: 'Manila', zh: '马尼拉', ja: 'マニラ' }, dateLabel: '2026.06.28' },
