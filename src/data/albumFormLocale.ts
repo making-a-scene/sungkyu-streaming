@@ -53,7 +53,7 @@ const ko: AlbumFormMessages = {
     '부담없이 질문 하나에만 답해주셔도 좋아요.',
     '여러 번 참여하셔도 됩니다!',
   ],
-  momentTitle: 'OTM 활동에서 가장 기억에 남는 순간은?',
+  momentTitle: 'OTM 활동에서 기억에 남는 순간은?',
   momentPlaceholder:
     'otm.log, 음감회, 앨범발매, 음악방송, 라디오, 유튜브, 팬사인회, 콘서트 등 OTM과 함께한 순간이라면 무엇이든 좋아요.',
   songsTitle: '내가 사랑한 OTM 곡과 그 이유',

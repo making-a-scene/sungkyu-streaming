@@ -65,7 +65,7 @@ const ko: MessageFormMessages = {
   ],
   aboutLabel: '나에게 성규는',
   aboutSuffix: '(이)다!',
-  aboutPlaceholder: '예: 위로, 슬픔',
+  aboutPlaceholder: '예: 위로, 꿈',
   whyLikeTitle: '성규가 좋은 428가지 이유',
   whyLikePlaceholder: '지금 문득 떠오르는 이유부터 적어보세요.',
   bestStageTitle: '이번 LV4에서 가장 좋았던 무대와 그 이유',

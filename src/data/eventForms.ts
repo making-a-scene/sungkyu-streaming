@@ -20,8 +20,8 @@ export const TOUR_CITIES: TourCity[] = [
   { id: 'hongkong', name: '홍콩', dateLabel: '2026.05.02-03' },
   { id: 'taiwan', name: '대만', dateLabel: '2026.05.16' },
   { id: 'hochiminh', name: '호치민', dateLabel: '2026.06.13' },
-  { id: 'kaohsiung', name: '가오슝', dateLabel: '2026.06.21' },
-  { id: 'manila', name: '마닐라', dateLabel: '2026.06.27' },
+  { id: 'kaohsiung', name: '가오슝', dateLabel: '2026.06.20' },
+  { id: 'manila', name: '마닐라', dateLabel: '2026.06.28' },
 ];
 
 export const MAX_PHOTOS_PER_CITY = 3;
@@ -65,7 +65,7 @@ export interface AlbumLikedSong {
 export interface AlbumFormData {
   nickname?: string;       // 이름 또는 닉네임 (선택)
   email?: string;          // 이메일 (선택)
-  whyLike: string;         // "OTM 활동에서 가장 기억에 남는 순간은?" (~4280자)
+  whyLike: string;         // "OTM 활동에서 기억에 남는 순간은?" (~4280자)
   songs: AlbumLikedSong[]; // 좋아하는 곡 + 이유 (여러 곡 선택 가능)
 }
 
