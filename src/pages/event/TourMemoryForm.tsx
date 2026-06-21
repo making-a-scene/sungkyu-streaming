@@ -245,7 +245,7 @@ const TourMemoryForm: React.FC = () => {
               className={`tour-city-card${selected ? ' selected' : ''}`}
               onClick={() => toggleCity(c.id)}
             >
-              <span className="tour-city-name">{c.name}</span>
+              <span className="tour-city-name">{c.name[lang]}</span>
               <span className="tour-city-date">{c.dateLabel}</span>
               <span className="tour-city-count">{t.accumulated(n)}</span>
             </button>
@@ -292,7 +292,7 @@ const TourMemoryForm: React.FC = () => {
     const dotCount = entry.photos.length + (showUploadCard ? 1 : 0);
     return (
       <div className="tour-body-inner tour-upload">
-        <p className="tour-city-title">{currentCity.name} | {currentCity.dateLabel}</p>
+        <p className="tour-city-title">{currentCity.name[lang]} | {currentCity.dateLabel}</p>
 
         <div className="tour-carousel" ref={carouselRef} onScroll={onCarouselScroll}>
           {entry.photos.map((p, idx) => (
@@ -350,7 +350,7 @@ const TourMemoryForm: React.FC = () => {
           <AutoGrowTextarea
             value={entry.message}
             onChange={(e) => updateMessage(e.target.value)}
-            placeholder={t.cityMessagePlaceholder(currentCity.name)}
+            placeholder={t.cityMessagePlaceholder(currentCity.name[lang])}
             maxLength={MAX_MESSAGE}
           />
           <span className="tour-message-count">{entry.message.length}/{MAX_MESSAGE}자</span>
@@ -381,7 +381,7 @@ const TourMemoryForm: React.FC = () => {
           return (
             <div key={c.id} className="tour-summary-row">
               <CheckIcon />
-              <span className="tour-summary-city">{c.name}</span>
+              <span className="tour-summary-city">{c.name[lang]}</span>
               <span className="tour-summary-desc">{desc}</span>
             </div>
           );
@@ -435,7 +435,7 @@ const TourMemoryForm: React.FC = () => {
       <div className="tour-done-recommend">
         <p className="tour-done-more">{t.doneMore}</p>
         <div className="tour-done-cards">
-        <button type="button" className="tour-done-card" onClick={() => navigate('/')}>
+        <button type="button" className="tour-done-card" onClick={() => navigate('/event/message')}>
           <span className="tour-done-card-title">{em.cards.letter.title}</span>
           <span className="tour-done-card-desc">{em.cards.letter.desc}</span>
           <img src={LETTER_IMG} alt="" />
@@ -444,7 +444,7 @@ const TourMemoryForm: React.FC = () => {
             <em>{formatCount(em.cards.letter.countLabel, counts?.message ?? 0)}</em>
           </span>
         </button>
-        <button type="button" className="tour-done-card" onClick={() => navigate('/')}>
+        <button type="button" className="tour-done-card" onClick={() => navigate('/event/album')}>
           <span className="tour-done-card-title">{em.cards.otm.title}</span>
           <span className="tour-done-card-desc">{em.cards.otm.desc}</span>
           <img src={OTM_IMG} alt="" />
@@ -497,8 +497,8 @@ const TourMemoryForm: React.FC = () => {
     if (step === 'upload' && currentCity) {
       const entry = getEntry(currentCity.id);
       const hasPhoto = entry.photos.length > 0;
-      const backLabel = uploadIndex === 0 ? t.backConsent : t.backTo(orderedSelected[uploadIndex - 1].name);
-      const nextLabel = isLastCity ? t.complete : t.next(orderedSelected[uploadIndex + 1].name);
+      const backLabel = uploadIndex === 0 ? t.backConsent : t.backTo(orderedSelected[uploadIndex - 1].name[lang]);
+      const nextLabel = isLastCity ? t.complete : t.next(orderedSelected[uploadIndex + 1].name[lang]);
       return (
         <div className="tour-nav">
           <button type="button" className="tour-nav-back" onClick={goPrev}>
@@ -514,7 +514,7 @@ const TourMemoryForm: React.FC = () => {
       return (
         <div className="tour-nav">
           <button type="button" className="tour-nav-back" onClick={() => { setStep('upload'); setUploadIndex(orderedSelected.length - 1); window.scrollTo(0, 0); }}>
-            <ChevronLeft /> {t.backTo(orderedSelected[orderedSelected.length - 1].name)}
+            <ChevronLeft /> {t.backTo(orderedSelected[orderedSelected.length - 1].name[lang])}
           </button>
           <button type="button" className="tour-nav-next" disabled={!canSubmit} onClick={submit}>
             {submitting ? t.submitting : t.submit} <ChevronRight />

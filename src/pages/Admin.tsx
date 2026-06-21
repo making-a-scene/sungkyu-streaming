@@ -18,7 +18,7 @@ const TABS: { type: EventFormType; label: string }[] = [
   { type: 'tour', label: 'LV4 추억 모으기' },
 ];
 
-const cityName = (id: string) => TOUR_CITIES.find((c) => c.id === id)?.name ?? id;
+const cityName = (id: string) => TOUR_CITIES.find((c) => c.id === id)?.name.ko ?? id;
 
 // ---- 엑셀 행 변환 (폼별) ----
 const toRow = (s: EventSubmission): Record<string, string> => {

@@ -9,19 +9,19 @@ import type { Lang } from './eventLocale';
 // ===== 투어 도시 (LV4 추억 모으기) =====
 export interface TourCity {
   id: string;
-  name: string;
+  name: Record<Lang, string>; // 도시명 다국어 (메인 언어 토글대로 표시)
   dateLabel: string;
 }
 
 // Figma 도시 선택 화면(2032:237) 기준. 새 공연 추가 시 여기만 수정.
 export const TOUR_CITIES: TourCity[] = [
-  { id: 'seoul', name: '서울', dateLabel: '2026.03.27-29' },
-  { id: 'macau', name: '마카오', dateLabel: '2026.04.11' },
-  { id: 'hongkong', name: '홍콩', dateLabel: '2026.05.02-03' },
-  { id: 'taiwan', name: '대만', dateLabel: '2026.05.16' },
-  { id: 'hochiminh', name: '호치민', dateLabel: '2026.06.13' },
-  { id: 'kaohsiung', name: '가오슝', dateLabel: '2026.06.20' },
-  { id: 'manila', name: '마닐라', dateLabel: '2026.06.28' },
+  { id: 'seoul', name: { ko: '서울', en: 'Seoul', zh: '首尔', ja: 'ソウル' }, dateLabel: '2026.03.27-29' },
+  { id: 'macau', name: { ko: '마카오', en: 'Macau', zh: '澳门', ja: 'マカオ' }, dateLabel: '2026.04.11' },
+  { id: 'hongkong', name: { ko: '홍콩', en: 'Hong Kong', zh: '香港', ja: '香港' }, dateLabel: '2026.05.02-03' },
+  { id: 'taiwan', name: { ko: '대만', en: 'Taiwan', zh: '台湾', ja: '台湾' }, dateLabel: '2026.05.16' },
+  { id: 'hochiminh', name: { ko: '호치민', en: 'Ho Chi Minh', zh: '胡志明市', ja: 'ホーチミン' }, dateLabel: '2026.06.13' },
+  { id: 'kaohsiung', name: { ko: '가오슝', en: 'Kaohsiung', zh: '高雄', ja: '高雄' }, dateLabel: '2026.06.20' },
+  { id: 'manila', name: { ko: '마닐라', en: 'Manila', zh: '马尼拉', ja: 'マニラ' }, dateLabel: '2026.06.28' },
 ];
 
 export const MAX_PHOTOS_PER_CITY = 3;
@@ -40,6 +40,11 @@ export const OTM_TRACKS: OtmTrack[] = [
   { id: 4, title: '그림', titleEn: 'Portrait' },
   { id: 5, title: '모범답안', titleEn: 'Answer' },
 ];
+
+// 곡명 표시(전 언어 공통): 한국어 원제 + 영어 병기 "원제 (titleEn)".
+// 원제가 영어인 곡은 titleEn 이 비어 있어 원제만 표시된다.
+export const formatTrackTitle = (t: OtmTrack): string =>
+  t.titleEn ? `${t.title} (${t.titleEn})` : t.title;
 
 // ===== 폼 종류 =====
 export type EventFormType = 'message' | 'album' | 'fanart' | 'tour';

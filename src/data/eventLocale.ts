@@ -82,10 +82,113 @@ const ko: EventMessages = {
   emailInvalid: '올바른 이메일 형식이 아닙니다.',
 };
 
-// TODO(번역): 아래 3개 언어는 Figma 추출 텍스트로 교체. 현재는 한국어 fallback.
-const en: EventMessages = ko;
-const zh: EventMessages = ko;
-const ja: EventMessages = ko;
+const en: EventMessages = {
+  noticeBadge: 'LV4 FINAL IN BUSAN Fan Event — Coming Soon',
+  noticeBody:
+    'For the video event and message book at the LV4 final concert,\nwe\'re collecting photos and messages you\'ve taken yourself! We\'d love your interest and participation!',
+  noticeFootnote: '*All fan events are arranged in advance with the agency.',
+  countdownLabel: 'Time left to apply',
+  deadlineNotice: 'Applications close Wed, July 1, 23:59 (KST)',
+  cards: {
+    memory: {
+      title: 'LV4 Memories',
+      desc: 'Share your photos and stories\nfrom the 7 tour cities',
+      cta: 'Join',
+      countLabel: '{n} photos so far!',
+    },
+    letter: {
+      title: 'Dear Sungkyu',
+      desc: 'Send your heart to Sungkyu\nas the LV4 tour nears its end',
+      cta: 'Join',
+      countLabel: '{n} entries so far!',
+    },
+    otm: {
+      title: 'OTM Stories',
+      desc: 'Tell us what makes\n[OFF THE MAP] so special',
+      cta: 'Join',
+      countLabel: '{n} entries so far!',
+    },
+    fanart: {
+      title: 'Fan Arts',
+      desc: 'Capture LV4\nwith heartfelt fan art',
+      cta: 'Join',
+      countLabel: '{n} entries so far!',
+    },
+  },
+  emailInvalid: 'Please enter a valid email address.',
+};
+
+const zh: EventMessages = {
+  noticeBadge: 'LV4 FINAL IN BUSAN 粉丝活动筹备中',
+  noticeBody:
+    '为了LV4最终演唱会的影像活动与留言册制作,\n我们正在征集你亲手拍摄的照片和留言!期待你的关注与参与!',
+  noticeFootnote: '*所有粉丝活动均与经纪公司事先协商后进行。',
+  countdownLabel: '距报名截止',
+  deadlineNotice: '7月1日(周三) 23:59 (KST) 报名截止',
+  cards: {
+    memory: {
+      title: 'LV4回忆集',
+      desc: '请分享你在7个巡演城市\n拍下的照片与故事',
+      cta: '参与',
+      countLabel: '目前已累计{n}张!',
+    },
+    letter: {
+      title: '致圣圭',
+      desc: '在LV4巡演即将落幕之际\n向圣圭传达你的心意',
+      cta: '参与',
+      countLabel: '目前已累计{n}条!',
+    },
+    otm: {
+      title: 'OTM故事',
+      desc: '告诉我们[OFF THE MAP]\n为何如此特别',
+      cta: '参与',
+      countLabel: '目前已累计{n}条!',
+    },
+    fanart: {
+      title: '粉丝创作',
+      desc: '用满载爱意的创作\n记录LV4',
+      cta: '参与',
+      countLabel: '目前已累计{n}条!',
+    },
+  },
+  emailInvalid: '邮箱格式不正确。',
+};
+
+const ja: EventMessages = {
+  noticeBadge: 'LV4 FINAL IN BUSAN ファンイベント準備中',
+  noticeBody:
+    'LV4ファイナルコンサートでの映像イベントと\nメッセージブック制作のため、皆さんが直接撮影した写真とメッセージを募集します!たくさんのご関心とご参加をお願いします!',
+  noticeFootnote: '*すべてのファンイベントは所属事務所との事前協議のうえ実施されます。',
+  countdownLabel: '募集締め切りまで',
+  deadlineNotice: '7/1(水) 23:59 (KST) 募集締め切り',
+  cards: {
+    memory: {
+      title: 'LV4メモリーズ',
+      desc: '7つのツアー都市での\n写真とエピソードをお寄せください',
+      cta: '参加する',
+      countLabel: 'これまでに{n}枚!',
+    },
+    letter: {
+      title: 'ソンギュへ',
+      desc: 'LV4ツアーの終わりに向かう\nソンギュへ想いを伝えましょう',
+      cta: '参加する',
+      countLabel: 'これまでに{n}件!',
+    },
+    otm: {
+      title: 'OTMストーリー',
+      desc: '[OFF THE MAP]が\n特別な理由を聞かせてください',
+      cta: '参加する',
+      countLabel: 'これまでに{n}件!',
+    },
+    fanart: {
+      title: 'ファンアート',
+      desc: '愛情あふれるファンアートで\nLV4を記録しましょう',
+      cta: '参加する',
+      countLabel: 'これまでに{n}件!',
+    },
+  },
+  emailInvalid: '正しいメールアドレスを入力してください。',
+};
 
 export const eventMessages: Record<Lang, EventMessages> = { ko, en, zh, ja };
 

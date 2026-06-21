@@ -7,7 +7,7 @@ import './messageForm.css';
 import './albumForm.css';
 import { getStoredLang, eventMessages, formatCount } from '../../data/eventLocale';
 import { albumFormMessages, ALBUM_MAX_MOMENT, ALBUM_MAX_REASON } from '../../data/albumFormLocale';
-import { OTM_TRACKS, type EventCounts } from '../../data/eventForms';
+import { OTM_TRACKS, formatTrackTitle, type EventCounts } from '../../data/eventForms';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
 import { isValidEmail } from '../../utils/validateEmail';
 import AutoGrowTextarea from '../../components/AutoGrowTextarea';
@@ -83,12 +83,12 @@ const AlbumForm: React.FC = () => {
   const addSong = (trackId: number) => {
     const tr = OTM_TRACKS.find((x) => x.id === trackId);
     if (!tr) return;
-    setSongs((prev) => [...prev, { trackId, title: tr.title, reason: '' }]);
+    setSongs((prev) => [...prev, { trackId, title: formatTrackTitle(tr), reason: '' }]);
   };
   const changeSong = (i: number, trackId: number) => {
     const tr = OTM_TRACKS.find((x) => x.id === trackId);
     if (!tr) return;
-    setSongs((prev) => prev.map((s, idx) => (idx === i ? { ...s, trackId, title: tr.title } : s)));
+    setSongs((prev) => prev.map((s, idx) => (idx === i ? { ...s, trackId, title: formatTrackTitle(tr) } : s)));
   };
   const updateReason = (i: number, reason: string) => {
     setSongs((prev) =>
@@ -165,7 +165,7 @@ const AlbumForm: React.FC = () => {
                 >
                   {OTM_TRACKS.filter((tr) => tr.id === s.trackId || !selectedIds.includes(tr.id)).map(
                     (tr) => (
-                      <option key={tr.id} value={tr.id}>{tr.title}</option>
+                      <option key={tr.id} value={tr.id}>{formatTrackTitle(tr)}</option>
                     ),
                   )}
                 </select>
@@ -194,7 +194,7 @@ const AlbumForm: React.FC = () => {
                 >
                   <option value="" disabled hidden>{t.songSelect}</option>
                   {OTM_TRACKS.filter((tr) => !selectedIds.includes(tr.id)).map((tr) => (
-                    <option key={tr.id} value={tr.id}>{tr.title}</option>
+                    <option key={tr.id} value={tr.id}>{formatTrackTitle(tr)}</option>
                   ))}
                 </select>
                 <span className="otm-select-arrow"><ChevronDown /></span>

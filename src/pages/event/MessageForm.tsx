@@ -267,7 +267,7 @@ const MessageForm: React.FC = () => {
             <em>{formatCount(em.cards.memory.countLabel, counts?.tourPhotosTotal ?? 0)}</em>
           </span>
         </button>
-        <button type="button" className="tour-done-card" onClick={() => navigate('/')}>
+        <button type="button" className="tour-done-card" onClick={() => navigate('/event/album')}>
           <span className="tour-done-card-title">{em.cards.otm.title}</span>
           <span className="tour-done-card-desc">{em.cards.otm.desc}</span>
           <img src={OTM_IMG} alt="" />
