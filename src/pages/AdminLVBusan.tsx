@@ -177,7 +177,7 @@ const DetailView: React.FC<{ sub: EventSubmission; onImage: (u: string) => void 
   }
 };
 
-const Admin: React.FC = () => {
+const AdminLVBusan: React.FC = () => {
   const [password, setPassword] = useState('');
   const [token, setToken] = useState<string | null>(null);
   const [activeType, setActiveType] = useState<EventFormType>('message');
@@ -312,4 +312,4 @@ const Admin: React.FC = () => {
   );
 };
 
-export default Admin;
+export default AdminLVBusan;
