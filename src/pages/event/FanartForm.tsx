@@ -68,6 +68,13 @@ const FanartForm: React.FC = () => {
       .catch(() => {});
   }, []);
 
+  // 단계 전환 시 페이지 최상단으로 (body 가 스크롤 컨테이너라 함께 리셋)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [step]);
+
   const canSubmit = !submitting && !!imageFile && (email.trim() === '' || consentEmail);
 
   // 이미지 선택 (업로드는 제출 시)

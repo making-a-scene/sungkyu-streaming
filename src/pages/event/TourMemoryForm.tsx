@@ -87,6 +87,14 @@ const TourMemoryForm: React.FC = () => {
     if (carouselRef.current) carouselRef.current.scrollLeft = 0;
   }, [uploadIndex]);
 
+  // 단계/도시 전환 시 페이지 최상단으로
+  // (html,body 의 overflow-x:hidden + height:100% 로 body 가 스크롤 컨테이너라 둘 다 리셋)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [step, uploadIndex]);
+
   // 선택 도시(TOUR_CITIES 원래 순서 유지)
   const orderedSelected = TOUR_CITIES.filter((c) => selectedIds.includes(c.id));
   const currentCity = orderedSelected[uploadIndex];

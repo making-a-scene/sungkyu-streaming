@@ -63,6 +63,13 @@ const AlbumForm: React.FC = () => {
       .catch(() => {});
   }, []);
 
+  // 단계 전환 시 페이지 최상단으로 (body 가 스크롤 컨테이너라 함께 리셋)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [step]);
+
   const selectedIds = songs.map((s) => s.trackId);
   const anyFilled = !!(moment.trim() || songs.length > 0);
   const canSubmit = !submitting && (email.trim() === '' || consentEmail);
