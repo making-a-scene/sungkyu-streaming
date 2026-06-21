@@ -292,11 +292,17 @@ const TourMemoryForm: React.FC = () => {
                     <CloseIcon />
                   </button>
                 </div>
-                <input
+                <textarea
                   className="tour-photo-caption"
                   value={p.caption}
-                  onChange={(e) => updateCaption(idx, e.target.value)}
+                  onChange={(e) => {
+                    const el = e.target;
+                    // 메모는 최대 2줄(영역 32px) — 글자가 늘면서 영역을 넘으면 입력 무시
+                    if (e.target.value.length > p.caption.length && el.scrollHeight > el.clientHeight) return;
+                    updateCaption(idx, e.target.value);
+                  }}
                   placeholder={t.photoMemoPlaceholder}
+                  rows={2}
                   maxLength={60}
                 />
               </div>
