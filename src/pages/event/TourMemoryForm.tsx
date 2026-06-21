@@ -71,6 +71,7 @@ const TourMemoryForm: React.FC = () => {
   const [consentData, setConsentData] = useState(false);
   const [entries, setEntries] = useState<Record<string, Entry>>({});
   const [uploadIndex, setUploadIndex] = useState(0);
+  const [uploadIntroOpen, setUploadIntroOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [consentEmail, setConsentEmail] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -81,6 +82,8 @@ const TourMemoryForm: React.FC = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
   // 직전 렌더의 (도시별) 사진 수 — 새 사진이 추가됐을 때만 중앙 스크롤하기 위함
   const photoCountRef = useRef<{ city: string; len: number }>({ city: '', len: 0 });
+  // 업로드 화면 첫 진입 시에만 안내 팝업을 띄우기 위한 플래그
+  const uploadIntroSeenRef = useRef(false);
 
   useEffect(() => {
     fetch('/api/submissions?action=counts')
@@ -96,6 +99,14 @@ const TourMemoryForm: React.FC = () => {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
   }, [step, uploadIndex]);
+
+  // 업로드 화면에 처음 들어왔을 때 한 번만 안내 팝업 표시
+  useEffect(() => {
+    if (step === 'upload' && !uploadIntroSeenRef.current) {
+      uploadIntroSeenRef.current = true;
+      setUploadIntroOpen(true);
+    }
+  }, [step]);
 
   // 선택 도시(TOUR_CITIES 원래 순서 유지)
   const orderedSelected = TOUR_CITIES.filter((c) => selectedIds.includes(c.id));
@@ -528,6 +539,26 @@ const TourMemoryForm: React.FC = () => {
       </main>
       {step !== 'done' && renderNav()}
       {popup && <ImagePopup imageSrc={popup} onClose={() => setPopup(null)} />}
+      {uploadIntroOpen && (
+        <div className="tour-intro-overlay" onClick={() => setUploadIntroOpen(false)}>
+          <div className="tour-intro-card" onClick={(e) => e.stopPropagation()}>
+            <div className="tour-intro-content">
+              <div className="tour-intro-head">
+                <span className="tour-intro-check"><CheckIcon /></span>
+                <div className="tour-intro-title">
+                  {t.uploadIntroTitle.map((line, i) => <p key={i}>{line}</p>)}
+                </div>
+              </div>
+              <ul className="tour-intro-list">
+                {t.uploadIntroItems.map((it, i) => <li key={i}>{it}</li>)}
+              </ul>
+            </div>
+            <button type="button" className="tour-intro-confirm" onClick={() => setUploadIntroOpen(false)}>
+              {t.uploadIntroConfirm}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

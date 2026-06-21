@@ -52,6 +52,10 @@ export interface TourFormMessages {
   // 공통
   uploadError: string;
   maxPhotoError: string;
+  // 업로드 화면 첫 진입 안내 팝업 (Figma 2055:1331)
+  uploadIntroTitle: string[];
+  uploadIntroItems: string[];
+  uploadIntroConfirm: string;
 }
 
 const ko: TourFormMessages = {
@@ -115,6 +119,14 @@ const ko: TourFormMessages = {
   doneMore: '함께 완성할 이야기가 남아 있어요!',
   uploadError: '이미지 업로드에 실패했습니다. 다시 시도해주세요.',
   maxPhotoError: '도시당 최대 3장까지 업로드할 수 있습니다.',
+  uploadIntroTitle: ['LV4의 추억이 담긴 사진이라면', '무엇이든 좋습니다!'],
+  uploadIntroItems: [
+    '공연장 안팎에서 응원봉, 굿즈, 슬로건, 풍선 등과 함께한 사진',
+    '공연 후 뒷풀이 사진',
+    '투어 도시에서의 여행 사진',
+    '온라인 스트리밍 시청 인증 등',
+  ],
+  uploadIntroConfirm: '확인',
 };
 
 // TODO(번역): 아래 3개 언어는 Figma 추출 텍스트로 교체. 현재 한국어 fallback.

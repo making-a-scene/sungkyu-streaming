@@ -282,6 +282,87 @@
   height: 32px;
 }
 
+/* ---------- 업로드 첫 진입 안내 팝업 (Figma 2055:1331) ---------- */
+.tour-intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+}
+.tour-intro-card {
+  width: 293px;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 30px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.tour-intro-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.tour-intro-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.tour-intro-check {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #1e1e1e;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.tour-intro-title {
+  text-align: center;
+}
+.tour-intro-title p {
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 23px;
+  color: #000000;
+}
+.tour-intro-list {
+  margin: 0;
+  padding-left: 21px;
+  list-style: disc;
+}
+.tour-intro-list li {
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 24px;
+  color: #313131;
+  /* 한국어 단어가 줄바꿈 시 중간에서 끊기지 않게 (예: '풍선'이 풍/선으로 갈리던 문제) */
+  word-break: keep-all;
+}
+.tour-intro-confirm {
+  width: 100%;
+  height: 41px;
+  border: none;
+  border-radius: 200px;
+  background: #8b2028;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 14px;
+  font-family: 'Pretendard';
+  cursor: pointer;
+}
+
 .tour-dots {
   display: flex;
   gap: 6px;
