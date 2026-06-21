@@ -172,6 +172,8 @@
 }
 .tour-carousel {
   display: flex;
+  /* 폴라로이드 높이가 이미지 비율에 따라 달라지므로 위 정렬(늘어나지 않게) */
+  align-items: flex-start;
   gap: 16px;
   width: 100%;
   overflow-x: auto;
@@ -201,14 +203,14 @@
 .tour-photo-wrap {
   position: relative;
   width: 100%;
-  height: 220px;
+  /* 높이는 이미지 원본 비율에 맞춰 자동. 둘레 여백(폴라로이드 패딩 12px)은 항상 일정 */
   border-radius: 12px;
   overflow: hidden;
 }
 .tour-photo-wrap img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  /* 원본 비율 그대로 — 잘림/레터박스 없이 프레임이 이미지에 맞춰짐 */
   cursor: zoom-in;
   display: block;
 }
