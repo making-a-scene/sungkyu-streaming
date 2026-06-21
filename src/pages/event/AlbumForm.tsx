@@ -135,65 +135,72 @@ const AlbumForm: React.FC = () => {
         ))}
       </div>
 
-      <div className="msg-field">
-        <p className="msg-field-title">{t.momentTitle}</p>
-        <div className="msg-field-input">
-          <textarea
-            className="msg-field-textarea msg-field-textarea-lg"
-            value={moment}
-            onChange={(e) => setMoment(e.target.value.slice(0, ALBUM_MAX_MOMENT))}
-            placeholder={t.momentPlaceholder}
-          />
-          <span className="msg-field-count">{moment.length}/{ALBUM_MAX_MOMENT}자</span>
+      <div className="otm-write-group">
+        <div className="msg-field">
+          <div className="msg-field-head">
+            <p className="msg-field-title">{t.momentTitle}</p>
+            <p className="msg-field-subtitle">{t.momentSubtitle}</p>
+          </div>
+          <div className="msg-field-input">
+            <textarea
+              className="msg-field-textarea msg-field-textarea-lg"
+              value={moment}
+              onChange={(e) => setMoment(e.target.value.slice(0, ALBUM_MAX_MOMENT))}
+              placeholder={t.momentPlaceholder}
+            />
+            <span className="msg-field-count">{moment.length}/{ALBUM_MAX_MOMENT}자</span>
+          </div>
         </div>
-      </div>
 
-      <div className="otm-songs-box">
-        <p className="otm-songs-title">{t.songsTitle}</p>
-        {songs.map((s, i) => (
-          <div key={i} className="otm-song">
-            <div className="otm-select-wrap">
-              <select
-                className="otm-select"
-                value={s.trackId}
-                onChange={(e) => changeSong(i, Number(e.target.value))}
-              >
-                {OTM_TRACKS.filter((tr) => tr.id === s.trackId || !selectedIds.includes(tr.id)).map(
-                  (tr) => (
+        <div className="otm-songs-box">
+          <p className="otm-songs-title">{t.songsTitle}</p>
+          {songs.map((s, i) => (
+            <div key={i} className="otm-song">
+              <div className="otm-select-wrap">
+                <select
+                  className="otm-select"
+                  value={s.trackId}
+                  onChange={(e) => changeSong(i, Number(e.target.value))}
+                >
+                  {OTM_TRACKS.filter((tr) => tr.id === s.trackId || !selectedIds.includes(tr.id)).map(
+                    (tr) => (
+                      <option key={tr.id} value={tr.id}>{tr.title}</option>
+                    ),
+                  )}
+                </select>
+                <span className="otm-select-arrow"><ChevronDown /></span>
+              </div>
+              <div className="msg-field-input">
+                <textarea
+                  className="msg-field-textarea"
+                  value={s.reason}
+                  onChange={(e) => updateReason(i, e.target.value)}
+                  placeholder={t.songReasonPlaceholder}
+                />
+                <span className="msg-field-count">{s.reason.length}/{ALBUM_MAX_REASON}자</span>
+              </div>
+            </div>
+          ))}
+          {songs.length < OTM_TRACKS.length && (
+            <div className="otm-song">
+              <div className="otm-select-wrap">
+                <select
+                  className="otm-select otm-select-empty"
+                  value=""
+                  onChange={(e) => {
+                    if (e.target.value) addSong(Number(e.target.value));
+                  }}
+                >
+                  <option value="" disabled hidden>{t.songSelect}</option>
+                  {OTM_TRACKS.filter((tr) => !selectedIds.includes(tr.id)).map((tr) => (
                     <option key={tr.id} value={tr.id}>{tr.title}</option>
-                  ),
-                )}
-              </select>
-              <span className="otm-select-arrow"><ChevronDown /></span>
+                  ))}
+                </select>
+                <span className="otm-select-arrow"><ChevronDown /></span>
+              </div>
             </div>
-            <div className="msg-field-input">
-              <textarea
-                className="msg-field-textarea"
-                value={s.reason}
-                onChange={(e) => updateReason(i, e.target.value)}
-                placeholder={t.songReasonPlaceholder}
-              />
-              <span className="msg-field-count">{s.reason.length}/{ALBUM_MAX_REASON}자</span>
-            </div>
-          </div>
-        ))}
-        {songs.length < OTM_TRACKS.length && (
-          <div className="otm-select-wrap">
-            <select
-              className="otm-select otm-select-empty"
-              value=""
-              onChange={(e) => {
-                if (e.target.value) addSong(Number(e.target.value));
-              }}
-            >
-              <option value="" disabled hidden>{t.songSelect}</option>
-              {OTM_TRACKS.filter((tr) => !selectedIds.includes(tr.id)).map((tr) => (
-                <option key={tr.id} value={tr.id}>{tr.title}</option>
-              ))}
-            </select>
-            <span className="otm-select-arrow"><ChevronDown /></span>
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </div>
   );

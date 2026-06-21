@@ -4,13 +4,33 @@
    곡 선택 드롭다운만 전용
    ============================================================ */
 
+/* 작성 화면: 순간 질문 + 곡 박스 묶음 (Figma 2053:1239, gap 18px) */
+.otm-write-group {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+/* 순간 질문: 제목 + 보조설명(예시 목록) (Figma 2053:1243, gap 4px) */
+.msg-field-head {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.msg-field-subtitle {
+  margin: 0;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  color: #777777;
+}
+
 .otm-songs-box {
   background: #313131;
   border-radius: 12px;
   padding: 16px 24px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .otm-songs-title {
@@ -24,6 +44,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  background: #1e1e1e;
+  padding: 12px;
+  border-radius: 12px;
 }
 
 .otm-select-wrap {

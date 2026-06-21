@@ -10,6 +10,7 @@ export interface AlbumFormMessages {
   title: string;
   guides: string[];
   momentTitle: string;
+  momentSubtitle: string;
   momentPlaceholder: string;
   songsTitle: string;
   songSelect: string;
@@ -54,8 +55,8 @@ const ko: AlbumFormMessages = {
     '여러 번 참여하셔도 됩니다!',
   ],
   momentTitle: 'OTM 활동에서 기억에 남는 순간은?',
-  momentPlaceholder:
-    'otm.log, 음감회, 앨범발매, 음악방송, 라디오, 유튜브, 팬사인회, 콘서트 등 OTM과 함께한 순간이라면 무엇이든 좋아요.',
+  momentSubtitle: 'otm.log, 음감회, 앨범발매, 음악방송, 팝업, 라디오, 유튜브, 팬사인회, 콘서트 등',
+  momentPlaceholder: 'OTM과 함께한 순간이라면 무엇이든 좋아요.',
   songsTitle: '내가 사랑한 OTM 곡과 그 이유',
   songSelect: '선택하기',
   songReasonPlaceholder: '이 곡을 사랑하는 이유를 들려주세요.',
