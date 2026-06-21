@@ -43,6 +43,7 @@ export interface EventMessages {
     otm: EventCardText;     // 우리가 사랑한 OTM
     fanart: EventCardText;  // 금손시민둥이 전용(팬아트)
   };
+  emailInvalid: string;     // 폼 공통: 이메일 형식 오류 안내 (4개 폼 공유)
 }
 
 const ko: EventMessages = {
@@ -78,6 +79,7 @@ const ko: EventMessages = {
       countLabel: '지금까지 {n}건 누적!',
     },
   },
+  emailInvalid: '올바른 이메일 형식이 아닙니다.',
 };
 
 // TODO(번역): 아래 3개 언어는 Figma 추출 텍스트로 교체. 현재는 한국어 fallback.

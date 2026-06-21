@@ -14,6 +14,7 @@ import {
 } from '../../data/messageFormLocale';
 import type { EventCounts } from '../../data/eventForms';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
+import { isValidEmail } from '../../utils/validateEmail';
 
 // ---------- 인라인 아이콘 ----------
 const ChevronRight = () => (
@@ -34,6 +35,7 @@ const CheckIcon = () => (
 
 const MEMORY_IMG = process.env.PUBLIC_URL + '/event/ccff584c723a2504004a0abf2afdd8155377bf0d.png';
 const OTM_IMG = process.env.PUBLIC_URL + '/event/961578577c85d6ce53e83cd38fdbc6d7a50249e0.png';
+const DONE_CHECK = process.env.PUBLIC_URL + '/event/a6e250c4399efd85c898730916d0caa8ee959082.svg';
 
 type Step = 'write' | 'consent' | 'review' | 'done';
 
@@ -72,7 +74,7 @@ const MessageForm: React.FC = () => {
   }, [step]);
 
   const anyFilled = !!(about.trim() || whyLike.trim() || bestStage.trim() || letter.trim());
-  const canSubmit = !submitting && (email.trim() === '' || consentEmail);
+  const canSubmit = !submitting && (email.trim() === '' || (isValidEmail(email) && consentEmail));
 
   const submit = async () => {
     if (!canSubmit) return;
@@ -219,6 +221,9 @@ const MessageForm: React.FC = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t.emailPlaceholder}
         />
+        {email.trim() !== '' && !isValidEmail(email) && (
+          <p className="tour-email-error">{em.emailInvalid}</p>
+        )}
       </div>
       {email.trim() !== '' && (
         <div className="tour-email-consent">
@@ -242,11 +247,16 @@ const MessageForm: React.FC = () => {
   // ---------- 완료 ----------
   const renderDone = () => (
     <div className="tour-body-inner tour-done">
-      <div className="tour-done-check"><CheckIcon /></div>
-      <p className="tour-done-title">{t.doneTitle}</p>
-      <p className="tour-done-sub">{t.doneSub}</p>
-      <p className="tour-done-more">{t.doneMore}</p>
-      <div className="tour-done-cards">
+      <div className="tour-done-message">
+        <img className="tour-done-check" src={DONE_CHECK} alt="" />
+        <div className="tour-done-heading">
+          <p>{t.doneTitle}</p>
+          <p>{t.doneSub}</p>
+        </div>
+      </div>
+      <div className="tour-done-recommend">
+        <p className="tour-done-more">{t.doneMore}</p>
+        <div className="tour-done-cards">
         <button type="button" className="tour-done-card" onClick={() => navigate('/event/memory')}>
           <span className="tour-done-card-title">{em.cards.memory.title}</span>
           <span className="tour-done-card-desc">{em.cards.memory.desc}</span>
@@ -265,6 +275,7 @@ const MessageForm: React.FC = () => {
             <em>{formatCount(em.cards.otm.countLabel, counts?.album ?? 0)}</em>
           </span>
         </button>
+      </div>
       </div>
     </div>
   );

@@ -10,6 +10,7 @@ import { getStoredLang, eventMessages, formatCount } from '../../data/eventLocal
 import { fanartFormMessages, FANART_MAX_MESSAGE } from '../../data/fanartFormLocale';
 import type { EventCounts } from '../../data/eventForms';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
+import { isValidEmail } from '../../utils/validateEmail';
 
 const ChevronRight = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -40,6 +41,7 @@ const CloseIcon = () => (
 
 const MEMORY_IMG = process.env.PUBLIC_URL + '/event/ccff584c723a2504004a0abf2afdd8155377bf0d.png';
 const LETTER_IMG = process.env.PUBLIC_URL + '/event/631f4974ef0a745dd01d2a214cbc20870d7582fd.png';
+const DONE_CHECK = process.env.PUBLIC_URL + '/event/a6e250c4399efd85c898730916d0caa8ee959082.svg';
 
 type Step = 'consent' | 'write' | 'review' | 'done';
 
@@ -78,7 +80,7 @@ const FanartForm: React.FC = () => {
     document.body.scrollTop = 0;
   }, [step]);
 
-  const canSubmit = !submitting && !!imageFile && (email.trim() === '' || consentEmail);
+  const canSubmit = !submitting && !!imageFile && (email.trim() === '' || (isValidEmail(email) && consentEmail));
 
   // 이미지 선택 (업로드는 제출 시)
   const handleFile = (files: FileList | null) => {
@@ -212,6 +214,9 @@ const FanartForm: React.FC = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t.emailPlaceholder}
         />
+        {email.trim() !== '' && !isValidEmail(email) && (
+          <p className="tour-email-error">{em.emailInvalid}</p>
+        )}
       </div>
       {email.trim() !== '' && (
         <div className="tour-email-consent">
@@ -235,11 +240,16 @@ const FanartForm: React.FC = () => {
   // ---------- 완료 ----------
   const renderDone = () => (
     <div className="tour-body-inner tour-done">
-      <div className="tour-done-check"><CheckIcon /></div>
-      <p className="tour-done-title">{t.doneTitle}</p>
-      <p className="tour-done-sub">{t.doneSub}</p>
-      <p className="tour-done-more">{t.doneMore}</p>
-      <div className="tour-done-cards">
+      <div className="tour-done-message">
+        <img className="tour-done-check" src={DONE_CHECK} alt="" />
+        <div className="tour-done-heading">
+          <p>{t.doneTitle}</p>
+          <p>{t.doneSub}</p>
+        </div>
+      </div>
+      <div className="tour-done-recommend">
+        <p className="tour-done-more">{t.doneMore}</p>
+        <div className="tour-done-cards">
         <button type="button" className="tour-done-card" onClick={() => navigate('/event/memory')}>
           <span className="tour-done-card-title">{em.cards.memory.title}</span>
           <span className="tour-done-card-desc">{em.cards.memory.desc}</span>
@@ -258,6 +268,7 @@ const FanartForm: React.FC = () => {
             <em>{formatCount(em.cards.letter.countLabel, counts?.message ?? 0)}</em>
           </span>
         </button>
+      </div>
       </div>
     </div>
   );

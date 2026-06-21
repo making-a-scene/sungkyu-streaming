@@ -14,6 +14,7 @@ import {
 import { getStoredLang, eventMessages, formatCount } from '../../data/eventLocale';
 import { tourFormMessages } from '../../data/tourFormLocale';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
+import { isValidEmail } from '../../utils/validateEmail';
 
 // ---------- 인라인 아이콘 ----------
 const ChevronRight = () => (
@@ -45,6 +46,7 @@ const CloseIcon = () => (
 
 const LETTER_IMG = process.env.PUBLIC_URL + '/event/631f4974ef0a745dd01d2a214cbc20870d7582fd.png';
 const OTM_IMG = process.env.PUBLIC_URL + '/event/961578577c85d6ce53e83cd38fdbc6d7a50249e0.png';
+const DONE_CHECK = process.env.PUBLIC_URL + '/event/a6e250c4399efd85c898730916d0caa8ee959082.svg';
 
 type Step = 'cities' | 'consent' | 'upload' | 'review' | 'done';
 interface Entry {
@@ -154,7 +156,7 @@ const TourMemoryForm: React.FC = () => {
     else setUploadIndex((i) => i - 1);
   };
 
-  const canSubmit = !submitting && (email.trim() === '' || consentEmail);
+  const canSubmit = !submitting && (email.trim() === '' || (isValidEmail(email) && consentEmail));
 
   const submit = async () => {
     if (!canSubmit) return;
@@ -361,6 +363,9 @@ const TourMemoryForm: React.FC = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t.emailPlaceholder}
         />
+        {email.trim() !== '' && !isValidEmail(email) && (
+          <p className="tour-email-error">{em.emailInvalid}</p>
+        )}
       </div>
 
       {email.trim() !== '' && (
@@ -384,11 +389,16 @@ const TourMemoryForm: React.FC = () => {
 
   const renderDone = () => (
     <div className="tour-body-inner tour-done">
-      <div className="tour-done-check"><CheckIcon /></div>
-      <p className="tour-done-title">{t.doneTitle}</p>
-      <p className="tour-done-sub">{t.doneSub}</p>
-      <p className="tour-done-more">{t.doneMore}</p>
-      <div className="tour-done-cards">
+      <div className="tour-done-message">
+        <img className="tour-done-check" src={DONE_CHECK} alt="" />
+        <div className="tour-done-heading">
+          <p>{t.doneTitle}</p>
+          <p>{t.doneSub}</p>
+        </div>
+      </div>
+      <div className="tour-done-recommend">
+        <p className="tour-done-more">{t.doneMore}</p>
+        <div className="tour-done-cards">
         <button type="button" className="tour-done-card" onClick={() => navigate('/')}>
           <span className="tour-done-card-title">{em.cards.letter.title}</span>
           <span className="tour-done-card-desc">{em.cards.letter.desc}</span>
@@ -407,6 +417,7 @@ const TourMemoryForm: React.FC = () => {
             <em>{formatCount(em.cards.otm.countLabel, counts?.album ?? 0)}</em>
           </span>
         </button>
+      </div>
       </div>
     </div>
   );

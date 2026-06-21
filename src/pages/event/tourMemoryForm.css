@@ -385,6 +385,12 @@
   outline: none;
   border-color: #8b2028;
 }
+/* 이메일 형식 오류 안내 */
+.tour-email-error {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #e0606a;
+}
 .tour-email-consent {
   background: #282828;
   border-radius: 8px;
@@ -403,30 +409,41 @@
 .tour-done {
   align-items: center;
   text-align: center;
+  gap: 60px; /* 완료 메시지 블록 ↔ 추천(안내문구+카드) (Figma 2049:980) */
+}
+/* 완료 메시지: 체크 아이콘 + 2줄 안내 (Figma 2049:981) */
+.tour-done-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
 }
 .tour-done-check {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #8b2028;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  width: 24px;
+  height: 24px;
 }
-.tour-done-title {
-  margin: 0;
+.tour-done-heading {
   font-weight: 700;
-  font-size: 18px;
+  font-size: 16px;
+  line-height: 28px;
+  color: #ffffff;
 }
-.tour-done-sub {
+.tour-done-heading p {
   margin: 0;
-  font-size: 15px;
+}
+/* 추천: 안내문구 + 카드 (Figma 2049:985) */
+.tour-done-recommend {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
 }
 .tour-done-more {
-  margin: 16px 0 0;
-  font-size: 14px;
-  color: #aaaaaa;
+  margin: 0;
+  font-weight: 700;
+  font-size: 16px;
+  color: #777777;
 }
 .tour-done-cards {
   display: grid;

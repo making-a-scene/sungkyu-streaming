@@ -9,6 +9,7 @@ import { getStoredLang, eventMessages, formatCount } from '../../data/eventLocal
 import { albumFormMessages, ALBUM_MAX_MOMENT, ALBUM_MAX_REASON } from '../../data/albumFormLocale';
 import { OTM_TRACKS, type EventCounts } from '../../data/eventForms';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
+import { isValidEmail } from '../../utils/validateEmail';
 
 const ChevronRight = () => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -33,6 +34,7 @@ const CheckIcon = () => (
 
 const MEMORY_IMG = process.env.PUBLIC_URL + '/event/ccff584c723a2504004a0abf2afdd8155377bf0d.png';
 const LETTER_IMG = process.env.PUBLIC_URL + '/event/631f4974ef0a745dd01d2a214cbc20870d7582fd.png';
+const DONE_CHECK = process.env.PUBLIC_URL + '/event/a6e250c4399efd85c898730916d0caa8ee959082.svg';
 
 type Step = 'consent' | 'write' | 'review' | 'done';
 interface SongEntry {
@@ -75,7 +77,7 @@ const AlbumForm: React.FC = () => {
 
   const selectedIds = songs.map((s) => s.trackId);
   const anyFilled = !!(moment.trim() || songs.length > 0);
-  const canSubmit = !submitting && (email.trim() === '' || consentEmail);
+  const canSubmit = !submitting && (email.trim() === '' || (isValidEmail(email) && consentEmail));
 
   const addSong = (trackId: number) => {
     const tr = OTM_TRACKS.find((x) => x.id === trackId);
@@ -247,6 +249,9 @@ const AlbumForm: React.FC = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder={t.emailPlaceholder}
         />
+        {email.trim() !== '' && !isValidEmail(email) && (
+          <p className="tour-email-error">{em.emailInvalid}</p>
+        )}
       </div>
       {email.trim() !== '' && (
         <div className="tour-email-consent">
@@ -270,11 +275,16 @@ const AlbumForm: React.FC = () => {
   // ---------- 완료 ----------
   const renderDone = () => (
     <div className="tour-body-inner tour-done">
-      <div className="tour-done-check"><CheckIcon /></div>
-      <p className="tour-done-title">{t.doneTitle}</p>
-      <p className="tour-done-sub">{t.doneSub}</p>
-      <p className="tour-done-more">{t.doneMore}</p>
-      <div className="tour-done-cards">
+      <div className="tour-done-message">
+        <img className="tour-done-check" src={DONE_CHECK} alt="" />
+        <div className="tour-done-heading">
+          <p>{t.doneTitle}</p>
+          <p>{t.doneSub}</p>
+        </div>
+      </div>
+      <div className="tour-done-recommend">
+        <p className="tour-done-more">{t.doneMore}</p>
+        <div className="tour-done-cards">
         <button type="button" className="tour-done-card" onClick={() => navigate('/event/memory')}>
           <span className="tour-done-card-title">{em.cards.memory.title}</span>
           <span className="tour-done-card-desc">{em.cards.memory.desc}</span>
@@ -293,6 +303,7 @@ const AlbumForm: React.FC = () => {
             <em>{formatCount(em.cards.letter.countLabel, counts?.message ?? 0)}</em>
           </span>
         </button>
+      </div>
       </div>
     </div>
   );
