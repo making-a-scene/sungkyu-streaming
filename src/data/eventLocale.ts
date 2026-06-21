@@ -79,9 +79,9 @@ const ko: EventMessages = {
 };
 
 const en: EventMessages = {
-  noticeBadge: 'LV4 FINAL IN BUSAN Fan Events Coming Soon',
+  noticeBadge: 'LV4 FINAL IN BUSAN Fan Event',
   noticeBody:
-    'We\'re collecting photos you took yourself and your messages for the LV4 final concert video event and a special message book.\nWe look forward to your interest and participation!',
+    'We\'re collecting photos you took yourself and your messages for the LV4 final concert video event and a special message book.\nWe\'d love to hear from you and appreciate your participation!',
   noticeFootnote: '*All fan events will be conducted in prior consultation with Billions.',
   countdownLabel: 'Submission Deadline:',
   deadlineNotice: 'Submission Deadline: July 1, 23:59 (KST)',
@@ -115,9 +115,9 @@ const en: EventMessages = {
 };
 
 const zh: EventMessages = {
-  noticeBadge: 'LV4 FINAL IN BUSAN 粉丝应援活动筹备中',
+  noticeBadge: 'LV4 FINAL IN BUSAN 粉丝应援活动',
   noticeBody:
-    '为了制作 LV4 最终场演唱会的视频应援和纪念留言册，现征集大家亲自拍摄的照片与想传达的留言。\n期待大家积极参与！',
+    '为了制作 LV4 最终场演唱会的视频应援和纪念留言册，\n现征集大家亲自拍摄的照片与想传达的留言。\n期待大家积极参与！',
   noticeFootnote: '*所有应援活动均已事先与 Billions 协商后进行。',
   countdownLabel: '征集截止时间：',
   deadlineNotice: '征集截止时间： 7月1日 23:59（KST）',
@@ -151,9 +151,9 @@ const zh: EventMessages = {
 };
 
 const ja: EventMessages = {
-  noticeBadge: 'LV4 FINAL IN BUSAN ファンイベント準備中',
+  noticeBadge: 'LV4 FINAL IN BUSAN ファンイベント',
   noticeBody:
-    'LV4ファイナルコンサートで実施する映像イベントとメッセージブック制作のため、\n皆さんが撮影したお写真とメッセージを募集しています。',
+    'LV4ファイナルコンサートでの映像イベントおよびメッセージブック制作のため、\nお写真とメッセージを募集しています。\nたくさんのご参加をお待ちしております！',
   noticeFootnote: '*すべてのファンイベントはBillionsと事前協議のうえ実施されます。',
   countdownLabel: '募集締切：',
   deadlineNotice: '募集締切： 7月1日 23:59（KST）',
