@@ -94,7 +94,7 @@ const en: EventMessages = {
     },
     letter: {
       title: 'Dear Sungkyu',
-      desc: 'Share your feelings with Sungkyu\nas the LV4 tour nears its end',
+      desc: 'Share your thoughts with Sungkyu\nas the LV4 tour wraps up',
       cta: 'Join',
       countLabel: '{n} entries so far!',
     },
