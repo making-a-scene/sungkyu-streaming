@@ -88,25 +88,25 @@ const en: EventMessages = {
   cards: {
     memory: {
       title: 'LV4 Memories',
-      desc: 'Share your photos and stories\nfrom the 7 tour cities',
+      desc: 'Share your LV4\nphotos & stories',
       cta: 'Join',
       countLabel: '{n} photos so far!',
     },
     letter: {
       title: 'Dear Sungkyu',
-      desc: 'Share your thoughts with Sungkyu\nas the LV4 tour wraps up',
+      desc: 'Send a message\nto Sungkyu',
       cta: 'Join',
       countLabel: '{n} entries so far!',
     },
     otm: {
       title: 'OTM Stories',
-      desc: 'Tell us what makes\n[OFF THE MAP] so special',
+      desc: 'Why you love\nOFF THE MAP',
       cta: 'Join',
       countLabel: '{n} entries so far!',
     },
     fanart: {
       title: 'Fan Art',
-      desc: 'Capture LV4\nwith heartfelt fan art',
+      desc: 'Share your\nLV4 fan art',
       cta: 'Join',
       countLabel: '{n} entries so far!',
     },
@@ -160,25 +160,25 @@ const ja: EventMessages = {
   cards: {
     memory: {
       title: 'LV4メモリーズ',
-      desc: '7つのツアー都市での\n写真とエピソードをお寄せください',
+      desc: 'LV4の写真や\nエピソードをシェア',
       cta: '参加する',
       countLabel: 'これまでに{n}枚！',
     },
     letter: {
       title: 'ソンギュへ',
-      desc: 'LV4ツアーの終わりを迎える\nソンギュに想いを伝えましょう',
+      desc: 'ソンギュへ\nメッセージを届けよう',
       cta: '参加する',
       countLabel: 'これまでに{n}件！',
     },
     otm: {
       title: 'OTMストーリー',
-      desc: '[OFF THE MAP]が\n特別な理由を聞かせてください',
+      desc: 'OFF THE MAPが\n好きな理由',
       cta: '参加する',
       countLabel: 'これまでに{n}件！',
     },
     fanart: {
       title: 'ファンアート',
-      desc: '愛情あふれるファンアートで\nLV4を記録しましょう',
+      desc: 'LV4ファンアートを\nシェア',
       cta: '参加する',
       countLabel: 'これまでに{n}件！',
     },

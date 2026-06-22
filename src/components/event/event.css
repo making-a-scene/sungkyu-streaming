@@ -205,7 +205,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
   width: 100%;
 }
 
@@ -216,7 +215,6 @@
   justify-content: flex-start;
   gap: 8px;
   width: 100%;
-  height: 80px;
   text-align: center;
 }
 
@@ -233,7 +231,7 @@
   margin: 0;
   font-family: 'Pretendard';
   font-weight: 600;
-  font-size: 10px;
+  font-size: 13px;
   line-height: 18px;
   color: #696969;
   white-space: pre-line;
@@ -243,7 +241,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 80px;
 }
 
 .event-card-image img {

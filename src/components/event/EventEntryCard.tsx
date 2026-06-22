@@ -27,7 +27,7 @@ const EventEntryCard: React.FC<EventEntryCardProps> = ({
           <p className="event-card-desc">{desc}</p>
         </div>
         <div className="event-card-image">
-          <img src={image} alt="" style={{ width: imageWidth, height: 80 }} />
+          <img src={image} alt="" style={{ width: imageWidth }} />
         </div>
       </div>
       <button type="button" className="event-card-btn" onClick={onClick}>
