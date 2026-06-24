@@ -3,6 +3,7 @@ import ImagePopup from '../components/ImagePopup';
 import './admin.css';
 import {
   TOUR_CITIES,
+  OTM_TRACKS,
   type EventFormType,
   type EventSubmission,
   type MessageFormData,
@@ -19,6 +20,7 @@ const TABS: { type: EventFormType; label: string }[] = [
 ];
 
 const cityName = (id: string) => TOUR_CITIES.find((c) => c.id === id)?.name.ko ?? id;
+const trackTitle = (id: number) => OTM_TRACKS.find((t) => t.id === id)?.title ?? `곡 #${id}`;
 
 // ---- 엑셀 행 변환 (폼별) ----
 const toRow = (s: EventSubmission): Record<string, string> => {
@@ -98,11 +100,43 @@ const Thumb: React.FC<{ url: string; caption?: string; onImage: (u: string) => v
   </figure>
 );
 
+// 칩 기반 필터 바 (투어 도시 / OTM 곡 공용)
+interface FilterOption {
+  id: string;
+  label: string;
+  count: number;
+}
+const FilterBar: React.FC<{
+  options: FilterOption[];
+  selected: string | null;
+  allCount: number;
+  onSelect: (id: string | null) => void;
+}> = ({ options, selected, allCount, onSelect }) => (
+  <div className="admin-filterbar">
+    <button
+      className={`admin-filterbar-chip${selected === null ? ' active' : ''}`}
+      onClick={() => onSelect(null)}
+    >
+      전체 <span className="admin-filterbar-count">{allCount}</span>
+    </button>
+    {options.map((o) => (
+      <button
+        key={o.id}
+        className={`admin-filterbar-chip${selected === o.id ? ' active' : ''}`}
+        onClick={() => onSelect(o.id)}
+      >
+        {o.label} <span className="admin-filterbar-count">{o.count}</span>
+      </button>
+    ))}
+  </div>
+);
+
 const DetailView: React.FC<{
   sub: EventSubmission;
   onImage: (u: string) => void;
+  songFilter?: number | null;
   cityFilter?: string | null;
-}> = ({ sub, onImage, cityFilter }) => {
+}> = ({ sub, onImage, cityFilter, songFilter }) => {
   switch (sub.formType) {
     case 'message': {
       const d = sub.data as MessageFormData;
@@ -119,14 +153,19 @@ const DetailView: React.FC<{
     }
     case 'album': {
       const d = sub.data as AlbumFormData;
+      const songs = songFilter
+        ? (d.songs || []).filter((song) => song.trackId === songFilter)
+        : d.songs || [];
       return (
         <>
           {d.nickname && <Field label="이름/닉네임" value={d.nickname} />}
-          <Field label="가장 기억에 남는 순간" value={d.whyLike} />
+          {!songFilter && <Field label="가장 기억에 남는 순간" value={d.whyLike} />}
           <div className="admin-field">
-            <span className="admin-field-label">좋아하는 곡</span>
+            <span className="admin-field-label">
+              {songFilter ? `좋아하는 곡 — ${trackTitle(songFilter)}` : '좋아하는 곡'}
+            </span>
             <div className="admin-field-value">
-              {(d.songs || []).map((song, i) => (
+              {songs.map((song, i) => (
                 <div key={i} className="admin-song">
                   <b>{song.title}</b> — {song.reason || <em>이유 없음</em>}
                 </div>
@@ -190,6 +229,7 @@ const AdminLVBusan: React.FC = () => {
   const [error, setError] = useState('');
   const [popupImage, setPopupImage] = useState<string | null>(null);
   const [cityFilter, setCityFilter] = useState<string | null>(null);
+  const [songFilter, setSongFilter] = useState<number | null>(null);
 
   const load = async (type: EventFormType, pw: string): Promise<boolean> => {
     setLoading(true);
@@ -224,6 +264,7 @@ const AdminLVBusan: React.FC = () => {
   const handleTab = async (type: EventFormType) => {
     setActiveType(type);
     setCityFilter(null);
+    setSongFilter(null);
     if (token) await load(type, token);
   };
 
@@ -259,24 +300,36 @@ const AdminLVBusan: React.FC = () => {
     );
   }
 
-  // 투어 탭: 도시별 제출 건수 + 선택된 도시 필터 적용
+  // 항목별 제출 건수 집계 (한 제출이 같은 항목을 여러 번 담아도 1건으로 계산)
+  const countBy = (keyOf: (s: EventSubmission) => (string | number)[]) =>
+    submissions.reduce<Record<string, number>>((acc, s) => {
+      new Set(keyOf(s)).forEach((k) => {
+        acc[String(k)] = (acc[String(k)] || 0) + 1;
+      });
+      return acc;
+    }, {});
+
+  // 투어 탭: 도시별 / 앨범 탭: 곡별
   const tourCityCounts =
     activeType === 'tour'
-      ? submissions.reduce<Record<string, number>>((acc, s) => {
-          const cities = (s.data as TourFormData).cities || [];
-          new Set(cities.map((c) => c.cityId)).forEach((id) => {
-            acc[id] = (acc[id] || 0) + 1;
-          });
-          return acc;
-        }, {})
+      ? countBy((s) => ((s.data as TourFormData).cities || []).map((c) => c.cityId))
+      : {};
+  const albumSongCounts =
+    activeType === 'album'
+      ? countBy((s) => ((s.data as AlbumFormData).songs || []).map((x) => x.trackId))
       : {};
 
+  // 선택된 도시/곡 필터 적용
   const visibleSubmissions =
     activeType === 'tour' && cityFilter
       ? submissions.filter((s) =>
           ((s.data as TourFormData).cities || []).some((c) => c.cityId === cityFilter),
         )
-      : submissions;
+      : activeType === 'album' && songFilter
+        ? submissions.filter((s) =>
+            ((s.data as AlbumFormData).songs || []).some((x) => x.trackId === songFilter),
+          )
+        : submissions;
 
   return (
     <div className="admin">
@@ -312,6 +365,9 @@ const AdminLVBusan: React.FC = () => {
           {activeType === 'tour' && cityFilter && (
             <> · {cityName(cityFilter)} {visibleSubmissions.length}건</>
           )}
+          {activeType === 'album' && songFilter && (
+            <> · {trackTitle(songFilter)} {visibleSubmissions.length}건</>
+          )}
         </span>
         <button className="admin-export" onClick={handleExport} disabled={!submissions.length}>
           엑셀 다운로드
@@ -319,23 +375,29 @@ const AdminLVBusan: React.FC = () => {
       </div>
 
       {activeType === 'tour' && submissions.length > 0 && (
-        <div className="admin-cityfilter">
-          <button
-            className={`admin-cityfilter-chip${cityFilter === null ? ' active' : ''}`}
-            onClick={() => setCityFilter(null)}
-          >
-            전체 <span className="admin-cityfilter-count">{submissions.length}</span>
-          </button>
-          {TOUR_CITIES.filter((c) => tourCityCounts[c.id]).map((c) => (
-            <button
-              key={c.id}
-              className={`admin-cityfilter-chip${cityFilter === c.id ? ' active' : ''}`}
-              onClick={() => setCityFilter(c.id)}
-            >
-              {c.name.ko} <span className="admin-cityfilter-count">{tourCityCounts[c.id]}</span>
-            </button>
-          ))}
-        </div>
+        <FilterBar
+          selected={cityFilter}
+          allCount={submissions.length}
+          onSelect={(id) => setCityFilter(id)}
+          options={TOUR_CITIES.filter((c) => tourCityCounts[c.id]).map((c) => ({
+            id: c.id,
+            label: c.name.ko,
+            count: tourCityCounts[c.id],
+          }))}
+        />
+      )}
+
+      {activeType === 'album' && submissions.length > 0 && (
+        <FilterBar
+          selected={songFilter === null ? null : String(songFilter)}
+          allCount={submissions.length}
+          onSelect={(id) => setSongFilter(id === null ? null : Number(id))}
+          options={OTM_TRACKS.filter((t) => albumSongCounts[t.id]).map((t) => ({
+            id: String(t.id),
+            label: t.title,
+            count: albumSongCounts[t.id],
+          }))}
+        />
       )}
 
       {loading ? (
@@ -345,7 +407,9 @@ const AdminLVBusan: React.FC = () => {
       ) : submissions.length === 0 ? (
         <p className="admin-status">아직 제출이 없습니다.</p>
       ) : visibleSubmissions.length === 0 ? (
-        <p className="admin-status">해당 도시의 제출이 없습니다.</p>
+        <p className="admin-status">
+          {activeType === 'album' ? '해당 곡의 제출이 없습니다.' : '해당 도시의 제출이 없습니다.'}
+        </p>
       ) : (
         <div className="admin-list">
           {visibleSubmissions.map((s) => (
@@ -353,7 +417,12 @@ const AdminLVBusan: React.FC = () => {
               <div className="admin-card-meta">
                 {s.createdAt} · {s.lang.toUpperCase()}
               </div>
-              <DetailView sub={s} onImage={setPopupImage} cityFilter={cityFilter} />
+              <DetailView
+                sub={s}
+                onImage={setPopupImage}
+                cityFilter={cityFilter}
+                songFilter={songFilter}
+              />
             </div>
           ))}
         </div>

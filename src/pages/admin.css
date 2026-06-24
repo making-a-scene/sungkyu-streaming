@@ -169,8 +169,8 @@
   margin-top: 12px;
 }
 
-/* ---------- 도시 필터 (투어) ---------- */
-.admin-cityfilter {
+/* ---------- 필터 바 (투어 도시 / OTM 곡) ---------- */
+.admin-filterbar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
@@ -181,7 +181,7 @@
   border-radius: 10px;
 }
 
-.admin-cityfilter-chip {
+.admin-filterbar-chip {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -196,19 +196,19 @@
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
 
-.admin-cityfilter-chip:hover {
+.admin-filterbar-chip:hover {
   border-color: #777777;
   color: #ffffff;
 }
 
-.admin-cityfilter-chip.active {
+.admin-filterbar-chip.active {
   background: #8b2028;
   border-color: #8b2028;
   color: #ffffff;
   font-weight: 700;
 }
 
-.admin-cityfilter-count {
+.admin-filterbar-count {
   min-width: 18px;
   padding: 0 5px;
   border-radius: 9px;
