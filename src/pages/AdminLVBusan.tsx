@@ -98,10 +98,11 @@ const Thumb: React.FC<{ url: string; caption?: string; onImage: (u: string) => v
   </figure>
 );
 
-const DetailView: React.FC<{ sub: EventSubmission; onImage: (u: string) => void }> = ({
-  sub,
-  onImage,
-}) => {
+const DetailView: React.FC<{
+  sub: EventSubmission;
+  onImage: (u: string) => void;
+  cityFilter?: string | null;
+}> = ({ sub, onImage, cityFilter }) => {
   switch (sub.formType) {
     case 'message': {
       const d = sub.data as MessageFormData;
@@ -153,9 +154,12 @@ const DetailView: React.FC<{ sub: EventSubmission; onImage: (u: string) => void 
     }
     case 'tour': {
       const d = sub.data as TourFormData;
+      const cities = cityFilter
+        ? (d.cities || []).filter((c) => c.cityId === cityFilter)
+        : d.cities || [];
       return (
         <>
-          {(d.cities || []).map((c, i) => (
+          {cities.map((c, i) => (
             <div key={i} className="admin-city">
               <div className="admin-city-name">{cityName(c.cityId)}</div>
               <Field label="도시 메시지" value={c.message} />
@@ -185,6 +189,7 @@ const AdminLVBusan: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [popupImage, setPopupImage] = useState<string | null>(null);
+  const [cityFilter, setCityFilter] = useState<string | null>(null);
 
   const load = async (type: EventFormType, pw: string): Promise<boolean> => {
     setLoading(true);
@@ -218,6 +223,7 @@ const AdminLVBusan: React.FC = () => {
 
   const handleTab = async (type: EventFormType) => {
     setActiveType(type);
+    setCityFilter(null);
     if (token) await load(type, token);
   };
 
@@ -253,6 +259,25 @@ const AdminLVBusan: React.FC = () => {
     );
   }
 
+  // 투어 탭: 도시별 제출 건수 + 선택된 도시 필터 적용
+  const tourCityCounts =
+    activeType === 'tour'
+      ? submissions.reduce<Record<string, number>>((acc, s) => {
+          const cities = (s.data as TourFormData).cities || [];
+          new Set(cities.map((c) => c.cityId)).forEach((id) => {
+            acc[id] = (acc[id] || 0) + 1;
+          });
+          return acc;
+        }, {})
+      : {};
+
+  const visibleSubmissions =
+    activeType === 'tour' && cityFilter
+      ? submissions.filter((s) =>
+          ((s.data as TourFormData).cities || []).some((c) => c.cityId === cityFilter),
+        )
+      : submissions;
+
   return (
     <div className="admin">
       <header className="admin-header">
@@ -282,11 +307,36 @@ const AdminLVBusan: React.FC = () => {
       </div>
 
       <div className="admin-toolbar">
-        <span className="admin-total">총 {submissions.length}건</span>
+        <span className="admin-total">
+          총 {submissions.length}건
+          {activeType === 'tour' && cityFilter && (
+            <> · {cityName(cityFilter)} {visibleSubmissions.length}건</>
+          )}
+        </span>
         <button className="admin-export" onClick={handleExport} disabled={!submissions.length}>
           엑셀 다운로드
         </button>
       </div>
+
+      {activeType === 'tour' && submissions.length > 0 && (
+        <div className="admin-cityfilter">
+          <button
+            className={`admin-cityfilter-chip${cityFilter === null ? ' active' : ''}`}
+            onClick={() => setCityFilter(null)}
+          >
+            전체 <span className="admin-cityfilter-count">{submissions.length}</span>
+          </button>
+          {TOUR_CITIES.filter((c) => tourCityCounts[c.id]).map((c) => (
+            <button
+              key={c.id}
+              className={`admin-cityfilter-chip${cityFilter === c.id ? ' active' : ''}`}
+              onClick={() => setCityFilter(c.id)}
+            >
+              {c.name.ko} <span className="admin-cityfilter-count">{tourCityCounts[c.id]}</span>
+            </button>
+          ))}
+        </div>
+      )}
 
       {loading ? (
         <p className="admin-status">불러오는 중…</p>
@@ -294,14 +344,16 @@ const AdminLVBusan: React.FC = () => {
         <p className="admin-error">{error}</p>
       ) : submissions.length === 0 ? (
         <p className="admin-status">아직 제출이 없습니다.</p>
+      ) : visibleSubmissions.length === 0 ? (
+        <p className="admin-status">해당 도시의 제출이 없습니다.</p>
       ) : (
         <div className="admin-list">
-          {submissions.map((s) => (
+          {visibleSubmissions.map((s) => (
             <div key={s.id} className="admin-card">
               <div className="admin-card-meta">
                 {s.createdAt} · {s.lang.toUpperCase()}
               </div>
-              <DetailView sub={s} onImage={setPopupImage} />
+              <DetailView sub={s} onImage={setPopupImage} cityFilter={cityFilter} />
             </div>
           ))}
         </div>
