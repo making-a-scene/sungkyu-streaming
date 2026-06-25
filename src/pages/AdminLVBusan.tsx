@@ -78,6 +78,37 @@ const toRow = (s: EventSubmission): Record<string, string> => {
   }
 };
 
+// ---- 제출 데이터에서 이미지 URL 모으기 (fanart / tour 만 이미지 보유) ----
+interface ImageEntry {
+  url: string;
+  name: string; // zip 내부 파일명
+}
+const extOf = (url: string) => {
+  const m = url.split('?')[0].match(/\.(jpe?g|png|gif|webp|heic|bmp)$/i);
+  return m ? m[0].toLowerCase() : '.jpg';
+};
+const collectImages = (subs: EventSubmission[]): ImageEntry[] => {
+  const raw: { url: string; label: string }[] = [];
+  subs.forEach((s) => {
+    if (s.formType === 'fanart') {
+      const d = s.data as FanartFormData;
+      if (d.imageUrl) raw.push({ url: d.imageUrl, label: 'fanart' });
+    } else if (s.formType === 'tour') {
+      const d = s.data as TourFormData;
+      (d.cities || []).forEach((c) => {
+        (c.photos || []).forEach((p) => {
+          if (p.url) raw.push({ url: p.url, label: cityName(c.cityId) });
+        });
+      });
+    }
+  });
+  // 순번 prefix 로 파일명 중복 방지: 001_fanart.jpg, 002_부산.jpg …
+  return raw.map((e, i) => ({
+    url: e.url,
+    name: `${String(i + 1).padStart(3, '0')}_${e.label}${extOf(e.url)}`,
+  }));
+};
+
 // ---- 상세 뷰 ----
 const Field: React.FC<{ label: string; value?: string }> = ({ label, value }) => (
   <div className="admin-field">
@@ -230,6 +261,7 @@ const AdminLVBusan: React.FC = () => {
   const [popupImage, setPopupImage] = useState<string | null>(null);
   const [cityFilter, setCityFilter] = useState<string | null>(null);
   const [songFilter, setSongFilter] = useState<number | null>(null);
+  const [zipping, setZipping] = useState(false);
 
   const load = async (type: EventFormType, pw: string): Promise<boolean> => {
     setLoading(true);
@@ -277,6 +309,38 @@ const AdminLVBusan: React.FC = () => {
     XLSX.writeFile(wb, `submissions-${activeType}.xlsx`);
   };
 
+  const handleDownloadImages = async () => {
+    const images = collectImages(submissions);
+    if (!images.length) return;
+    setZipping(true);
+    try {
+      const JSZip = (await import('jszip')).default; // 버튼 누를 때만 로드
+      const zip = new JSZip();
+      let failed = 0;
+      // Blob URL 은 공개 CORS 라서 클라이언트 fetch 가능. 실패분은 건너뜀.
+      await Promise.all(
+        images.map(async (img) => {
+          try {
+            const res = await fetch(img.url);
+            if (res.ok) zip.file(img.name, await res.blob());
+            else failed += 1;
+          } catch {
+            failed += 1;
+          }
+        }),
+      );
+      const blob = await zip.generateAsync({ type: 'blob' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `images-${activeType}.zip`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+      if (failed) setError(`이미지 ${failed}건은 다운로드에 실패해 제외했습니다.`);
+    } finally {
+      setZipping(false);
+    }
+  };
+
   if (!token) {
     return (
       <div className="admin-login">
@@ -308,6 +372,9 @@ const AdminLVBusan: React.FC = () => {
       });
       return acc;
     }, {});
+
+  // 현재 탭에 담긴 이미지 개수 (fanart / tour 만 보유) — 0 이면 ZIP 버튼 숨김
+  const imageCount = collectImages(submissions).length;
 
   // 투어 탭: 도시별 / 앨범 탭: 곡별
   const tourCityCounts =
@@ -372,6 +439,11 @@ const AdminLVBusan: React.FC = () => {
         <button className="admin-export" onClick={handleExport} disabled={!submissions.length}>
           엑셀 다운로드
         </button>
+        {imageCount > 0 && (
+          <button className="admin-export" onClick={handleDownloadImages} disabled={zipping}>
+            {zipping ? '압축 중…' : `이미지 ZIP (${imageCount})`}
+          </button>
+        )}
       </div>
 
       {activeType === 'tour' && submissions.length > 0 && (
