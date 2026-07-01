@@ -22,7 +22,7 @@ const CARD_META: CardMeta[] = [
     image: process.env.PUBLIC_URL + '/event/ccff584c723a2504004a0abf2afdd8155377bf0d.png',
     imageWidth: 90,
     formPath: '/event/memory',
-    dueDate: new Date('2026-07-01T00:00:00+09:00'),
+    dueDate: new Date('2026-07-02T00:00:00+09:00'),
   },
   {
     key: 'letter',

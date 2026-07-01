@@ -263,14 +263,17 @@
   cursor: pointer;
 }
 
-/* 마감(dueDate 도달) 상태 - 어두운 붉은색 배경 + 회색 텍스트, count 미노출 */
+/* 마감(dueDate 도달) 상태 - #8b2028 위에 50% 검정 오버레이 + 텍스트 opacity 0.6, count 미노출
+   (Figma node 2066:116 기준 - background-image 2-layer gradient) */
 .event-card-btn:disabled {
-  background: #3a1518;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    linear-gradient(#8b2028, #8b2028);
   cursor: default;
 }
 
 .event-card-btn:disabled .event-card-btn-cta {
-  color: rgba(255, 255, 255, 0.4);
+  opacity: 0.6;
 }
 
 .event-card-btn-cta {

@@ -8,16 +8,16 @@ interface EventNoticeProps {
 
 // 마감 약 3일 전부터 true 로 수동 전환 → 카운트다운(192:04:28 형식) 표시.
 // false 면 정적 마감 안내 텍스트(deadlineNotice)를 같은 위치에 표시.
-const SHOW_COUNTDOWN = false;
+const SHOW_COUNTDOWN = true;
 
 // 마감까지 남은 시간을 "H:MM:SS" 형식으로 (Figma: 192:04:28 처럼 시간은 패딩 없음)
 const formatRemaining = (deadline: Date): string => {
   const diff = deadline.getTime() - Date.now();
-  if (diff <= 0) return '0:00:00';
+  if (diff <= 0) return '00:00:00';
   const hours = Math.floor(diff / (1000 * 60 * 60));
   const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-  return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+  return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 };
 
 const EventNotice: React.FC<EventNoticeProps> = ({ messages, deadline }) => {
