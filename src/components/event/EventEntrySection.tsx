@@ -13,6 +13,7 @@ interface CardMeta {
   image: string;
   imageWidth: number;
   formPath?: string;
+  dueDate: Date;
 }
 
 const CARD_META: CardMeta[] = [
@@ -21,24 +22,28 @@ const CARD_META: CardMeta[] = [
     image: process.env.PUBLIC_URL + '/event/ccff584c723a2504004a0abf2afdd8155377bf0d.png',
     imageWidth: 90,
     formPath: '/event/memory',
+    dueDate: new Date('2026-07-01T00:00:00+09:00'),
   },
   {
     key: 'letter',
     image: process.env.PUBLIC_URL + '/event/631f4974ef0a745dd01d2a214cbc20870d7582fd.png',
     imageWidth: 105,
     formPath: '/event/message',
+    dueDate: new Date('2026-07-02T00:00:00+09:00'),
   },
   {
     key: 'otm',
     image: process.env.PUBLIC_URL + '/event/961578577c85d6ce53e83cd38fdbc6d7a50249e0.png',
     imageWidth: 108,
     formPath: '/event/album',
+    dueDate: new Date('2026-07-02T00:00:00+09:00'),
   },
   {
     key: 'fanart',
     image: process.env.PUBLIC_URL + '/event/bbbe6f047cc115cfb6679019828b1d2bcd26e490.png',
     imageWidth: 110,
     formPath: '/event/fanart',
+    dueDate: new Date('2026-07-02T00:00:00+09:00'),
   },
 ];
 
@@ -90,19 +95,23 @@ const EventEntrySection: React.FC<EventEntrySectionProps> = ({ messages }) => {
     toast.info('폼은 준비 중입니다. 곧 오픈됩니다!', { autoClose: 1500, hideProgressBar: true });
   };
 
+  const now = Date.now();
+
   return (
     <div className="event-cards">
       {CARD_META.map((meta) => {
         const text = messages.cards[meta.key];
+        const closed = meta.dueDate.getTime() <= now;
         return (
           <EventEntryCard
             key={meta.key}
             title={text.title}
             desc={text.desc}
-            cta={text.cta}
+            cta={closed ? messages.cardClosed : text.cta}
             count={formatCount(text.countLabel, countFor(meta.key, counts))}
             image={meta.image}
             imageWidth={meta.imageWidth}
+            disabled={closed}
             onClick={() => handleClick(meta)}
           />
         );

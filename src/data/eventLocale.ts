@@ -39,6 +39,7 @@ export interface EventMessages {
     otm: EventCardText;     // 우리가 사랑한 OTM
     fanart: EventCardText;  // 금손시민둥이 전용(팬아트)
   };
+  cardClosed: string;       // 카드 dueDate 도달 시 CTA 자리에 노출 (모든 카드 공용)
   emailInvalid: string;     // 폼 공통: 이메일 형식 오류 안내 (4개 폼 공유)
 }
 
@@ -75,6 +76,7 @@ const ko: EventMessages = {
       countLabel: '지금까지 {n}건 누적!',
     },
   },
+  cardClosed: '마감됐어요',
   emailInvalid: '올바른 이메일 형식이 아닙니다.',
 };
 
@@ -111,6 +113,7 @@ const en: EventMessages = {
       countLabel: '{n} entries so far!',
     },
   },
+  cardClosed: 'Closed',
   emailInvalid: 'Please enter a valid email address.',
 };
 
@@ -147,6 +150,7 @@ const zh: EventMessages = {
       countLabel: '目前已累计{n}条！',
     },
   },
+  cardClosed: '已截止',
   emailInvalid: '邮箱格式不正确。',
 };
 
@@ -183,6 +187,7 @@ const ja: EventMessages = {
       countLabel: 'これまでに{n}件！',
     },
   },
+  cardClosed: '締め切りました',
   emailInvalid: '正しいメールアドレスを入力してください。',
 };
 

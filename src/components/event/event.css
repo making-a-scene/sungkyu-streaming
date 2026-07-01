@@ -263,6 +263,16 @@
   cursor: pointer;
 }
 
+/* 마감(dueDate 도달) 상태 - 어두운 붉은색 배경 + 회색 텍스트, count 미노출 */
+.event-card-btn:disabled {
+  background: #3a1518;
+  cursor: default;
+}
+
+.event-card-btn:disabled .event-card-btn-cta {
+  color: rgba(255, 255, 255, 0.4);
+}
+
 .event-card-btn-cta {
   margin: 0;
   font-family: 'Pretendard';
