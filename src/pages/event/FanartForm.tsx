@@ -248,29 +248,6 @@ const FanartForm: React.FC = () => {
           <p>{t.doneSub}</p>
         </div>
       </div>
-      <div className="tour-done-recommend">
-        <p className="tour-done-more">{t.doneMore}</p>
-        <div className="tour-done-cards">
-        <button type="button" className="tour-done-card" onClick={() => navigate('/event/memory')}>
-          <span className="tour-done-card-title">{em.cards.memory.title}</span>
-          <span className="tour-done-card-desc">{em.cards.memory.desc}</span>
-          <img src={MEMORY_IMG} alt="" />
-          <span className="tour-done-card-btn">
-            {em.cards.memory.cta}
-            <em>{formatCount(em.cards.memory.countLabel, counts?.tourPhotosTotal ?? 0)}</em>
-          </span>
-        </button>
-        <button type="button" className="tour-done-card" onClick={() => navigate('/event/message')}>
-          <span className="tour-done-card-title">{em.cards.letter.title}</span>
-          <span className="tour-done-card-desc">{em.cards.letter.desc}</span>
-          <img src={LETTER_IMG} alt="" />
-          <span className="tour-done-card-btn">
-            {em.cards.letter.cta}
-            <em>{formatCount(em.cards.letter.countLabel, counts?.message ?? 0)}</em>
-          </span>
-        </button>
-      </div>
-      </div>
     </div>
   );
 
