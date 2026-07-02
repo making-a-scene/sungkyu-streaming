@@ -6,9 +6,8 @@ import ImagePopup from '../../components/ImagePopup';
 import { uploadImage } from '../../utils/uploadImage';
 import './tourMemoryForm.css';
 import './fanartForm.css';
-import { getStoredLang, eventMessages, formatCount } from '../../data/eventLocale';
+import { getStoredLang, eventMessages } from '../../data/eventLocale';
 import { fanartFormMessages, FANART_MAX_MESSAGE } from '../../data/fanartFormLocale';
-import type { EventCounts } from '../../data/eventForms';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
 import { isValidEmail } from '../../utils/validateEmail';
 import AutoGrowTextarea from '../../components/AutoGrowTextarea';
@@ -40,8 +39,6 @@ const CloseIcon = () => (
   </svg>
 );
 
-const MEMORY_IMG = process.env.PUBLIC_URL + '/event/ccff584c723a2504004a0abf2afdd8155377bf0d.png';
-const LETTER_IMG = process.env.PUBLIC_URL + '/event/631f4974ef0a745dd01d2a214cbc20870d7582fd.png';
 const DONE_CHECK = process.env.PUBLIC_URL + '/event/a6e250c4399efd85c898730916d0caa8ee959082.svg';
 
 type Step = 'consent' | 'write' | 'review' | 'done';
@@ -63,16 +60,8 @@ const FanartForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [consentEmail, setConsentEmail] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [counts, setCounts] = useState<EventCounts | null>(null);
   const [popup, setPopup] = useState<string | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    fetch('/api/submissions?action=counts')
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => d && setCounts(d as EventCounts))
-      .catch(() => {});
-  }, []);
 
   // 단계 전환 시 페이지 최상단으로 (body 가 스크롤 컨테이너라 함께 리셋)
   useEffect(() => {
