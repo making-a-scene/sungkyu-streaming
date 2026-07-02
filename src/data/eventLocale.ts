@@ -49,7 +49,7 @@ const ko: EventMessages = {
     'LV4 파이널 콘서트에서의 영상 이벤트와\n메시지북 제작을 위해 시민둥이 여러분께서 직접 찍은 사진과 메시지를 모집합니다! 많은 관심과 참여 부탁드립니다!',
   noticeFootnote: '*모든 팬이벤트는 소속사와 사전 협의 후 진행됩니다.',
   countdownLabel: '모집 마감까지',
-  deadlineNotice: '7/1(수) 23:59 (KST) 모집 마감',
+  deadlineNotice: '7/5(수) 23:59 (KST) 모집 마감',
   cards: {
     memory: {
       title: 'LV4 추억 모으기',
