@@ -18,20 +18,6 @@ interface CardMeta {
 
 const CARD_META: CardMeta[] = [
   {
-    key: 'memory',
-    image: process.env.PUBLIC_URL + '/event/ccff584c723a2504004a0abf2afdd8155377bf0d.png',
-    imageWidth: 90,
-    formPath: '/event/memory',
-    dueDate: new Date('2026-07-02T00:00:00+09:00'),
-  },
-  {
-    key: 'letter',
-    image: process.env.PUBLIC_URL + '/event/631f4974ef0a745dd01d2a214cbc20870d7582fd.png',
-    imageWidth: 105,
-    formPath: '/event/message',
-    dueDate: new Date('2026-07-02T00:00:00+09:00'),
-  },
-  {
     key: 'otm',
     image: process.env.PUBLIC_URL + '/event/961578577c85d6ce53e83cd38fdbc6d7a50249e0.png',
     imageWidth: 108,
@@ -45,20 +31,34 @@ const CARD_META: CardMeta[] = [
     formPath: '/event/fanart',
     dueDate: new Date('2026-07-05T23:59:59+09:00'),
   },
+  {
+    key: 'memory',
+    image: process.env.PUBLIC_URL + '/event/ccff584c723a2504004a0abf2afdd8155377bf0d.png',
+    imageWidth: 90,
+    formPath: '/event/memory',
+    dueDate: new Date('2026-07-02T00:00:00+09:00'),
+  },
+  {
+    key: 'letter',
+    image: process.env.PUBLIC_URL + '/event/631f4974ef0a745dd01d2a214cbc20870d7582fd.png',
+    imageWidth: 105,
+    formPath: '/event/message',
+    dueDate: new Date('2026-07-02T00:00:00+09:00'),
+  },
 ];
 
 // 카드별 누적 수치 매핑 (추억=사진 총 장수, 나머지=제출 건수)
 const countFor = (key: CardMeta['key'], counts: EventCounts | null): number => {
   if (!counts) return 0;
   switch (key) {
-    case 'memory':
-      return counts.tourPhotosTotal;
-    case 'letter':
-      return counts.message;
     case 'otm':
       return counts.album;
     case 'fanart':
       return counts.fanart;
+    case 'memory':
+      return counts.tourPhotosTotal;
+    case 'letter':
+      return counts.message;
     default:
       return 0;
   }
