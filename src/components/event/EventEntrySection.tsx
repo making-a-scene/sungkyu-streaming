@@ -36,14 +36,14 @@ const CARD_META: CardMeta[] = [
     image: process.env.PUBLIC_URL + '/event/961578577c85d6ce53e83cd38fdbc6d7a50249e0.png',
     imageWidth: 108,
     formPath: '/event/album',
-    dueDate: new Date('2026-07-02T00:00:00+09:00'),
+    dueDate: new Date('2026-07-05T23:59:59+09:00'),
   },
   {
     key: 'fanart',
     image: process.env.PUBLIC_URL + '/event/bbbe6f047cc115cfb6679019828b1d2bcd26e490.png',
     imageWidth: 110,
     formPath: '/event/fanart',
-    dueDate: new Date('2026-07-02T00:00:00+09:00'),
+    dueDate: new Date('2026-07-05T23:59:59+09:00'),
   },
 ];
 
