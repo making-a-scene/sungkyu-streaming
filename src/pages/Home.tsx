@@ -19,7 +19,7 @@ import { eventMessages, getStoredLang, storeLang, type Lang } from '../data/even
 
 const HERO_BANNER = process.env.PUBLIC_URL + '/event/00f7b9f14ae9f0ff07650d2594b53fec2ee5fec5.png';
 
-// 연장된 모집 마감 시각 (KST): 7/5(수) 23:59
+// 연장된 모집 마감 시각 (KST): 7/5(일) 23:59
 const RECRUIT_DEADLINE = new Date('2026-07-05T23:59:59+09:00');
 
 const Home: React.FC = () => {
