@@ -35,16 +35,6 @@ const Home: React.FC = () => {
     <div className="app">
       <Header />
 
-      {/* ===== LV4 이벤트 영역 (신규, 4개국어) — 기존 홈 위에 얹음 ===== */}
-      <div className="event-hero-banner">
-        <img src={HERO_BANNER} alt="LEAP TO VECTOR" />
-      </div>
-      <section className="event-hero">
-        <LanguageToggle lang={lang} onChange={handleLangChange} />
-        <EventNotice messages={messages} deadline={RECRUIT_DEADLINE} />
-        <EventEntrySection messages={messages} />
-      </section>
-
       {/* ===== 기존 홈 콘텐츠 (그대로) ===== */}
       <main className="home-content">
         <div className="home-top-group">
