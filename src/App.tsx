@@ -25,10 +25,6 @@ import LvFanEventEn from "./pages/LV/LvFanEventEn";
 import LvFanEventCh from "./pages/LV/LvFanEventCh";
 import LvFanEventJa from "./pages/LV/LvFanEventJa";
 import AdminLVBusan from "./pages/AdminLVBusan";
-import TourMemoryForm from "./pages/event/TourMemoryForm";
-import MessageForm from "./pages/event/MessageForm";
-import AlbumForm from "./pages/event/AlbumForm";
-import FanartForm from "./pages/event/FanartForm";
 
 // Main App Component
 function App() {
