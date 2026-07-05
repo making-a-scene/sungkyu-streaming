@@ -58,10 +58,10 @@ function App() {
                 <Route path="/lv4-ch" element={<LvFanEventCh />}/>
                 <Route path="/lv4-ja" element={<LvFanEventJa />}/>
                 <Route path="/admin/lvbusan" element={<AdminLVBusan />}/>
-                <Route path="/event/memory" element={<TourMemoryForm />}/>
-                <Route path="/event/message" element={<MessageForm />}/>
-                <Route path="/event/album" element={<AlbumForm />}/>
-                <Route path="/event/fanart" element={<FanartForm />}/>
+                {/*<Route path="/event/memory" element={<TourMemoryForm />}/>*/}
+                {/*<Route path="/event/message" element={<MessageForm />}/>*/}
+                {/*<Route path="/event/album" element={<AlbumForm />}/>*/}
+                {/*<Route path="/event/fanart" element={<FanartForm />}/>*/}
             </Routes>
             <BottomNav />
             <Analytics />
