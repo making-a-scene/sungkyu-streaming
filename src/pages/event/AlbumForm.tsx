@@ -5,9 +5,9 @@ import Header from '../../components/Header';
 import './tourMemoryForm.css';
 import './messageForm.css';
 import './albumForm.css';
-import { getStoredLang, eventMessages, formatCount } from '../../data/eventLocale';
+import { getStoredLang, eventMessages } from '../../data/eventLocale';
 import { albumFormMessages, ALBUM_MAX_MOMENT, ALBUM_MAX_REASON } from '../../data/albumFormLocale';
-import { OTM_TRACKS, formatTrackTitle, type EventCounts } from '../../data/eventForms';
+import { OTM_TRACKS, formatTrackTitle } from '../../data/eventForms';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
 import { isValidEmail } from '../../utils/validateEmail';
 import AutoGrowTextarea from '../../components/AutoGrowTextarea';
@@ -33,8 +33,6 @@ const CheckIcon = () => (
   </svg>
 );
 
-const MEMORY_IMG = process.env.PUBLIC_URL + '/event/ccff584c723a2504004a0abf2afdd8155377bf0d.png';
-const LETTER_IMG = process.env.PUBLIC_URL + '/event/631f4974ef0a745dd01d2a214cbc20870d7582fd.png';
 const DONE_CHECK = process.env.PUBLIC_URL + '/event/a6e250c4399efd85c898730916d0caa8ee959082.svg';
 
 type Step = 'consent' | 'write' | 'review' | 'done';
@@ -60,14 +58,6 @@ const AlbumForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [consentEmail, setConsentEmail] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  const [counts, setCounts] = useState<EventCounts | null>(null);
-
-  useEffect(() => {
-    fetch('/api/submissions?action=counts')
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => d && setCounts(d as EventCounts))
-      .catch(() => {});
-  }, []);
 
   // 단계 전환 시 페이지 최상단으로 (body 가 스크롤 컨테이너라 함께 리셋)
   useEffect(() => {
@@ -289,29 +279,6 @@ const AlbumForm: React.FC = () => {
           <p>{t.doneTitle}</p>
           <p>{t.doneSub}</p>
         </div>
-      </div>
-      <div className="tour-done-recommend">
-        <p className="tour-done-more">{t.doneMore}</p>
-        <div className="tour-done-cards">
-        <button type="button" className="tour-done-card" onClick={() => navigate('/event/memory')}>
-          <span className="tour-done-card-title">{em.cards.memory.title}</span>
-          <span className="tour-done-card-desc">{em.cards.memory.desc}</span>
-          <img src={MEMORY_IMG} alt="" />
-          <span className="tour-done-card-btn">
-            {em.cards.memory.cta}
-            <em>{formatCount(em.cards.memory.countLabel, counts?.tourPhotosTotal ?? 0)}</em>
-          </span>
-        </button>
-        <button type="button" className="tour-done-card" onClick={() => navigate('/event/message')}>
-          <span className="tour-done-card-title">{em.cards.letter.title}</span>
-          <span className="tour-done-card-desc">{em.cards.letter.desc}</span>
-          <img src={LETTER_IMG} alt="" />
-          <span className="tour-done-card-btn">
-            {em.cards.letter.cta}
-            <em>{formatCount(em.cards.letter.countLabel, counts?.message ?? 0)}</em>
-          </span>
-        </button>
-      </div>
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ interface EventNoticeProps {
 
 // 마감 약 3일 전부터 true 로 수동 전환 → 카운트다운(192:04:28 형식) 표시.
 // false 면 정적 마감 안내 텍스트(deadlineNotice)를 같은 위치에 표시.
-const SHOW_COUNTDOWN = true;
+const SHOW_COUNTDOWN = false;
 
 // 마감까지 남은 시간을 "H:MM:SS" 형식으로 (Figma: 192:04:28 처럼 시간은 패딩 없음)
 const formatRemaining = (deadline: Date): string => {
