@@ -4,7 +4,8 @@ const LvFanEventEn = () => {
     return (
         <LvFanEvent
             currentPath="/lv4-en"
-            guideTitle="Sing-Along Event Guide Video"
+            songGuideTitle="Sing-Along Event Guide Video"
+            sloganGuideTitle="Photo Time Slogan Guide"
             eventImage="/fan-event-info-en.png"
         />
     );

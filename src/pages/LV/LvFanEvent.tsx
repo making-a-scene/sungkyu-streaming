@@ -7,13 +7,15 @@ import '../../App.css';
 
 interface LvFanEventProps {
     currentPath: string;
-    guideTitle: string;
+    songGuideTitle: string;
+    sloganGuideTitle: string;
     eventImage: string;
 }
 
-const YOUTUBE_EMBED_URL = 'https://www.youtube.com/embed/kCqu84_wWJo';
+const SONG_YOUTUBE_EMBED_URL = 'https://www.youtube.com/embed/lS3xMPeT8gc';
+const SLOGAN_YOUTUBE_EMBED_URL = 'https://www.youtube.com/embed/aptr8cU0hGY';
 
-const LvFanEvent: React.FC<LvFanEventProps> = ({ currentPath, guideTitle, eventImage }) => {
+const LvFanEvent: React.FC<LvFanEventProps> = ({ currentPath, songGuideTitle, sloganGuideTitle, eventImage }) => {
     return (
         <div className="app">
             <Header />
@@ -27,11 +29,24 @@ const LvFanEvent: React.FC<LvFanEventProps> = ({ currentPath, guideTitle, eventI
                         className="fan-event-image"
                     />
                     <div className="fan-event-guide">
-                        <h2 className="fan-event-guide-title">{guideTitle}</h2>
+                        <h2 className="fan-event-guide-title">{songGuideTitle}</h2>
                         <div className="fan-event-video-wrapper">
                             <iframe
-                                src={YOUTUBE_EMBED_URL}
-                                title="Fan Event Guide Video"
+                                src={SONG_YOUTUBE_EMBED_URL}
+                                title="Song Fan Event Guide Video"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                className="fan-event-video"
+                            />
+                        </div>
+                    </div>
+                    <div className="fan-event-guide">
+                        <h2 className="fan-event-guide-title">{sloganGuideTitle}</h2>
+                        <div className="fan-event-video-wrapper">
+                            <iframe
+                                src={SLOGAN_YOUTUBE_EMBED_URL}
+                                title="Slogan Fan Event Guide Video"
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                 allowFullScreen

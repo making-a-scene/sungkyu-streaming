@@ -4,7 +4,8 @@ const LvFanEventCh = () => {
     return (
         <LvFanEvent
             currentPath="/lv4-ch"
-            guideTitle="《나의 하루》合唱应援指南视频"
+            songGuideTitle="《Hush》合唱应援指南视频"
+            sloganGuideTitle="拍照时间口号指南"
             eventImage="/fan-event-info-ch.png"
         />
     );
