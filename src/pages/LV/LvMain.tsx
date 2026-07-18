@@ -54,7 +54,7 @@ const GIVEAWAY_TWEETS: Record<ConcertTab, string[]> = {
 
 const LvMain = () => {
     const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState<ConcertTab>("첫콘(7/18)");
+    const [activeTab, setActiveTab] = useState<ConcertTab>("막콘(7/19)");
 
     return (
         <div className="app">
@@ -69,7 +69,7 @@ const LvMain = () => {
                                 <span className="lv-card-subtitle">Fan Event</span>
                             </div>
                             <div className="lv-card-footer">
-                                <span className="lv-card-coming-soon">2026.07.18</span>
+                                <span className="lv-card-coming-soon">2026.07.19</span>
                                 <img src="/arrow-icon.svg" alt="" className="lv-card-arrow" />
                             </div>
                         </div>
