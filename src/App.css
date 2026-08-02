@@ -2124,6 +2124,7 @@ html, body {
     z-index: 1001;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
     animation: modalSlideUp 0.3s ease-out;
 }
 
@@ -2192,9 +2193,11 @@ html, body {
 
 .cheering-modal-content {
     flex: 1;
-    overflow-y: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     padding: 16px 24px;
-    -webkit-overflow-scrolling: touch;
 }
 
 .cheering-modal-info-box {
@@ -2215,12 +2218,10 @@ html, body {
 .cheering-modal-youtube {
     width: 100%;
     aspect-ratio: 16 / 9;
+    flex-shrink: 0;
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 24px;
-    position: sticky;
-    top: 0;
-    z-index: 10;
 }
 
 .cheering-modal-youtube iframe {
@@ -2230,7 +2231,11 @@ html, body {
 }
 
 .cheering-modal-lyrics {
-    padding-bottom: 40px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 20px;
+    -webkit-overflow-scrolling: touch;
 }
 
 /* Modal Tablet Responsive */
