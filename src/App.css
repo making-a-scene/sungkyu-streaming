@@ -2253,6 +2253,22 @@ html, body {
     overflow-y: auto;
     padding-bottom: 20px;
     -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: #000000 transparent;
+}
+
+.cheering-modal-lyrics::-webkit-scrollbar {
+    width: 4px;
+}
+
+.cheering-modal-lyrics::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.cheering-modal-lyrics::-webkit-scrollbar-thumb {
+    min-height: 32px;
+    background: #000000;
+    border-radius: 999px;
 }
 
 /* Modal Tablet Responsive */
