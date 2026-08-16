@@ -4,17 +4,26 @@ interface GuideCardProps {
     title: string;
     iconSrc: string;
     isActive: boolean;
+    isFullWidth?: boolean;
     onClick?: () => void;
 }
 
-const GuideCard: React.FC<GuideCardProps> = ({ title, iconSrc, isActive, onClick }) => {
+const GuideCard: React.FC<GuideCardProps> = ({ title, iconSrc, isActive, isFullWidth, onClick }) => {
     return (
         <div
-            className={`guide-card ${isActive ? 'active' : 'inactive'}`}
+            className={`guide-card ${isActive ? 'active' : 'inactive'}${isFullWidth ? ' full-width' : ''}`}
             onClick={onClick}
         >
+            {isFullWidth && <img src={iconSrc} alt="" className="guide-icon" />}
             <div className="guide-title">{title}</div>
-            <img src={iconSrc} alt={title} className="guide-icon" />
+            {!isFullWidth && <img src={iconSrc} alt={title} className="guide-icon" />}
+            {isFullWidth && (
+                <img
+                    src={process.env.PUBLIC_URL + '/arrow-icon.svg'}
+                    alt=""
+                    className="guide-arrow"
+                />
+            )}
             {!isActive && <div className="hover-message">준비중</div>}
         </div>
     );
@@ -24,6 +33,7 @@ const GuideGrid = () => {
     const navigate = useNavigate();
 
     const guides = [
+        { title: '응원법 · 떼창곡 가이드', iconSrc: process.env.PUBLIC_URL + '/song-icon.svg', isActive: true, isFullWidth: true, page: '/guide/cheering' },
         { title: '아이디 생성\n가이드', iconSrc: process.env.PUBLIC_URL + '/id-generation-icon.svg', isActive: true, page: '/guide/id-generation' },
         { title: '스트리밍\n가이드', iconSrc: process.env.PUBLIC_URL + '/streaming-icon.svg', isActive: true, page: '/guide/streaming' },
         { title: '다운로드\n가이드', iconSrc: process.env.PUBLIC_URL + '/download-icon.svg', isActive: true, page: '/guide/download' },
@@ -33,8 +43,7 @@ const GuideGrid = () => {
         { title: 'MV\n가이드', iconSrc: process.env.PUBLIC_URL + '/mv-icon.svg', isActive: true, page: '/guide/mv' },
         { title: '숏폼·SNS\n가이드', iconSrc: process.env.PUBLIC_URL + '/shorts-sns-icon.svg', isActive: true, page: '/guide/shorts-sns' },
         { title: '라디오\n가이드', iconSrc: process.env.PUBLIC_URL + '/radio-icon.svg', isActive: true, page: '/guide/radio' },
-        { title: '컬러링\n가이드', iconSrc: process.env.PUBLIC_URL + '/coloring-icon.svg', isActive: true, page: '/guide/coloring' },
-        { title: '응원법 · 떼창곡\n가이드', iconSrc: process.env.PUBLIC_URL + '/song-icon.svg', isActive: true, page: '/guide/cheering' }
+        { title: '컬러링\n가이드', iconSrc: process.env.PUBLIC_URL + '/coloring-icon.svg', isActive: true, page: '/guide/coloring' }
     ];
 
     return (
@@ -45,6 +54,7 @@ const GuideGrid = () => {
                     title={guide.title}
                     iconSrc={guide.iconSrc}
                     isActive={guide.isActive}
+                    isFullWidth={guide.isFullWidth}
                     onClick={guide.page ? () => navigate(guide.page) : undefined}
                 />
             )}

@@ -621,6 +621,23 @@ html, body {
     cursor: pointer;
 }
 
+.guide-card.full-width {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+}
+
+.guide-card.full-width .guide-title {
+    width: auto;
+}
+
+.guide-arrow {
+    width: 24px;
+    height: 24px;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
 .guide-card.inactive {
     background: rgba(46, 46, 46, 0.5);
 }
@@ -681,8 +698,8 @@ html, body {
 }
 
 .guide-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
     aspect-ratio: 1/1;
 }
 
