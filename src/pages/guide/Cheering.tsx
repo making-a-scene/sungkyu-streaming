@@ -4,10 +4,8 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import GuideMenu from '../../components/GuideMenu';
 import chantData from '../../data/sungkyu-chant.json';
-import infiniteChantData from '../../data/infinite-chant.json';
 
 type FilterType = 'all' | 'otm' | 'fanchat' | 'chorus';
-type ArtistType = 'sungkyu' | 'infinite';
 
 type ChantItem = {
     title: string;
@@ -129,16 +127,11 @@ const normalizeText = (text: string): string => {
 
 const Cheering: React.FC = () => {
     const [filter, setFilter] = useState<FilterType>('all');
-    const [artist, setArtist] = useState<ArtistType>('sungkyu');
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedItem, setSelectedItem] = useState<ChantItem | null>(null);
     const [isModalClosing, setIsModalClosing] = useState(false);
 
-    const activeChantData = artist === 'sungkyu'
-        ? chantData as ChantItem[]
-        : infiniteChantData as ChantItem[];
-
-    const filteredData = activeChantData.filter((item) => {
+    const filteredData = (chantData as ChantItem[]).filter((item) => {
         // Filter by type
         if (filter === 'otm' && !item.is_otm) return false;
         if (filter === 'fanchat' && !item.is_fanchat) return false;
@@ -189,56 +182,31 @@ const Cheering: React.FC = () => {
                             onChange={(e) => setSearchQuery(e.target.value)}
                         />
                     </div>
-                    <div className="cheering-filter-row">
-                        <div className="cheering-filter-tabs">
-                            <button
-                                className={`cheering-filter-tab ${filter === 'all' ? 'active' : ''}`}
-                                onClick={() => setFilter('all')}
-                            >
-                                전체
-                            </button>
-                            {artist === 'sungkyu' && (
-                                <>
-                                    <button
-                                        className={`cheering-filter-tab ${filter === 'otm' ? 'active' : ''}`}
-                                        onClick={() => setFilter('otm')}
-                                    >
-                                        OTM
-                                    </button>
-                                    <button
-                                        className={`cheering-filter-tab ${filter === 'fanchat' ? 'active' : ''}`}
-                                        onClick={() => setFilter('fanchat')}
-                                    >
-                                        응원법
-                                    </button>
-                                    <button
-                                        className={`cheering-filter-tab ${filter === 'chorus' ? 'active' : ''}`}
-                                        onClick={() => setFilter('chorus')}
-                                    >
-                                        떼창곡
-                                    </button>
-                                </>
-                            )}
-                        </div>
-                        <div className="cheering-artist-toggle" aria-label="응원법 가수 선택">
-                            <button
-                                className={`cheering-artist-toggle-button ${artist === 'sungkyu' ? 'active' : ''}`}
-                                onClick={() => setArtist('sungkyu')}
-                                aria-pressed={artist === 'sungkyu'}
-                            >
-                                성규
-                            </button>
-                            <button
-                                className={`cheering-artist-toggle-button ${artist === 'infinite' ? 'active' : ''}`}
-                                onClick={() => {
-                                    setArtist('infinite');
-                                    setFilter('all');
-                                }}
-                                aria-pressed={artist === 'infinite'}
-                            >
-                                인피니트
-                            </button>
-                        </div>
+                    <div className="cheering-filter-tabs">
+                        <button
+                            className={`cheering-filter-tab ${filter === 'all' ? 'active' : ''}`}
+                            onClick={() => setFilter('all')}
+                        >
+                            전체
+                        </button>
+                        <button
+                            className={`cheering-filter-tab ${filter === 'otm' ? 'active' : ''}`}
+                            onClick={() => setFilter('otm')}
+                        >
+                            OTM
+                        </button>
+                        <button
+                            className={`cheering-filter-tab ${filter === 'fanchat' ? 'active' : ''}`}
+                            onClick={() => setFilter('fanchat')}
+                        >
+                            응원법
+                        </button>
+                        <button
+                            className={`cheering-filter-tab ${filter === 'chorus' ? 'active' : ''}`}
+                            onClick={() => setFilter('chorus')}
+                        >
+                            떼창곡
+                        </button>
                     </div>
                 </div>
                 <div className="cheering-list">
@@ -273,13 +241,6 @@ const Cheering: React.FC = () => {
                             </div>
                         </div>
                     ))}
-                    {filteredData.length === 0 && (
-                        <div className="cheering-empty-message">
-                            {artist === 'infinite' && activeChantData.length === 0
-                                ? '인피니트 응원법을 준비 중입니다.'
-                                : '검색 결과가 없습니다.'}
-                        </div>
-                    )}
                 </div>
                 <div className="cheering-footer-message">
                     <p>제안 또는 오류 제보는</p>
