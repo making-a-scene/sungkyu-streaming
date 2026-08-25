@@ -6,11 +6,13 @@ import GuideMenu from '../../components/GuideMenu';
 import chantData from '../../data/sungkyu-chant.json';
 import infiniteChantData from '../../data/infinite-chant.json';
 
-type FilterType = 'all' | 'otm' | 'fanchat' | 'chorus';
+type FilterType = 'all' | 'fanchat' | 'chorus';
 type ArtistType = 'sungkyu' | 'infinite';
+type SortOrder = 'asc' | 'desc';
 
 type ChantItem = {
   title: string;
+  releaseDate: string;
   is_fanchat: boolean;
   is_otm?: boolean;
   aliases: string[];
@@ -160,6 +162,7 @@ const normalizeText = (text: string): string => {
 const Cheering: React.FC = () => {
   const [filter, setFilter] = useState<FilterType>('all');
   const [artist, setArtist] = useState<ArtistType>('sungkyu');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedItem, setSelectedItem] = useState<ChantItem | null>(null);
   const [isModalClosing, setIsModalClosing] = useState(false);
@@ -171,7 +174,6 @@ const Cheering: React.FC = () => {
 
   const filteredData = activeChantData.filter((item) => {
     // Filter by type
-    if (filter === 'otm' && !item.is_otm) return false;
     if (filter === 'fanchat' && !item.is_fanchat) return false;
     if (filter === 'chorus' && item.is_fanchat) return false;
 
@@ -189,6 +191,13 @@ const Cheering: React.FC = () => {
 
     return true;
   });
+  const sortedData =
+    [...filteredData].sort((a, b) => {
+      const dateA = new Date(a.releaseDate).getTime();
+      const dateB = new Date(b.releaseDate).getTime();
+
+      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
+    });
 
   const handleItemClick = (item: ChantItem) => {
     setSelectedItem(item);
@@ -202,6 +211,14 @@ const Cheering: React.FC = () => {
       setIsModalClosing(false);
       document.body.style.overflow = '';
     }, 250);
+  };
+
+  const handleArtistToggle = () => {
+    setArtist((current) => {
+      const nextArtist = current === 'sungkyu' ? 'infinite' : 'sungkyu';
+      if (nextArtist === 'infinite') setFilter('all');
+      return nextArtist;
+    });
   };
 
   return (
@@ -232,20 +249,14 @@ const Cheering: React.FC = () => {
               >
                 전체
               </button>
+              <button
+                className={`cheering-filter-tab ${filter === 'fanchat' ? 'active' : ''}`}
+                onClick={() => setFilter('fanchat')}
+              >
+                응원법
+              </button>
               {artist === 'sungkyu' && (
                 <>
-                  <button
-                    className={`cheering-filter-tab ${filter === 'otm' ? 'active' : ''}`}
-                    onClick={() => setFilter('otm')}
-                  >
-                    OTM
-                  </button>
-                  <button
-                    className={`cheering-filter-tab ${filter === 'fanchat' ? 'active' : ''}`}
-                    onClick={() => setFilter('fanchat')}
-                  >
-                    응원법
-                  </button>
                   <button
                     className={`cheering-filter-tab ${filter === 'chorus' ? 'active' : ''}`}
                     onClick={() => setFilter('chorus')}
@@ -255,34 +266,54 @@ const Cheering: React.FC = () => {
                 </>
               )}
             </div>
-            <div
-              className="cheering-artist-toggle"
-              aria-label="응원법 가수 선택"
+            <button
+              type="button"
+              className={`cheering-artist-toggle ${artist}`}
+              aria-label={`응원법 가수 선택: 현재 ${artist === 'sungkyu' ? '성규' : '인피니트'}`}
+              onClick={handleArtistToggle}
             >
-              <button
+              <span
                 className={`cheering-artist-toggle-button ${artist === 'sungkyu' ? 'active' : ''}`}
-                onClick={() => setArtist('sungkyu')}
-                aria-pressed={artist === 'sungkyu'}
               >
                 성규
-              </button>
-              <button
+              </span>
+              <span
                 className={`cheering-artist-toggle-button ${artist === 'infinite' ? 'active' : ''}`}
-                onClick={() => {
-                  setArtist('infinite');
-                  setFilter('all');
-                }}
-                aria-pressed={artist === 'infinite'}
               >
                 인피니트
-              </button>
-            </div>
+              </span>
+            </button>
           </div>
         </div>
+        <div className="cheering-list-meta">
+          <span className="cheering-list-count">총 {filteredData.length}개</span>
+          <button
+            type="button"
+            className="cheering-sort-button"
+            onClick={() =>
+              setSortOrder((current) =>
+                current === 'asc' ? 'desc' : 'asc',
+              )
+            }
+            aria-label={
+              sortOrder === 'asc'
+                ? '발매순 내림차순 정렬로 변경'
+                : '발매순 오름차순 정렬로 변경'
+            }
+          >
+            발매순
+            <span
+              className={`cheering-sort-arrow ${sortOrder === 'asc' ? 'asc' : 'desc'}`}
+              aria-hidden="true"
+            >
+              ↑
+            </span>
+          </button>
+        </div>
         <div className="cheering-list">
-          {filteredData.map((item, index) => (
+          {sortedData.map((item) => (
             <div
-              key={index}
+              key={item.title}
               className="cheering-item"
               onClick={() => handleItemClick(item)}
             >
