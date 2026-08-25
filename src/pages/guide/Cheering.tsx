@@ -3,6 +3,7 @@ import '../../App.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import GuideMenu from '../../components/GuideMenu';
+import { usePreventZoom } from '../../hooks/usePreventZoom';
 import chantData from '../../data/sungkyu-chant.json';
 import infiniteChantData from '../../data/infinite-chant.json';
 
@@ -159,6 +160,8 @@ const normalizeText = (text: string): string => {
 };
 
 const Cheering: React.FC = () => {
+  usePreventZoom();
+
   const [filter, setFilter] = useState<FilterType>('all');
   const [artist, setArtist] = useState<ArtistType>('sungkyu');
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
