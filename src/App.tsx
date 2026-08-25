@@ -46,6 +46,7 @@ function App() {
                 <Route path="/guide/radio" element={<Radio />} />
                 <Route path="/guide/coloring" element={<Coloring />} />
                 <Route path="/guide/cheering" element={<Cheering />} />
+                <Route path="/guide/cheering/:artist" element={<Cheering />} />
                 <Route path="/chart" element={<Chart />} />
                 <Route path="/event" element={<Event />}/>
                 <Route path="/lv4" element={<LvMain />}/>
