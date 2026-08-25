@@ -15,6 +15,7 @@ import Radio from "./pages/guide/Radio";
 import Coloring from "./pages/guide/Coloring";
 import Cheering from "./pages/guide/Cheering";
 import BottomNav from "./components/BottomNav";
+import ScrollToTop from "./components/ScrollToTop";
 import Streaming from "./pages/guide/Streaming";
 import Download from "./pages/guide/Download";
 import Guide from "./pages/Guide";
@@ -31,6 +32,7 @@ function App() {
 
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <ToastContainer position="top-right" />
             <Routes>
                 <Route path="/" element={<Home />} />
