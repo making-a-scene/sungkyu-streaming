@@ -33,7 +33,7 @@ const Home: React.FC = () => {
               alt=""
               className="cheering-guide-icon home-cheering-guide-icon"
             />
-            <span className="cheering-guide-text">무집 대비 응원법 가이드</span>
+            <span className="cheering-guide-text">무한대집회5 대비 응원법 가이드</span>
             <img
               src={process.env.PUBLIC_URL + '/arrow-icon.svg'}
               alt=""
