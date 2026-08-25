@@ -2451,6 +2451,23 @@ html, body {
     gap: 16px;
 }
 
+.home-cheering-guide-banner {
+    width: 100%;
+    margin: 0;
+    border: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    box-shadow: none;
+    font: inherit;
+    text-align: left;
+}
+
+.home-cheering-guide-icon {
+    width: 40px;
+    height: 20px;
+    object-fit: contain;
+}
+
 .home-countdown-section {
     display: flex;
     flex-direction: column;
