@@ -28,6 +28,10 @@ const GuideMenu: React.FC = () => {
         }
     };
 
+    const isActivePath = (path: string) => (
+        location.pathname === path || location.pathname.startsWith(`${path}/`)
+    );
+
     useEffect(() => {
         if (activeItemRef.current && menuListRef.current) {
             activeItemRef.current.scrollIntoView({
@@ -45,8 +49,8 @@ const GuideMenu: React.FC = () => {
                     {menuItems.map((item, index) => (
                         <div
                             key={index}
-                            ref={location.pathname === item.path ? activeItemRef : null}
-                            className={`sub-menu-item ${location.pathname === item.path ? 'active' : ''} ${item.disabled ? 'disabled' : ''}`}
+                            ref={isActivePath(item.path) ? activeItemRef : null}
+                            className={`sub-menu-item ${isActivePath(item.path) ? 'active' : ''} ${item.disabled ? 'disabled' : ''}`}
                             onClick={() => handleMenuClick(item.path, item.disabled)}
                         >
                             {item.label}
