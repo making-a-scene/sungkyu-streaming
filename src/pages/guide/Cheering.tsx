@@ -8,7 +8,7 @@ import { usePreventZoom } from '../../hooks/usePreventZoom';
 import chantData from '../../data/sungkyu-chant.json';
 import infiniteChantData from '../../data/infinite-chant.json';
 
-type FilterType = 'all' | 'fanchat' | 'chorus';
+type FilterType = 'all' | 'fanchat' | 'chorus' | 'mujip5';
 type ArtistType = 'sungkyu' | 'infinite';
 type SortOrder = 'asc' | 'desc';
 
@@ -18,6 +18,7 @@ type ChantItem = {
   is_fanchat: boolean;
   aliases: string[];
   chant: string;
+  tag?: string;
   youtube_url?: string;
 };
 
@@ -176,7 +177,7 @@ const Cheering: React.FC = () => {
   useEffect(() => {
     const nextArtist: ArtistType = artistParam === 'infinite' ? 'infinite' : 'sungkyu';
     setArtist(nextArtist);
-    if (nextArtist === 'infinite') setFilter('all');
+    setFilter('all');
   }, [artistParam]);
 
   const activeChantData =
@@ -188,6 +189,7 @@ const Cheering: React.FC = () => {
     // Filter by type
     if (filter === 'fanchat' && !item.is_fanchat) return false;
     if (filter === 'chorus' && item.is_fanchat) return false;
+    if (filter === 'mujip5' && item.tag !== '무집5') return false;
 
     // Filter by search query
     if (searchQuery.trim()) {
@@ -274,6 +276,14 @@ const Cheering: React.FC = () => {
                   </button>
                 </>
               )}
+              {artist === 'infinite' && (
+                <button
+                  className={`cheering-filter-tab ${filter === 'mujip5' ? 'active' : ''}`}
+                  onClick={() => setFilter('mujip5')}
+                >
+                  무집5
+                </button>
+              )}
             </div>
             <button
               type="button"
@@ -341,6 +351,9 @@ const Cheering: React.FC = () => {
                 <span className="cheering-item-title">{item.title}</span>
               </div>
               <div className="cheering-item-right">
+                {item.tag && (
+                  <span className="cheering-song-tag">{item.tag}</span>
+                )}
                 <span
                   className={`cheering-item-badge ${item.is_fanchat ? 'fanchat' : 'chorus'}`}
                 >
@@ -385,6 +398,9 @@ const Cheering: React.FC = () => {
                 <span className="cheering-modal-title">
                   {selectedItem.title}
                 </span>
+                {selectedItem.tag && (
+                  <span className="cheering-song-tag">{selectedItem.tag}</span>
+                )}
                 <span
                   className={`cheering-modal-badge ${selectedItem.is_fanchat ? 'fanchat' : 'chorus'}`}
                 >

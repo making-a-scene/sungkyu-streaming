@@ -1980,6 +1980,24 @@ html, body {
     font-weight: 600;
 }
 
+.cheering-song-tag {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    width: 40px;
+    height: 20px;
+    padding: 0;
+    border-radius: 20px;
+    background: #75C6FF;
+    color: #242424;
+    font-family: Pretendard;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 100%;
+}
+
 .cheering-item-right {
     display: flex;
     align-items: center;
@@ -1987,11 +2005,18 @@ html, body {
 }
 
 .cheering-item-badge {
-    padding: 4px 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 42px;
+    height: 20px;
+    padding: 0;
     border-radius: 20px;
     font-family: Pretendard;
     font-size: 10px;
     font-weight: 600;
+    line-height: 100%;
 }
 
 .cheering-item-badge.fanchat {
@@ -2315,11 +2340,18 @@ html, body {
 }
 
 .cheering-modal-badge {
-    padding: 4px 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 42px;
+    height: 20px;
+    padding: 0;
     border-radius: 20px;
     font-family: Pretendard;
     font-size: 10px;
     font-weight: 600;
+    line-height: 100%;
 }
 
 .cheering-modal-badge.fanchat {
