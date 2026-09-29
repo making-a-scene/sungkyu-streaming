@@ -285,7 +285,7 @@ const Cheering: React.FC = () => {
                 </button>
               )}
             </div>
-            <button
+            {/* <button
               type="button"
               className={`cheering-artist-toggle ${artist}`}
               aria-label={`응원법 가수 선택: 현재 ${artist === 'sungkyu' ? '성규' : '인피니트'}`}
@@ -301,7 +301,7 @@ const Cheering: React.FC = () => {
               >
                 인피니트
               </span>
-            </button>
+            </button> */}
           </div>
         </div>
         <div className="cheering-list-meta">
