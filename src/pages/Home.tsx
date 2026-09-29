@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import '../App.css';
 import '../components/event/event.css';
 
@@ -14,8 +14,6 @@ import RadioSchedule from '../components/RadioSchedule';
 import GuideGrid from '../components/GuideGrid';
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="app">
       <Header />
@@ -23,23 +21,6 @@ const Home: React.FC = () => {
       {/* ===== 기존 홈 콘텐츠 (그대로) ===== */}
       <main className="home-content">
         <div className="home-top-group">
-          <button
-            type="button"
-            className="cheering-guide-banner home-cheering-guide-banner"
-            onClick={() => navigate('/guide/cheering/infinite')}
-          >
-            <img
-              src={process.env.PUBLIC_URL + '/infinite-logo.svg'}
-              alt=""
-              className="cheering-guide-icon home-cheering-guide-icon"
-            />
-            <span className="cheering-guide-text">무한대집회5 대비 응원법 가이드</span>
-            <img
-              src={process.env.PUBLIC_URL + '/arrow-icon.svg'}
-              alt=""
-              className="cheering-guide-arrow"
-            />
-          </button>
           <YoutubeBanner youtubeSrc="https://www.youtube.com/embed/bK_1FZYO0pg" />
           <div className="home-countdown-section">
             <ActionButtons />
