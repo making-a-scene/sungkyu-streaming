@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import '../../App.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -164,7 +165,7 @@ const normalizeText = (text: string): string => {
 const Cheering: React.FC = () => {
   usePreventZoom();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { artist: artistParam } = useParams();
   const initialArtist: ArtistType = artistParam === 'infinite' ? 'infinite' : 'sungkyu';
   const [filter, setFilter] = useState<FilterType>('all');
@@ -227,10 +228,10 @@ const Cheering: React.FC = () => {
     }, 250);
   };
 
-  const handleArtistToggle = () => {
-    const nextArtist = artist === 'sungkyu' ? 'infinite' : 'sungkyu';
-    navigate(`/guide/cheering/${nextArtist}`);
-  };
+  // const handleArtistToggle = () => {
+  //   const nextArtist = artist === 'sungkyu' ? 'infinite' : 'sungkyu';
+  //   navigate(`/guide/cheering/${nextArtist}`);
+  // };
 
   return (
     <div className="app">

@@ -14,8 +14,6 @@ import RadioSchedule from '../components/RadioSchedule';
 import GuideGrid from '../components/GuideGrid';
 
 const Home: React.FC = () => {
-  const navigate = useNavigate();
-
   return (
     <div className="app">
       <Header />
