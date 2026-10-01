@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import "../../App.css";
 
 import Header from "../../components/Header";
@@ -10,12 +10,23 @@ const IdGeneration = () => {
   const tabs = ["멜론", "지니", "벅스", "플로", "바이브", "듀얼 넘버", "안심번호"];
   const [selectedTab, setSelectedTab] = useState(0);
 
+  const mainRef = useRef<HTMLElement>(null);
+
+  useLayoutEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+    if (mainRef.current) {
+      mainRef.current.scrollTop = 0;
+    }
+  }, [selectedTab]);
+
   return (
     <div className="app">
       <Header />
       <GuideMenu />
       <TabView tabs={tabs} defaultTab={0} onTabChange={setSelectedTab} />
-      <main className="main-content">
+      <main className="main-content" ref={mainRef}>
         {selectedTab === 0 && (
           <img
             src={process.env.PUBLIC_URL + "/guide-melon.png"}
