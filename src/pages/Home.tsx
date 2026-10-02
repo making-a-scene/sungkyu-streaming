@@ -12,6 +12,7 @@ import StreamingPills from '../components/StreamingPills';
 import StreamingCounter from '../components/StreamingCounter';
 import RadioSchedule from '../components/RadioSchedule';
 import GuideGrid from '../components/GuideGrid';
+import LyricsPracticeCard from '../components/LyricsPracticeCard';
 
 const Home: React.FC = () => {
   return (
@@ -21,6 +22,7 @@ const Home: React.FC = () => {
       {/* ===== 기존 홈 콘텐츠 (그대로) ===== */}
       <main className="home-content">
         <div className="home-top-group">
+          <LyricsPracticeCard />
           <YoutubeBanner youtubeSrc="https://www.youtube.com/embed/bK_1FZYO0pg" />
           <div className="home-countdown-section">
             <ActionButtons />

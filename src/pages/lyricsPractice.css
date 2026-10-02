@@ -1,0 +1,45 @@
+.lyrics-practice-card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-radius: 12px;
+    background: #F1306D;
+    color: #fff;
+    text-decoration: none;
+}
+
+.lyrics-practice-card:focus-visible,
+.lyrics-practice-home-link:focus-visible { outline: 2px solid #d2bfff; outline-offset: 4px; }
+.lyrics-practice-card-icon { width: 22px; height: 22px; flex-shrink: 0; }
+.lyrics-practice-card-text { color: #fff; font-size: 14px; font-weight: 700; line-height: 1.5; white-space: nowrap; }
+.lyrics-practice-badge { display: inline-block; padding: 3px 7px; border-radius: 6px; background: #43365f; color: #e3d7ff; font-size: 11px; font-weight: 700; }
+.lyrics-practice-card-arrow { margin-left: auto; color: #fff; font-size: 22px; line-height: 1; flex-shrink: 0; }
+.lyrics-page-content { width: 100%; }
+.lyrics-song-selection { width: 100%; max-width: 480px; margin: 0 auto; padding: 28px 20px 48px; color: #fff; }
+.lyrics-song-selection h1 { margin: 0 0 10px; font-size: 24px; font-weight: 800; text-align: center; }
+.lyrics-song-selection > p { margin: 0 0 28px; color: #b5b5b5; font-size: 14px; text-align: center; }
+.lyrics-song-list { display: flex; flex-direction: column; gap: 16px; }
+.lyrics-song-card { display: flex; align-items: center; gap: 20px; padding: 20px; border: 1px solid #3a3a3a; border-radius: 20px; background: #1c1c1c; color: #fff; text-decoration: none; }
+a.lyrics-song-card:hover { border-color: #ffd24a; }
+a.lyrics-song-card:focus-visible, .lyrics-song-back a:focus-visible { outline: 2px solid #ffd24a; outline-offset: 4px; }
+.lyrics-song-card img { width: 80px; height: 80px; object-fit: cover; border-radius: 12px; }
+.lyrics-song-info { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.lyrics-song-info strong { font-size: 24px; font-weight: 800; }
+.lyrics-song-info > span { font-size: 13px; color: #b5b5b5; }
+.lyrics-song-info .lyrics-song-action { color: #ffd24a; font-weight: 700; }
+.lyrics-song-card-pending { border-style: dashed; }
+.lyrics-song-card-pending img { opacity: 0.5; }
+.lyrics-song-back { width: 100%; max-width: 480px; margin: 0 auto; padding: 16px 20px; }
+.lyrics-song-back a { color: #b5b5b5; font-size: 13px; text-decoration: none; }
+.lyrics-practice-empty { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 48px 20px; text-align: center; color: #fff; }
+.lyrics-practice-empty-icon { font-size: 48px; }
+.lyrics-practice-empty h1 { margin: 0; font-size: 22px; line-height: 1.5; word-break: keep-all; }
+.lyrics-practice-empty p { margin: 0; color: #c8c3d3; font-size: 14px; line-height: 1.8; word-break: keep-all; }
+.lyrics-practice-home-link { margin-top: 8px; padding: 12px 20px; border-radius: 10px; background: #43365f; color: #fff; text-decoration: none; }
+
+@media (max-width: 360px) {
+    .lyrics-practice-card { padding: 14px 10px; gap: 6px; }
+    .lyrics-practice-card-icon { width: 20px; height: 20px; }
+    .lyrics-practice-card-text { font-size: 12px; }
+}
