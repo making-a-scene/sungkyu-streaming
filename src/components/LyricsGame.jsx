@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../pages/lyricsGame.css';
 const BLOCKS = [{
   p: "1절",
@@ -729,6 +730,15 @@ class LyricsGame extends React.Component {
       elapsed: 0
     }, () => this.startClock());
   };
+  toggleLyrics = () => {
+    if (this.state.screen === "sheet") {
+      this.setState({ screen: this._previousScreen || "home" });
+    } else {
+      this._previousScreen = this.state.screen;
+      this.stopClock();
+      this.setState({ screen: "sheet" });
+    }
+  };
   render() {
     const v = this.renderVals();
     return <div className="lyrics-game" ref={el => {
@@ -750,6 +760,11 @@ class LyricsGame extends React.Component {
           "minHeight": "auto",
           "paddingBottom": "28px"
         }}>
+          <nav className="lyrics-game-toolbar" aria-label="게임 메뉴">
+            <Link to="/lyrics-practice" className="lyrics-game-back">‹ 뒤로</Link>
+            <h1>60초</h1>
+            <button type="button" onClick={this.toggleLyrics}>가사 · 응원법 {v.isSheet ? '닫기' : '보기'}</button>
+          </nav>
           {v.isHome && <> 
             <div style={{
               "display": "flex",
@@ -758,32 +773,7 @@ class LyricsGame extends React.Component {
               "padding": "4px 20px 0"
             }}>
               <div style={{
-                "background": "#1c1c1c",
-                "borderRadius": "20px",
-                "padding": "22px 20px",
-                "display": "flex",
-                "alignItems": "center",
-                "gap": "14px"
-              }}>
-                <div style={{
-                  "display": "flex",
-                  "flexDirection": "column",
-                  "gap": "4px"
-                }}>
-                  <div style={{
-                    "fontSize": "26px",
-                    "fontWeight": "800",
-                    "letterSpacing": "-0.03em",
-                    "lineHeight": "1.1"
-                  }}>{"60초"}</div>
-                  <div style={{
-                    "fontSize": "13px",
-                    "color": "#9a9a9a"
-                  }}>{"김성규"}</div>
-                </div>
-              </div>
-              <div style={{
-                "background": "#1c1c1c",
+                "background": "#141414",
                 "borderRadius": "20px",
                 "padding": "22px 20px",
                 "display": "flex",
@@ -811,7 +801,7 @@ class LyricsGame extends React.Component {
                   "display": "flex",
                   "flexDirection": "column",
                   "gap": "6px",
-                  "background": "#141414",
+                  "background": "#0f0f0f",
                   "borderRadius": "14px",
                   "padding": "14px 16px"
                 }}>
@@ -839,7 +829,7 @@ class LyricsGame extends React.Component {
                 <div style={{
                   "display": "flex",
                   "gap": "6px",
-                  "background": "#141414",
+                  "background": "#0f0f0f",
                   "borderRadius": "999px",
                   "padding": "5px"
                 }}>
@@ -849,7 +839,7 @@ class LyricsGame extends React.Component {
                       "fontFamily": "inherit",
                       "fontSize": "13.5px",
                       "fontWeight": "700",
-                      "height": "42px",
+                      "height": "36px",
                       "borderRadius": "999px",
                       "border": "0",
                       "cursor": "pointer",
@@ -867,7 +857,7 @@ class LyricsGame extends React.Component {
                     "fontFamily": "inherit",
                     "fontSize": "15px",
                     "fontWeight": "700",
-                    "height": "56px",
+                    "height": "48px",
                     "borderRadius": "999px",
                     "border": "1px solid #3a3a3a",
                     "cursor": "pointer",
@@ -879,7 +869,7 @@ class LyricsGame extends React.Component {
                     "fontFamily": "inherit",
                     "fontSize": "15px",
                     "fontWeight": "800",
-                    "height": "56px",
+                    "height": "48px",
                     "borderRadius": "999px",
                     "border": "0",
                     "cursor": "pointer",
@@ -889,7 +879,7 @@ class LyricsGame extends React.Component {
                 </div>
               </div>
               <div style={{
-                "background": "#1c1c1c",
+                "background": "#141414",
                 "borderRadius": "20px",
                 "padding": "22px 20px",
                 "display": "flex",
@@ -917,7 +907,7 @@ class LyricsGame extends React.Component {
                   "display": "flex",
                   "flexDirection": "column",
                   "gap": "6px",
-                  "background": "#141414",
+                  "background": "#0f0f0f",
                   "borderRadius": "14px",
                   "padding": "14px 16px"
                 }}>
@@ -947,7 +937,7 @@ class LyricsGame extends React.Component {
                 <div style={{
                   "display": "flex",
                   "gap": "6px",
-                  "background": "#141414",
+                  "background": "#0f0f0f",
                   "borderRadius": "999px",
                   "padding": "5px"
                 }}>
@@ -957,7 +947,7 @@ class LyricsGame extends React.Component {
                       "fontFamily": "inherit",
                       "fontSize": "13.5px",
                       "fontWeight": "700",
-                      "height": "42px",
+                      "height": "36px",
                       "borderRadius": "999px",
                       "border": "0",
                       "cursor": "pointer",
@@ -975,7 +965,7 @@ class LyricsGame extends React.Component {
                     "fontFamily": "inherit",
                     "fontSize": "15px",
                     "fontWeight": "700",
-                    "height": "56px",
+                    "height": "48px",
                     "borderRadius": "999px",
                     "border": "1px solid #3a3a3a",
                     "cursor": "pointer",
@@ -987,7 +977,7 @@ class LyricsGame extends React.Component {
                     "fontFamily": "inherit",
                     "fontSize": "15px",
                     "fontWeight": "800",
-                    "height": "56px",
+                    "height": "48px",
                     "borderRadius": "999px",
                     "border": "0",
                     "cursor": "pointer",
@@ -997,7 +987,7 @@ class LyricsGame extends React.Component {
                 </div>
               </div>
               <div style={{
-                "background": "#1c1c1c",
+                "background": "#141414",
                 "borderRadius": "20px",
                 "padding": "22px 20px",
                 "display": "flex",
@@ -1025,7 +1015,7 @@ class LyricsGame extends React.Component {
                   "fontFamily": "inherit",
                   "fontSize": "15px",
                   "fontWeight": "800",
-                  "height": "56px",
+                  "height": "48px",
                   "borderRadius": "999px",
                   "border": "0",
                   "cursor": "pointer",
@@ -2403,7 +2393,7 @@ class LyricsGame extends React.Component {
           stroke: i === s.results.length ? "#ffffff" : "#5a5a5a"
         };
       }),
-      goHome: nav("home"),
+      goHome: s.screen === "sheet" ? this.toggleLyrics : nav("home"),
       goSheet: nav("sheet"),
       sheetBg: s.screen === "sheet" ? "#ffffff" : "#1c1c1c",
       sheetFg: s.screen === "sheet" ? "#0b0b0b" : "#cfcfcf",

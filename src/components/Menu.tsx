@@ -12,7 +12,7 @@ const MENU_ITEMS = [
     { id: 'home', label: '홈', icon: '/home-icon.svg', path: '/', disabled: false },
     { id: 'guide', label: '가이드', icon: '/guide-icon.svg', path: '/guide', disabled: false },
     { id: 'lyrics-practice', label: '가사 퀴즈', icon: '/lyrics-icon-filled.svg', path: '/lyrics-practice', disabled: false },
-    { id: 'lv4', label: 'LV4', icon: '/lv4-icon.svg', path: '/lv4', disabled: false },
+    // { id: 'lv4', label: 'LV4', icon: '/lv4-icon.svg', path: '/lv4', disabled: false },
     { id: 'chart', label: '차트', icon: '/chart-icon.svg', path: '/chart', disabled: false },
     { id: 'event', label: '이벤트', icon: '/event-icon.svg', path: '/event', disabled: false },
 ];

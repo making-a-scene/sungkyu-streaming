@@ -2,6 +2,10 @@ import React from 'react';
 import { render, screen, fireEvent, act, cleanup } from '@testing-library/react';
 import LyricsGame from './LyricsGame';
 
+jest.mock('react-router-dom', () => ({
+  Link: ({ to, children, ...props }) => <a href={to} {...props}>{children}</a>,
+}), { virtual: true });
+
 beforeEach(() => jest.useFakeTimers());
 afterEach(() => { cleanup(); jest.useRealTimers(); });
 
@@ -86,4 +90,19 @@ test.each([1, 2])('cheering input mode %i uses the right target and ignores spac
   }
   expect(game.state.screen).toBe('result');
   expect(game.state.correct).toBe(5);
+});
+
+test('lyrics viewer pauses the current game and returns to the same question', () => {
+  const ref = mountGame();
+  act(() => ref.current.startBlank());
+  act(() => jest.advanceTimersByTime(3000));
+  const elapsed = ref.current.state.elapsed;
+  fireEvent.click(screen.getByText('가사 · 응원법 보기'));
+  expect(ref.current.state.screen).toBe('sheet');
+  act(() => jest.advanceTimersByTime(21000));
+  expect(ref.current.state.elapsed).toBe(elapsed);
+  fireEvent.click(screen.getByText('가사 · 응원법 닫기'));
+  expect(ref.current.state.screen).toBe('play');
+  expect(ref.current.state.qi).toBe(0);
+  expect(ref.current.state.feedback).toBeNull();
 });
