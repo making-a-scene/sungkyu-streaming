@@ -1,0 +1,18 @@
+.lyrics-game { width: 100%; }
+.lyrics-game *, .lyrics-game *::before, .lyrics-game *::after { box-sizing: border-box; }
+.lyrics-game button:focus-visible, .lyrics-game input:focus-visible { outline: 2px solid #ffd24a; outline-offset: 3px; }
+.lyrics-game button:disabled { cursor: default !important; }
+.lyrics-game input:focus { border-color: #fff !important; }
+.lyrics-game [data-full-scroller] { overscroll-behavior: contain; }
+.lyrics-game ::selection { background: #fff; color: #0b0b0b; }
+.lyrics-game-feedback { position: fixed; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; pointer-events: none; z-index: 90; }
+@media (max-width: 767px) {
+  .lyrics-game-feedback { bottom: 60px; }
+}
+@keyframes slotPulse {
+  0%, 100% { border-color: #6a5a24; background: #201d14; }
+  50% { border-color: #ffd24a; background: #2b2515; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lyrics-game span { animation: none !important; }
+}
