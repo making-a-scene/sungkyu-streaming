@@ -1,4 +1,9 @@
 .lyrics-game { width: 100%; }
+.lyrics-game-page { min-height: 100vh; padding-bottom: 0; }
+.lyrics-game-toolbar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; padding: 16px 24px 28px; }
+.lyrics-game-toolbar h1 { margin: 0; color: #fff; font-size: 20px; font-weight: 800; line-height: 30px; }
+.lyrics-game-back { color: #b5b5b5; font-size: 13px; text-decoration: none; justify-self: start; }
+.lyrics-game-toolbar button { justify-self: end; border: 0; border-radius: 999px; padding: 8px 14px; background: #313131; color: #fff; font-family: inherit; font-size: 11px; font-weight: 600; white-space: nowrap; cursor: pointer; }
 .lyrics-game *, .lyrics-game *::before, .lyrics-game *::after { box-sizing: border-box; }
 .lyrics-game button:focus-visible, .lyrics-game input:focus-visible { outline: 2px solid #ffd24a; outline-offset: 3px; }
 .lyrics-game button:disabled { cursor: default !important; }
@@ -7,7 +12,7 @@
 .lyrics-game ::selection { background: #fff; color: #0b0b0b; }
 .lyrics-game-feedback { position: fixed; left: 0; right: 0; bottom: 0; display: flex; justify-content: center; pointer-events: none; z-index: 90; }
 @media (max-width: 767px) {
-  .lyrics-game-feedback { bottom: 60px; }
+  .lyrics-game-page .lyrics-game-feedback { bottom: 0; }
 }
 @keyframes slotPulse {
   0%, 100% { border-color: #6a5a24; background: #201d14; }
