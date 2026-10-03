@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import '../../App.css';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import ChantModal, { ChantItem } from '../../components/ChantModal';
 import GuideMenu from '../../components/GuideMenu';
 import { usePreventZoom } from '../../hooks/usePreventZoom';
 import chantData from '../../data/sungkyu-chant.json';
@@ -13,22 +14,10 @@ type FilterType = 'all' | 'fanchat' | 'chorus' | 'mujip5';
 type ArtistType = 'sungkyu' | 'infinite';
 type SortOrder = 'asc' | 'desc';
 
-type ChantItem = {
-  title: string;
-  releaseDate: string;
-  is_fanchat: boolean;
-  aliases: string[];
-  chant: string;
-  tag?: string;
-  youtube_url?: string;
-};
+
 
 // Album cover mapping
-const getYoutubeEmbedUrl = (url: string): string => {
-  const match = url.match(/youtu\.be\/([^?]+)/);
-  if (match) return `https://www.youtube.com/embed/${match[1]}`;
-  return url;
-};
+
 
 const albumCovers: { [key: string]: string } = {
   'Over It': '/album-otm.png',
@@ -78,85 +67,6 @@ const getAlbumCover = (title: string): string => {
   return albumCovers[title] || '';
 };
 
-// Parse chant text with color markers
-const parseChant = (text: string) => {
-  const lines = text.split('\n');
-  return lines.map((line, lineIndex) => {
-    const parts: React.ReactNode[] = [];
-    let remaining = line;
-    let keyCounter = 0;
-
-    while (remaining.length > 0) {
-      const blueStart = remaining.indexOf('[[');
-      const yellowStart = remaining.indexOf('<<');
-
-      if (blueStart === -1 && yellowStart === -1) {
-        if (remaining) {
-          parts.push(
-            <span key={`${lineIndex}-${keyCounter++}`}>{remaining}</span>,
-          );
-        }
-        break;
-      }
-
-      let nextMarkerStart: number;
-      let isBlue: boolean;
-
-      if (blueStart === -1) {
-        nextMarkerStart = yellowStart;
-        isBlue = false;
-      } else if (yellowStart === -1) {
-        nextMarkerStart = blueStart;
-        isBlue = true;
-      } else {
-        if (blueStart < yellowStart) {
-          nextMarkerStart = blueStart;
-          isBlue = true;
-        } else {
-          nextMarkerStart = yellowStart;
-          isBlue = false;
-        }
-      }
-
-      if (nextMarkerStart > 0) {
-        parts.push(
-          <span key={`${lineIndex}-${keyCounter++}`}>
-            {remaining.substring(0, nextMarkerStart)}
-          </span>,
-        );
-      }
-
-      const endMarker = isBlue ? ']]' : '>>';
-      const endIndex = remaining.indexOf(endMarker, nextMarkerStart + 2);
-
-      if (endIndex === -1) {
-        parts.push(
-          <span key={`${lineIndex}-${keyCounter++}`}>
-            {remaining.substring(nextMarkerStart)}
-          </span>,
-        );
-        break;
-      }
-
-      const coloredText = remaining.substring(nextMarkerStart + 2, endIndex);
-      const colorClass = isBlue ? 'chant-blue' : 'chant-yellow';
-      parts.push(
-        <span key={`${lineIndex}-${keyCounter++}`} className={colorClass}>
-          {coloredText}
-        </span>,
-      );
-
-      remaining = remaining.substring(endIndex + 2);
-    }
-
-    return (
-      <p key={lineIndex} className="chant-line">
-        {parts.length > 0 ? parts : '\u00A0'}
-      </p>
-    );
-  });
-};
-
 // Normalize text for search (lowercase, remove spaces)
 const normalizeText = (text: string): string => {
   return text.toLowerCase().replace(/\s+/g, '');
@@ -173,7 +83,6 @@ const Cheering: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedItem, setSelectedItem] = useState<ChantItem | null>(null);
-  const [isModalClosing, setIsModalClosing] = useState(false);
 
   useEffect(() => {
     const nextArtist: ArtistType = artistParam === 'infinite' ? 'infinite' : 'sungkyu';
@@ -214,19 +123,8 @@ const Cheering: React.FC = () => {
       return sortOrder === 'asc' ? dateA - dateB : dateB - dateA;
     });
 
-  const handleItemClick = (item: ChantItem) => {
-    setSelectedItem(item);
-    document.body.style.overflow = 'hidden';
-  };
-
-  const handleCloseModal = () => {
-    setIsModalClosing(true);
-    setTimeout(() => {
-      setSelectedItem(null);
-      setIsModalClosing(false);
-      document.body.style.overflow = '';
-    }, 250);
-  };
+  const handleItemClick = (item: ChantItem) => setSelectedItem(item);
+  const handleCloseModal = () => setSelectedItem(null);
 
   // const handleArtistToggle = () => {
   //   const nextArtist = artist === 'sungkyu' ? 'infinite' : 'sungkyu';
@@ -384,64 +282,7 @@ const Cheering: React.FC = () => {
       </main>
       <Footer />
 
-      {/* Modal */}
-      {selectedItem && (
-        <div
-          className={`cheering-modal-overlay ${isModalClosing ? 'closing' : ''}`}
-          onClick={handleCloseModal}
-        >
-          <div
-            className={`cheering-modal ${isModalClosing ? 'closing' : ''}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="cheering-modal-header">
-              <div className="cheering-modal-title-container">
-                <span className="cheering-modal-title">
-                  {selectedItem.title}
-                </span>
-                {selectedItem.tag && (
-                  <span className="cheering-song-tag">{selectedItem.tag}</span>
-                )}
-                <span
-                  className={`cheering-modal-badge ${selectedItem.is_fanchat ? 'fanchat' : 'chorus'}`}
-                >
-                  {selectedItem.is_fanchat ? '응원법' : '떼창곡'}
-                </span>
-              </div>
-              <button
-                className="cheering-modal-close"
-                onClick={handleCloseModal}
-              >
-                <img
-                  src={process.env.PUBLIC_URL + '/close-icon.svg'}
-                  alt="Close"
-                />
-              </button>
-            </div>
-            <div className="cheering-modal-content">
-              <div className="cheering-modal-info-box">
-                <span className="info-text-yellow">노란색</span>
-                <span className="info-text">은 노래 가사를 같이, </span>
-                <span className="info-text-blue">파란색</span>
-                <span className="info-text">은 응원법만 크게 외치기</span>
-              </div>
-              {selectedItem.youtube_url && (
-                <div className="cheering-modal-youtube">
-                  <iframe
-                    src={getYoutubeEmbedUrl(selectedItem.youtube_url)}
-                    title={selectedItem.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                </div>
-              )}
-              <div className="cheering-modal-lyrics">
-                {parseChant(selectedItem.chant)}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
+      {selectedItem && <ChantModal item={selectedItem} onClose={handleCloseModal} />}
     </div>
   );
 };
