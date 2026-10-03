@@ -1,3 +1,4 @@
+import SongChantModal from './SongChantModal';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../pages/lyricsGame.css';
@@ -248,7 +249,7 @@ const OK = "#ffd24a",
 // 정답/오답 상태는 색 + 기호로 이중 표시한다
 function choiceState(fb, t, answer, picked) {
   if (!fb) return {
-    bg: "#1c1c1c",
+    bg: "#3a3a3a",
     fg: "#ffffff",
     border: "#2a2a2a",
     badge: "",
@@ -274,7 +275,7 @@ function choiceState(fb, t, answer, picked) {
   return {
     bg: "#141414",
     fg: "#5f5f5f",
-    border: "#1c1c1c",
+    border: "#3a3a3a",
     badge: "",
     badgeBg: "transparent",
     badgeFg: "transparent"
@@ -295,6 +296,7 @@ class LyricsGame extends React.Component {
     diff: 1,
     g1Diff: 0,
     g2Diff: 0,
+    g3Diff: 0,
     typed: "",
     studyIdx: 0,
     results: [],
@@ -382,7 +384,7 @@ class LyricsGame extends React.Component {
       }
       let choices = Array.from(new Set(slot.v));
       const others = shuffle(SLOTS.filter((_, i) => i !== si).flatMap(s => s.v)).filter(t => choices.indexOf(t) < 0);
-      choices = choices.concat(others).slice(0, 3);
+      choices = Array.from(new Set(choices.concat(others))).slice(0, 3);
       return {
         si,
         pi,
@@ -463,7 +465,7 @@ class LyricsGame extends React.Component {
   }
   ensureClock() {
     const s = this.state,
-      playing = (s.screen === "play" || s.screen === "call" || s.screen === "full") && !s.feedback;
+      playing = (s.screen === "play" || s.screen === "call" || s.screen === "full") && !s.feedback && !s.lyricsOpen;
     if (playing && !this._iv) this.startClock();
     if (!playing && this._iv) this.stopClock();
   }
@@ -473,7 +475,7 @@ class LyricsGame extends React.Component {
   componentDidUpdate() {
     this.ensureClock();
     const tk = this.state.screen + ":" + this.state.qi + ":" + (this.state.feedback || "");
-    const typingNow = (this.state.screen === "play" && this.state.g1Diff > 0) || (this.state.screen === "call" && this.state.g2Diff > 0);
+    const typingNow = (this.state.screen === "play" && this.state.g1Diff > 0) || (this.state.screen === "call" && this.state.g2Diff > 0) || (this.state.screen === "full" && this.state.g3Diff > 0);
     if (typingNow && !this.state.feedback && this._typeInput && tk !== this._typeKey) {
       this._typeKey = tk;
       this._typeInput.focus();
@@ -514,65 +516,74 @@ class LyricsGame extends React.Component {
     });
   };
   buildFull() {
-    const rows = [];
-    BLOCKS.forEach((b, bi) => b.lines.forEach((l, li) => rows.push({
-      bi,
-      li,
-      t: l.k.map(k => k[0]).join(""),
-      tricky: !!l.tricky,
-      call: l.k.some(k => k[1])
-    })));
-    // 괄호가 섞인 토큰은 조각으로 보여서 보기로 쓰지 않는다
-    // 게임 1과 같은 범위: 세 후렴의 출제 자리만
-    const cand = rows.map((r, i) => ({
-      r,
-      i,
-      pi: PARTS.indexOf(BLOCKS[r.bi].p)
-    })).filter(({
-      r,
-      pi
-    }) => pi >= 0 && SLOTS[r.li] && (new Set(SLOTS[r.li].v).size > 1 || SLOTS[r.li].always));
-    // 응원법 자리: 응원법 자체가 빈칸이 되고, 보기는 다른 응원법
+    // 꼭 나와야 하는 후렴 줄(모든 등장 위치) + 브릿지 조각 + 응원법 + 나머지 후렴 자리 몇 개
+    const MUST_LINES = ["넌 그런 사람", "이유 따위 난 필요 없어", "처음의 그 time", "이 맘을 본 건", "선명하게 넌 전해졌어", "마지막 그 time", "널 잡지 않았어 니 맘을 본걸", "짧지 않은 time"];
+    const BRIDGE_SEGS = ["(내 두 개의 story)", "(story)", "(with U)"];
     const allCalls = CALLSPOTS.map(c => c.call);
-    const callQs = rows.map((r, i) => {
-      const line = BLOCKS[r.bi].lines[r.li];
-      const spot = CALLSPOTS.find(c => c.part === BLOCKS[r.bi].p && line.k.some(k => k[1] && k[0].trim() === c.call));
-      if (!spot) return null;
-      const full = line.k.map(k => k[0]).join("");
-      const at = full.indexOf(spot.call);
-      const paired = CALLSPOTS.find(c => c.pair && c.pair === spot.pair && c !== spot);
-      const others = (paired ? [paired.call] : []).concat(shuffle(allCalls.filter(c => c !== spot.call && (!paired || c !== paired.call))));
-      return {
-        row: i,
-        answer: spot.call,
-        isCall: true,
-        choices: shuffle([spot.call].concat(others.slice(0, 2))),
-        pre: full.slice(0, at),
-        post: full.slice(at + spot.call.length)
-      };
-    }).filter(Boolean);
-    const lyricN = Math.max(0, this.fullRoundLength - callQs.length);
-    const picked = shuffle(cand).slice(0, lyricN);
-    // 게임 1과 같은 보기: 그 자리의 세 후렴 버전 + 부족하면 다른 자리 가사
-    const lyricQs = picked.map(({
-      r,
-      i,
-      pi
-    }) => {
-      const slot = SLOTS[r.li],
-        answer = slot.v[pi];
-      let choices = Array.from(new Set(slot.v));
-      const others = shuffle(SLOTS.filter((_, k) => k !== r.li).flatMap(x => x.v)).filter(t => choices.indexOf(t) < 0);
-      choices = shuffle(choices.concat(others).slice(0, 3));
-      return {
-        row: i,
-        answer,
-        choices,
-        pre: "",
-        post: ""
-      };
+    const slotChoices = (li, answer) => {
+      let ch = Array.from(new Set(SLOTS[li].v));
+      if (ch.indexOf(answer) < 0) ch = [answer].concat(ch);
+      const others = shuffle(SLOTS.filter((_, k) => k !== li).flatMap(x => x.v)).filter(t => ch.indexOf(t) < 0);
+      return shuffle(Array.from(new Set(ch.concat(others))).slice(0, 3));
+    };
+    const qs2 = [],
+      extra = [];
+    let rowN = 0;
+    BLOCKS.forEach(b => b.lines.forEach((l, li) => {
+      const full = l.k.map(k => k[0]).join("");
+      const pi = PARTS.indexOf(b.p);
+      let off = 0;
+      l.k.forEach(k => {
+        const seg = k[0],
+          at0 = off;
+        off += seg.length;
+        if (!k[1]) return;
+        const t = seg.trim(),
+          at = at0 + seg.indexOf(t);
+        const spot = CALLSPOTS.find(c => c.part === b.p && c.call === t);
+        if (spot) {
+          const paired = CALLSPOTS.find(c => c.pair && c.pair === spot.pair && c !== spot);
+          const others = (paired ? [paired.call] : []).concat(shuffle(allCalls.filter(c => c !== spot.call && (!paired || c !== paired.call))));
+          qs2.push({
+            row: rowN,
+            at,
+            len: t.length,
+            answer: t,
+            isCall: true,
+            choices: shuffle([t].concat(others.slice(0, 2)))
+          });
+        } else if (BRIDGE_SEGS.indexOf(t) >= 0) {
+          qs2.push({
+            row: rowN,
+            at,
+            len: t.length,
+            answer: t,
+            choices: shuffle(BRIDGE_SEGS.slice())
+          });
+        }
+      });
+      if (pi >= 0 && SLOTS[li]) {
+        const q = {
+          row: rowN,
+          at: 0,
+          len: full.length,
+          answer: full,
+          choices: slotChoices(li, full)
+        };
+        if (MUST_LINES.indexOf(full) >= 0) qs2.push(q);else if (new Set(SLOTS[li].v).size > 1) extra.push(q);
+      }
+      rowN += 1;
+    }));
+    const typingMode2 = this.state.g3Diff === 1;
+    return qs2.concat(shuffle(extra).slice(0, 4)).sort((a, b) => a.row - b.row || a.at - b.at).map(q => typingMode2 ? {
+      ...q,
+      mode: "full",
+      typeTarget: q.answer,
+      choices: []
+    } : {
+      ...q,
+      mode: "choice"
     });
-    return lyricQs.concat(callQs).sort((a, b) => a.row - b.row);
   }
   studyCards() {
     if (this.state.game === "call") {
@@ -686,8 +697,12 @@ class LyricsGame extends React.Component {
       q = s.questions[s.qi];
     if (s.feedback || !q) return;
     this.stopClock();
-    const norm = t => String(t == null ? "" : t).replace(s.game === "call" ? /[\s!]+/g : /\s+/g, "").trim();
-    const typing = (s.game === "blank" || s.game === "call") && q.mode && q.mode !== "choice";
+    const loose = s.game === "call" || s.game === "full";
+    const norm = t => {
+      const text = String(t == null ? "" : t).normalize("NFC");
+      return (loose ? text.toLowerCase() : text).replace(loose ? /[\s!()]+/g : /\s+/g, "");
+    };
+    const typing = q.mode && q.mode !== "choice";
     const ok = !timeout && (typing ? norm(picked) === norm(q.typeTarget) : picked === q.answer);
     const combo = ok ? s.combo + 1 : 0;
     const results = s.results.concat([ok]);
@@ -698,7 +713,7 @@ class LyricsGame extends React.Component {
     } : s.game === "full" ? {
       p: q.isCall ? "응원법" : "빈칸",
       pc: q.isCall ? "#5b8cff" : "#ffffff",
-      t: q.pre + q.answer + q.post
+      t: q.answer
     } : {
       p: PARTS[q.pi],
       pc: "#ffd24a",
@@ -731,22 +746,22 @@ class LyricsGame extends React.Component {
     }, () => this.startClock());
   };
   toggleLyrics = () => {
-    if (this.state.screen === "sheet") {
-      this.setState({ screen: this._previousScreen || "home" });
-    } else {
-      this._previousScreen = this.state.screen;
-      this.stopClock();
-      this.setState({ screen: "sheet" });
-    }
+    const lyricsOpen = !this.state.lyricsOpen;
+    this.stopClock();
+    this.setState({ lyricsOpen }, () => {
+      if (!lyricsOpen && !this.state.feedback && ["play", "call", "full"].includes(this.state.screen)) this.startClock();
+    });
   };
   render() {
     const v = this.renderVals();
     return <div className="lyrics-game" ref={el => {
       this._root = el;
     }}>
+      {this.state.lyricsOpen && <SongChantModal title="60초" onClose={this.toggleLyrics} />}
+
       <div style={{
-        "minHeight": "auto",
-        "background": "transparent",
+        "minHeight": "100vh",
+        "background": "#1e1e1e",
         "display": "flex",
         "justifyContent": "center",
         "fontFamily": "Pretendard,'Apple SD Gothic Neo','Noto Sans KR','Malgun Gothic',sans-serif",
@@ -757,15 +772,13 @@ class LyricsGame extends React.Component {
           "maxWidth": "480px",
           "display": "flex",
           "flexDirection": "column",
-          "minHeight": "auto",
+          "minHeight": "100vh",
           "paddingBottom": "28px"
         }}>
-          <nav className="lyrics-game-toolbar" aria-label="게임 메뉴">
-            <Link to="/lyrics-practice" className="lyrics-game-back">‹ 뒤로</Link>
-            <h1>60초</h1>
-            <button type="button" onClick={this.toggleLyrics}>가사 · 응원법 {v.isSheet ? '닫기' : '보기'}</button>
-          </nav>
-          {v.isHome && <> 
+          <div style={{
+            "height": "20px"
+          }}></div>
+          {v.isHome && <>
             <div style={{
               "display": "flex",
               "flexDirection": "column",
@@ -773,7 +786,49 @@ class LyricsGame extends React.Component {
               "padding": "4px 20px 0"
             }}>
               <div style={{
-                "background": "#141414",
+                "display": "grid",
+                "gridTemplateColumns": "1fr auto 1fr",
+                "alignItems": "center",
+                "gap": "10px"
+              }}>
+                <Link to="/lyrics-practice" style={{
+                  "justifySelf": "start",
+                  "display": "flex",
+                  "alignItems": "center",
+                  "gap": "4px",
+                  "height": "40px",
+                  "padding": "0 4px",
+                  "background": "transparent",
+                  "color": "#cfcfcf",
+                  "fontSize": "13px",
+                  "fontWeight": "700",
+                  "textDecoration": "none",
+                  "whiteSpace": "nowrap"
+                }}>{"‹ 곡 선택"}</Link>
+                <div style={{
+                  "fontSize": "22px",
+                  "fontWeight": "800",
+                  "letterSpacing": "-0.03em",
+                  "lineHeight": "1.1",
+                  "whiteSpace": "nowrap"
+                }}>{"60초"}</div>
+                <button type="button" onClick={this.toggleLyrics} style={{
+                  "justifySelf": "end",
+                  "fontFamily": "inherit",
+                  "height": "29px",
+                  "padding": "8px 14px",
+                  "borderRadius": "999px",
+                  "background": "#3a3a3a",
+                  "color": "#ffffff",
+                  "fontSize": "11px",
+                  "fontWeight": "600",
+                  "border": "0",
+                  "cursor": "pointer",
+                  "whiteSpace": "nowrap"
+                }}>{"가사·응원법 보기"}</button>
+              </div>
+              <div style={{
+                "background": "#3a3a3a",
                 "borderRadius": "20px",
                 "padding": "22px 20px",
                 "display": "flex",
@@ -781,17 +836,40 @@ class LyricsGame extends React.Component {
                 "gap": "12px"
               }}>
                 <div style={{
-                  "fontSize": "11px",
-                  "fontWeight": "800",
-                  "letterSpacing": "0.1em",
-                  "color": "#ffd24a"
-                }}>{"게임 1 · 헷갈리는 가사"}</div>
+                  "display": "flex",
+                  "alignItems": "center",
+                  "justifyContent": "space-between",
+                  "gap": "10px"
+                }}>
+                  <div style={{
+                    "fontSize": "11px",
+                    "fontWeight": "800",
+                    "letterSpacing": "0.1em",
+                    "color": "#ffd24a"
+                  }}>{"게임 1 · 떼창"}</div>
+                  <button onClick={v.onStudyBlank} style={{
+                    "fontFamily": "inherit",
+                    "display": "flex",
+                    "alignItems": "center",
+                    "gap": "6px",
+                    "fontSize": "13px",
+                    "fontWeight": "700",
+                    "height": "34px",
+                    "padding": "0 14px 0 12px",
+                    "borderRadius": "999px",
+                    "border": "1px solid #6a6a6a",
+                    "background": "#4a4a4a",
+                    "color": "#ffffff",
+                    "cursor": "pointer",
+                    "whiteSpace": "nowrap"
+                  }} type="button"><svg viewBox={"0 0 24 24"} width={"15"} height={"15"} fill={"none"} stroke={"#ffffff"} strokeWidth={"2.2"} strokeLinecap={"round"} strokeLinejoin={"round"}><path d={"M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2Z"}></path><path d={"M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7Z"}></path></svg>{"먼저 외우기"}</button>
+                </div>
                 <div style={{
                   "fontSize": "24px",
                   "fontWeight": "800",
                   "letterSpacing": "-0.03em",
                   "lineHeight": "1.25"
-                }}>{"후렴 빈칸 채우기"}</div>
+                }}>{"바뀌는 후렴 가사 맞히기"}</div>
                 <div style={{
                   "fontSize": "14px",
                   "lineHeight": "1.6",
@@ -801,7 +879,7 @@ class LyricsGame extends React.Component {
                   "display": "flex",
                   "flexDirection": "column",
                   "gap": "6px",
-                  "background": "#0f0f0f",
+                  "background": "#141414",
                   "borderRadius": "14px",
                   "padding": "14px 16px"
                 }}>
@@ -828,58 +906,59 @@ class LyricsGame extends React.Component {
                 </div>
                 <div style={{
                   "display": "flex",
-                  "gap": "6px",
-                  "background": "#0f0f0f",
-                  "borderRadius": "999px",
-                  "padding": "5px"
+                  "flexDirection": "column",
+                  "background": "#2a2a2a",
+                  "borderRadius": "16px",
+                  "overflow": "hidden"
                 }}>
-                  {v.g1Diffs.map((d, index) => <React.Fragment key={index}>
+                  {v.g1Starts.map((d, index) => <React.Fragment key={index}>
                     <button onClick={d.onClick} style={{
-                      "flex": "1",
                       "fontFamily": "inherit",
-                      "fontSize": "13.5px",
-                      "fontWeight": "700",
-                      "height": "36px",
-                      "borderRadius": "999px",
+                      "display": "grid",
+                      "gridTemplateColumns": "1fr auto",
+                      "alignItems": "center",
+                      "gap": "12px",
+                      "width": "100%",
+                      "textAlign": "left",
+                      "padding": "14px 14px 14px 16px",
                       "border": "0",
-                      "cursor": "pointer",
-                      "background": d.bg,
-                      "color": d.fg
-                    }} type="button">{d.label}</button>
+                      "borderTop": d.line,
+                      "background": "transparent",
+                      "color": "#ffffff",
+                      "cursor": "pointer"
+                    }} type="button">
+                      <span style={{
+                        "display": "flex",
+                        "flexDirection": "column",
+                        "gap": "2px",
+                        "minWidth": "0"
+                      }}>
+                        <span style={{
+                          "fontSize": "15px",
+                          "fontWeight": "800",
+                          "letterSpacing": "-0.01em"
+                        }}>{d.label}</span>
+                        <span style={{
+                          "fontSize": "12px",
+                          "color": "#9a9a9a"
+                        }}>{d.desc}</span>
+                      </span>
+                      <span style={{
+                        "width": "30px",
+                        "height": "30px",
+                        "borderRadius": "999px",
+                        "background": d.play,
+                        "display": "flex",
+                        "alignItems": "center",
+                        "justifyContent": "center",
+                        "flexShrink": "0"
+                      }}><svg viewBox={"0 0 24 24"} width={"13"} height={"13"} fill={"#0b0b0b"}><path d={"M7 4.5v15l12-7.5Z"}></path></svg></span>
+                    </button>
                   </React.Fragment>)}
-                </div>
-                <div style={{
-                  "display": "flex",
-                  "gap": "8px"
-                }}>
-                  <button onClick={v.onStudyBlank} style={{
-                    "flex": "1",
-                    "fontFamily": "inherit",
-                    "fontSize": "15px",
-                    "fontWeight": "700",
-                    "height": "48px",
-                    "borderRadius": "999px",
-                    "border": "1px solid #3a3a3a",
-                    "cursor": "pointer",
-                    "background": "transparent",
-                    "color": "#ffffff"
-                  }} type="button">{"먼저 외우기"}</button>
-                  <button onClick={v.onStartBlank} style={{
-                    "flex": "1",
-                    "fontFamily": "inherit",
-                    "fontSize": "15px",
-                    "fontWeight": "800",
-                    "height": "48px",
-                    "borderRadius": "999px",
-                    "border": "0",
-                    "cursor": "pointer",
-                    "background": "#ffd24a",
-                    "color": "#0b0b0b"
-                  }} type="button">{v.roundLength + "문제 풀기"}</button>
                 </div>
               </div>
               <div style={{
-                "background": "#141414",
+                "background": "#3a3a3a",
                 "borderRadius": "20px",
                 "padding": "22px 20px",
                 "display": "flex",
@@ -887,11 +966,34 @@ class LyricsGame extends React.Component {
                 "gap": "12px"
               }}>
                 <div style={{
-                  "fontSize": "11px",
-                  "fontWeight": "800",
-                  "letterSpacing": "0.1em",
-                  "color": "#5b8cff"
-                }}>{"게임 2 · 응원법"}</div>
+                  "display": "flex",
+                  "alignItems": "center",
+                  "justifyContent": "space-between",
+                  "gap": "10px"
+                }}>
+                  <div style={{
+                    "fontSize": "11px",
+                    "fontWeight": "800",
+                    "letterSpacing": "0.1em",
+                    "color": "#5b8cff"
+                  }}>{"게임 2 · 응원법"}</div>
+                  <button onClick={v.onStudyCall} style={{
+                    "fontFamily": "inherit",
+                    "display": "flex",
+                    "alignItems": "center",
+                    "gap": "6px",
+                    "fontSize": "13px",
+                    "fontWeight": "700",
+                    "height": "34px",
+                    "padding": "0 14px 0 12px",
+                    "borderRadius": "999px",
+                    "border": "1px solid #6a6a6a",
+                    "background": "#4a4a4a",
+                    "color": "#ffffff",
+                    "cursor": "pointer",
+                    "whiteSpace": "nowrap"
+                  }} type="button"><svg viewBox={"0 0 24 24"} width={"15"} height={"15"} fill={"none"} stroke={"#ffffff"} strokeWidth={"2.2"} strokeLinecap={"round"} strokeLinejoin={"round"}><path d={"M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2Z"}></path><path d={"M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7Z"}></path></svg>{"먼저 외우기"}</button>
+                </div>
                 <div style={{
                   "fontSize": "24px",
                   "fontWeight": "800",
@@ -907,7 +1009,7 @@ class LyricsGame extends React.Component {
                   "display": "flex",
                   "flexDirection": "column",
                   "gap": "6px",
-                  "background": "#0f0f0f",
+                  "background": "#141414",
                   "borderRadius": "14px",
                   "padding": "14px 16px"
                 }}>
@@ -936,58 +1038,59 @@ class LyricsGame extends React.Component {
                 </div>
                 <div style={{
                   "display": "flex",
-                  "gap": "6px",
-                  "background": "#0f0f0f",
-                  "borderRadius": "999px",
-                  "padding": "5px"
+                  "flexDirection": "column",
+                  "background": "#2a2a2a",
+                  "borderRadius": "16px",
+                  "overflow": "hidden"
                 }}>
-                  {v.g2Diffs.map((d, index) => <React.Fragment key={index}>
+                  {v.g2Starts.map((d, index) => <React.Fragment key={index}>
                     <button onClick={d.onClick} style={{
-                      "flex": "1",
                       "fontFamily": "inherit",
-                      "fontSize": "13.5px",
-                      "fontWeight": "700",
-                      "height": "36px",
-                      "borderRadius": "999px",
+                      "display": "grid",
+                      "gridTemplateColumns": "1fr auto",
+                      "alignItems": "center",
+                      "gap": "12px",
+                      "width": "100%",
+                      "textAlign": "left",
+                      "padding": "14px 14px 14px 16px",
                       "border": "0",
-                      "cursor": "pointer",
-                      "background": d.bg,
-                      "color": d.fg
-                    }} type="button">{d.label}</button>
+                      "borderTop": d.line,
+                      "background": "transparent",
+                      "color": "#ffffff",
+                      "cursor": "pointer"
+                    }} type="button">
+                      <span style={{
+                        "display": "flex",
+                        "flexDirection": "column",
+                        "gap": "2px",
+                        "minWidth": "0"
+                      }}>
+                        <span style={{
+                          "fontSize": "15px",
+                          "fontWeight": "800",
+                          "letterSpacing": "-0.01em"
+                        }}>{d.label}</span>
+                        <span style={{
+                          "fontSize": "12px",
+                          "color": "#9a9a9a"
+                        }}>{d.desc}</span>
+                      </span>
+                      <span style={{
+                        "width": "30px",
+                        "height": "30px",
+                        "borderRadius": "999px",
+                        "background": d.play,
+                        "display": "flex",
+                        "alignItems": "center",
+                        "justifyContent": "center",
+                        "flexShrink": "0"
+                      }}><svg viewBox={"0 0 24 24"} width={"13"} height={"13"} fill={"#0b0b0b"}><path d={"M7 4.5v15l12-7.5Z"}></path></svg></span>
+                    </button>
                   </React.Fragment>)}
-                </div>
-                <div style={{
-                  "display": "flex",
-                  "gap": "8px"
-                }}>
-                  <button onClick={v.onStudyCall} style={{
-                    "flex": "1",
-                    "fontFamily": "inherit",
-                    "fontSize": "15px",
-                    "fontWeight": "700",
-                    "height": "48px",
-                    "borderRadius": "999px",
-                    "border": "1px solid #3a3a3a",
-                    "cursor": "pointer",
-                    "background": "transparent",
-                    "color": "#ffffff"
-                  }} type="button">{"먼저 외우기"}</button>
-                  <button onClick={v.onStartCall} style={{
-                    "flex": "1",
-                    "fontFamily": "inherit",
-                    "fontSize": "15px",
-                    "fontWeight": "800",
-                    "height": "48px",
-                    "borderRadius": "999px",
-                    "border": "0",
-                    "cursor": "pointer",
-                    "background": "#5b8cff",
-                    "color": "#0b0b0b"
-                  }} type="button">{v.callRoundLength + "문제 풀기"}</button>
                 </div>
               </div>
               <div style={{
-                "background": "#141414",
+                "background": "#3a3a3a",
                 "borderRadius": "20px",
                 "padding": "22px 20px",
                 "display": "flex",
@@ -999,7 +1102,7 @@ class LyricsGame extends React.Component {
                   "fontWeight": "800",
                   "letterSpacing": "0.1em",
                   "color": "#ffffff"
-                }}>{"게임 3 · 전체 가사"}</div>
+                }}>{"게임 3 · 전체"}</div>
                 <div style={{
                   "fontSize": "24px",
                   "fontWeight": "800",
@@ -1011,21 +1114,62 @@ class LyricsGame extends React.Component {
                   "lineHeight": "1.6",
                   "color": "#b5b5b5"
                 }}>{"전체 가사 속 빈 단어를 순서대로 채워요."}</div>
-                <button onClick={v.onStartFull} style={{
-                  "fontFamily": "inherit",
-                  "fontSize": "15px",
-                  "fontWeight": "800",
-                  "height": "48px",
-                  "borderRadius": "999px",
-                  "border": "0",
-                  "cursor": "pointer",
-                  "background": "#ffffff",
-                  "color": "#0b0b0b"
-                }} type="button">{v.fullRoundLength + "칸 채우기"}</button>
+                <div style={{
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "background": "#2a2a2a",
+                  "borderRadius": "16px",
+                  "overflow": "hidden"
+                }}>
+                  {v.g3Starts.map((d, index) => <React.Fragment key={index}>
+                    <button onClick={d.onClick} style={{
+                      "fontFamily": "inherit",
+                      "display": "grid",
+                      "gridTemplateColumns": "1fr auto",
+                      "alignItems": "center",
+                      "gap": "12px",
+                      "width": "100%",
+                      "textAlign": "left",
+                      "padding": "14px 14px 14px 16px",
+                      "border": "0",
+                      "borderTop": d.line,
+                      "background": "transparent",
+                      "color": "#ffffff",
+                      "cursor": "pointer"
+                    }} type="button">
+                      <span style={{
+                        "display": "flex",
+                        "flexDirection": "column",
+                        "gap": "2px",
+                        "minWidth": "0"
+                      }}>
+                        <span style={{
+                          "fontSize": "15px",
+                          "fontWeight": "800",
+                          "letterSpacing": "-0.01em"
+                        }}>{d.label}</span>
+                        <span style={{
+                          "fontSize": "12px",
+                          "color": "#9a9a9a"
+                        }}>{d.desc}</span>
+                      </span>
+                      <span style={{
+                        "width": "30px",
+                        "height": "30px",
+                        "borderRadius": "999px",
+                        "background": d.play,
+                        "display": "flex",
+                        "alignItems": "center",
+                        "justifyContent": "center",
+                        "flexShrink": "0"
+                      }}><svg viewBox={"0 0 24 24"} width={"13"} height={"13"} fill={"#0b0b0b"}><path d={"M7 4.5v15l12-7.5Z"}></path></svg></span>
+                    </button>
+                  </React.Fragment>)}
+                </div>
               </div>
             </div>
  </>}
-          {v.isPlay && <> 
+          {v.isPlay && <>
             <div style={{
               "display": "flex",
               "flexDirection": "column",
@@ -1034,26 +1178,33 @@ class LyricsGame extends React.Component {
             }}>
               <div style={{
                 "display": "grid",
-                "gridTemplateColumns": "40px 1fr auto",
+                "gridTemplateColumns": "1fr auto 1fr",
                 "alignItems": "center",
                 "gap": "10px"
               }}>
                 <button onClick={v.goHome} style={{
-                  "width": "40px",
+                  "justifySelf": "start",
+                  "fontFamily": "inherit",
+                  "display": "flex",
+                  "alignItems": "center",
+                  "gap": "4px",
                   "height": "40px",
-                  "borderRadius": "999px",
-                  "background": "#1c1c1c",
+                  "padding": "0 4px",
                   "border": "0",
-                  "color": "#ffffff",
-                  "fontSize": "16px",
-                  "cursor": "pointer",
-                  "fontFamily": "inherit"
-                }} type="button" aria-label="게임 선택으로 돌아가기">{"‹"}</button>
-                <span style={{
+                  "background": "transparent",
+                  "color": "#cfcfcf",
                   "fontSize": "13px",
-                  "fontWeight": "600",
-                  "color": "#9a9a9a"
-                }}>{"후렴 빈칸 채우기"}</span>
+                  "fontWeight": "700",
+                  "cursor": "pointer",
+                  "whiteSpace": "nowrap"
+                }} type="button" aria-label="게임 선택으로 돌아가기">{"‹ 뒤로"}</button>
+                <span style={{
+                  "fontSize": "17px",
+                  "fontWeight": "800",
+                  "letterSpacing": "-0.02em",
+                  "color": "#ffffff",
+                  "whiteSpace": "nowrap"
+                }}>{"60초"}</span>
                 <span></span>
               </div>
               <div style={{
@@ -1112,7 +1263,7 @@ class LyricsGame extends React.Component {
                 </div>
               </div>
               <div style={{
-                "background": "#1c1c1c",
+                "background": "#3a3a3a",
                 "borderRadius": "20px",
                 "padding": "18px",
                 "display": "flex",
@@ -1198,7 +1349,7 @@ class LyricsGame extends React.Component {
                   </React.Fragment>)}
                 </div>
               </div>
-              {v.hasChoices && <> 
+              {v.hasChoices && <>
                 <div style={{
                   "display": "flex",
                   "flexDirection": "column",
@@ -1235,7 +1386,7 @@ class LyricsGame extends React.Component {
                   </React.Fragment>)}
                 </div>
  </>}
-              {v.isTyping && <> 
+              {v.isTyping && <>
                 <div style={{
                   "display": "flex",
                   "flexDirection": "column",
@@ -1272,7 +1423,7 @@ class LyricsGame extends React.Component {
                   }} type="button">{"확인"}</button>
                 </div>
  </>}
-              {v.feedback && <> 
+              {v.feedback && <>
                 <div style={{
                   "height": "280px"
                 }}></div>
@@ -1379,7 +1530,7 @@ class LyricsGame extends React.Component {
  </>}
             </div>
  </>}
-          {v.isCall && <> 
+          {v.isCall && <>
             <div style={{
               "display": "flex",
               "flexDirection": "column",
@@ -1388,26 +1539,33 @@ class LyricsGame extends React.Component {
             }}>
               <div style={{
                 "display": "grid",
-                "gridTemplateColumns": "40px 1fr auto",
+                "gridTemplateColumns": "1fr auto 1fr",
                 "alignItems": "center",
                 "gap": "10px"
               }}>
                 <button onClick={v.goHome} style={{
-                  "width": "40px",
+                  "justifySelf": "start",
+                  "fontFamily": "inherit",
+                  "display": "flex",
+                  "alignItems": "center",
+                  "gap": "4px",
                   "height": "40px",
-                  "borderRadius": "999px",
-                  "background": "#1c1c1c",
+                  "padding": "0 4px",
                   "border": "0",
-                  "color": "#ffffff",
-                  "fontSize": "16px",
-                  "cursor": "pointer",
-                  "fontFamily": "inherit"
-                }} type="button" aria-label="게임 선택으로 돌아가기">{"‹"}</button>
-                <span style={{
+                  "background": "transparent",
+                  "color": "#cfcfcf",
                   "fontSize": "13px",
-                  "fontWeight": "600",
-                  "color": "#9a9a9a"
-                }}>{"이 자리 응원법 맞히기"}</span>
+                  "fontWeight": "700",
+                  "cursor": "pointer",
+                  "whiteSpace": "nowrap"
+                }} type="button" aria-label="게임 선택으로 돌아가기">{"‹ 뒤로"}</button>
+                <span style={{
+                  "fontSize": "17px",
+                  "fontWeight": "800",
+                  "letterSpacing": "-0.02em",
+                  "color": "#ffffff",
+                  "whiteSpace": "nowrap"
+                }}>{"60초"}</span>
                 <span></span>
               </div>
               <div style={{
@@ -1466,7 +1624,7 @@ class LyricsGame extends React.Component {
                 </div>
               </div>
               <div style={{
-                "background": "#1c1c1c",
+                "background": "#3a3a3a",
                 "borderRadius": "20px",
                 "padding": "20px",
                 "display": "flex",
@@ -1533,7 +1691,7 @@ class LyricsGame extends React.Component {
                   }}>{v.spotAfter}</div>
                 </div>
               </div>
-              {v.hasChoices && <> 
+              {v.hasChoices && <>
                 <div style={{
                   "display": "flex",
                   "flexDirection": "column",
@@ -1570,7 +1728,7 @@ class LyricsGame extends React.Component {
                   </React.Fragment>)}
                 </div>
  </>}
-              {v.isTyping && <> 
+              {v.isTyping && <>
                 <div style={{
                   "display": "flex",
                   "flexDirection": "column",
@@ -1607,7 +1765,7 @@ class LyricsGame extends React.Component {
                   }} type="button">{"확인"}</button>
                 </div>
  </>}
-              {v.feedback && <> 
+              {v.feedback && <>
                 <div style={{
                   "height": "250px"
                 }}></div>
@@ -1714,7 +1872,7 @@ class LyricsGame extends React.Component {
  </>}
             </div>
  </>}
-          {v.isResult && <> 
+          {v.isResult && <>
             <div style={{
               "display": "flex",
               "flexDirection": "column",
@@ -1750,7 +1908,7 @@ class LyricsGame extends React.Component {
                 "gap": "10px"
               }}>
                 <div style={{
-                  "background": "#1c1c1c",
+                  "background": "#3a3a3a",
                   "borderRadius": "16px",
                   "padding": "16px 14px"
                 }}>
@@ -1766,7 +1924,7 @@ class LyricsGame extends React.Component {
                   }}>{v.correctRate + "%"}</div>
                 </div>
                 <div style={{
-                  "background": "#1c1c1c",
+                  "background": "#3a3a3a",
                   "borderRadius": "16px",
                   "padding": "16px 14px"
                 }}>
@@ -1783,7 +1941,7 @@ class LyricsGame extends React.Component {
                 </div>
               </div>
               <div style={{
-                "background": "#1c1c1c",
+                "background": "#3a3a3a",
                 "borderRadius": "20px",
                 "padding": "18px",
                 "display": "flex",
@@ -1816,7 +1974,7 @@ class LyricsGame extends React.Component {
                     }}>{m.t}</span>
                   </div>
                 </React.Fragment>)}
-                {v.perfect && <> 
+                {v.perfect && <>
                   <div style={{
                     "fontSize": "15px",
                     "fontWeight": "600"
@@ -1847,7 +2005,7 @@ class LyricsGame extends React.Component {
               }} type="button" aria-label="게임 선택으로 돌아가기">{"처음으로"}</button>
             </div>
  </>}
-          {v.isFull && <> 
+          {v.isFull && <>
             <div style={{
               "display": "flex",
               "flexDirection": "column",
@@ -1856,26 +2014,33 @@ class LyricsGame extends React.Component {
             }}>
               <div style={{
                 "display": "grid",
-                "gridTemplateColumns": "40px 1fr auto",
+                "gridTemplateColumns": "1fr auto 1fr",
                 "alignItems": "center",
                 "gap": "10px"
               }}>
                 <button onClick={v.goHome} style={{
-                  "width": "40px",
+                  "justifySelf": "start",
+                  "fontFamily": "inherit",
+                  "display": "flex",
+                  "alignItems": "center",
+                  "gap": "4px",
                   "height": "40px",
-                  "borderRadius": "999px",
-                  "background": "#1c1c1c",
+                  "padding": "0 4px",
                   "border": "0",
-                  "color": "#ffffff",
-                  "fontSize": "16px",
-                  "cursor": "pointer",
-                  "fontFamily": "inherit"
-                }} type="button" aria-label="게임 선택으로 돌아가기">{"‹"}</button>
-                <span style={{
+                  "background": "transparent",
+                  "color": "#cfcfcf",
                   "fontSize": "13px",
-                  "fontWeight": "600",
-                  "color": "#9a9a9a"
-                }}>{"전체 가사 빈칸"}</span>
+                  "fontWeight": "700",
+                  "cursor": "pointer",
+                  "whiteSpace": "nowrap"
+                }} type="button" aria-label="게임 선택으로 돌아가기">{"‹ 뒤로"}</button>
+                <span style={{
+                  "fontSize": "17px",
+                  "fontWeight": "800",
+                  "letterSpacing": "-0.02em",
+                  "color": "#ffffff",
+                  "whiteSpace": "nowrap"
+                }}>{"60초"}</span>
                 <span></span>
               </div>
               <div style={{
@@ -1935,7 +2100,7 @@ class LyricsGame extends React.Component {
               </div>
               <div data-full-scroller={"1"} style={{
                 "position": "relative",
-                "background": "#1c1c1c",
+                "background": "#3a3a3a",
                 "borderRadius": "20px",
                 "padding": "18px",
                 "height": "320px",
@@ -1950,59 +2115,99 @@ class LyricsGame extends React.Component {
                     "lineHeight": "1.45",
                     "fontWeight": r.weight,
                     "color": r.color,
-                    "padding": r.pad
-                  }}>{r.pre}<span style={{
-                      "display": r.slotDisplay,
-                      "minWidth": r.slotW,
-                      "height": r.slotH,
-                      "verticalAlign": "middle",
+                    "padding": r.pad,
+                    "whiteSpace": "pre-wrap"
+                  }}>{r.pieces.map((p, index) => <React.Fragment key={index}><span style={{
+                        "display": p.display,
+                        "minWidth": p.w,
+                        "height": p.h,
+                        "verticalAlign": "middle",
+                        "alignItems": "center",
+                        "background": p.bg,
+                        "color": p.color,
+                        "border": p.border,
+                        "borderRadius": "8px",
+                        "padding": p.pad,
+                        "fontWeight": p.fw,
+                        "animation": p.anim
+                      }}>{p.t}</span></React.Fragment>)}</div>
+                </React.Fragment>)}
+              </div>
+              {v.hasChoices && <>
+                <div style={{
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "gap": "8px",
+                  "opacity": v.choiceOpacity
+                }}>
+                  {v.choices.map((c, index) => <React.Fragment key={index}>
+                    <button onClick={c.onClick} style={{
+                      "fontFamily": "inherit",
+                      "textAlign": "left",
+                      "fontSize": "16px",
+                      "fontWeight": "700",
+                      "minHeight": "54px",
+                      "padding": "12px 16px",
+                      "borderRadius": "16px",
+                      "cursor": "pointer",
+                      "background": c.bg,
+                      "color": c.fg,
+                      "border": "2px solid " + c.border,
+                      "display": "flex",
                       "alignItems": "center",
-                      "background": r.slotBg,
-                      "color": r.slotColor,
-                      "border": r.slotBorder,
-                      "borderRadius": "8px",
-                      "padding": r.slotPad,
-                      "fontWeight": "800",
-                      "animation": r.slotAnim
-                    }}>{r.slot}</span>{r.post}</div>
-                </React.Fragment>)}
-              </div>
-              <div style={{
-                "display": "flex",
-                "flexDirection": "column",
-                "gap": "8px",
-                "opacity": v.choiceOpacity
-              }}>
-                {v.choices.map((c, index) => <React.Fragment key={index}>
-                  <button onClick={c.onClick} style={{
-                    "fontFamily": "inherit",
-                    "textAlign": "left",
-                    "fontSize": "16px",
+                      "justifyContent": "space-between",
+                      "gap": "10px"
+                    }} type="button" disabled={v.feedback}><span>{c.t}</span><span style={{
+                        "fontSize": "10.5px",
+                        "fontWeight": "800",
+                        "padding": "4px 9px",
+                        "borderRadius": "999px",
+                        "whiteSpace": "nowrap",
+                        "flexShrink": "0",
+                        "background": c.badgeBg,
+                        "color": c.badgeFg
+                      }}>{c.badge}</span></button>
+                  </React.Fragment>)}
+                </div>
+ </>}
+              {v.isTyping && <>
+                <div style={{
+                  "display": "flex",
+                  "flexDirection": "column",
+                  "gap": "10px",
+                  "opacity": v.choiceOpacity
+                }}>
+                  <div style={{
+                    "fontSize": "12px",
                     "fontWeight": "700",
-                    "minHeight": "54px",
-                    "padding": "12px 16px",
+                    "color": "#8f8f8f"
+                  }}>{v.typeHint}</div>
+                  <input value={v.typedValue} onChange={v.onTypeChange} onKeyDown={v.onTypeKey} ref={v.typeRef} placeholder={"여기에 입력"} style={{
+                    "fontFamily": "inherit",
+                    "fontSize": "17px",
+                    "height": "56px",
+                    "padding": "0 16px",
                     "borderRadius": "16px",
+                    "border": "2px solid #3a3a3a",
+                    "background": "#141414",
+                    "color": "#ffffff",
+                    "outline": "none",
+                    "boxShadow": "none"
+                  }} aria-label={v.typeHint} disabled={v.feedback} />
+                  <button onClick={v.onTypeSubmit} style={{
+                    "fontFamily": "inherit",
+                    "fontSize": "16px",
+                    "fontWeight": "800",
+                    "height": "54px",
+                    "borderRadius": "999px",
+                    "border": "0",
                     "cursor": "pointer",
-                    "background": c.bg,
-                    "color": c.fg,
-                    "border": "2px solid " + c.border,
-                    "display": "flex",
-                    "alignItems": "center",
-                    "justifyContent": "space-between",
-                    "gap": "10px"
-                  }} type="button" disabled={v.feedback}><span>{c.t}</span><span style={{
-                      "fontSize": "10.5px",
-                      "fontWeight": "800",
-                      "padding": "4px 9px",
-                      "borderRadius": "999px",
-                      "whiteSpace": "nowrap",
-                      "flexShrink": "0",
-                      "background": c.badgeBg,
-                      "color": c.badgeFg
-                    }}>{c.badge}</span></button>
-                </React.Fragment>)}
-              </div>
-              {v.feedback && <> 
+                    "background": v.submitBg,
+                    "color": v.submitFg
+                  }} type="button">{"확인"}</button>
+                </div>
+ </>}
+              {v.feedback && <>
                 <div style={{
                   "height": "150px"
                 }}></div>
@@ -2067,7 +2272,7 @@ class LyricsGame extends React.Component {
  </>}
             </div>
  </>}
-          {v.isStudy && <> 
+          {v.isStudy && <>
             <div style={{
               "display": "flex",
               "flexDirection": "column",
@@ -2076,27 +2281,35 @@ class LyricsGame extends React.Component {
             }}>
               <div style={{
                 "display": "grid",
-                "gridTemplateColumns": "40px 1fr auto",
+                "gridTemplateColumns": "1fr auto 1fr",
                 "alignItems": "center",
                 "gap": "10px"
               }}>
                 <button onClick={v.goHome} style={{
-                  "width": "40px",
+                  "justifySelf": "start",
+                  "fontFamily": "inherit",
+                  "display": "flex",
+                  "alignItems": "center",
+                  "gap": "4px",
                   "height": "40px",
-                  "borderRadius": "999px",
-                  "background": "#1c1c1c",
+                  "padding": "0 4px",
                   "border": "0",
-                  "color": "#ffffff",
-                  "fontSize": "16px",
+                  "background": "transparent",
+                  "color": "#cfcfcf",
+                  "fontSize": "13px",
+                  "fontWeight": "700",
                   "cursor": "pointer",
-                  "fontFamily": "inherit"
-                }} type="button" aria-label="게임 선택으로 돌아가기">{"‹"}</button>
+                  "whiteSpace": "nowrap"
+                }} type="button" aria-label="게임 선택으로 돌아가기">{"‹ 뒤로"}</button>
                 <span style={{
-                  "fontSize": "15px",
+                  "fontSize": "17px",
                   "fontWeight": "800",
-                  "letterSpacing": "-0.02em"
+                  "letterSpacing": "-0.02em",
+                  "color": "#ffffff",
+                  "whiteSpace": "nowrap"
                 }}>{v.studyTitle}</span>
                 <span style={{
+                  "justifySelf": "end",
                   "fontSize": "13px",
                   "fontWeight": "700",
                   "color": "#8f8f8f"
@@ -2116,7 +2329,7 @@ class LyricsGame extends React.Component {
                 </React.Fragment>)}
               </div>
               <div style={{
-                "background": "#1c1c1c",
+                "background": "#3a3a3a",
                 "borderRadius": "20px",
                 "padding": "22px 20px",
                 "display": "flex",
@@ -2207,132 +2420,7 @@ class LyricsGame extends React.Component {
               }} type="button">{"바로 문제 풀기"}</button>
             </div>
  </>}
-          {v.isSheet && <> 
-            <div style={{
-              "display": "flex",
-              "flexDirection": "column",
-              "gap": "14px",
-              "padding": "0 20px"
-            }}>
-              <div style={{
-                "display": "flex",
-                "alignItems": "center",
-                "gap": "10px"
-              }}>
-                <button onClick={v.goHome} style={{
-                  "width": "40px",
-                  "height": "40px",
-                  "borderRadius": "999px",
-                  "background": "#1c1c1c",
-                  "border": "0",
-                  "color": "#ffffff",
-                  "fontSize": "16px",
-                  "cursor": "pointer",
-                  "fontFamily": "inherit"
-                }} type="button" aria-label="게임 선택으로 돌아가기">{"‹"}</button>
-                <span style={{
-                  "fontSize": "20px",
-                  "fontWeight": "800",
-                  "letterSpacing": "-0.02em"
-                }}>{"60초 · 응원법 가사"}</span>
-              </div>
-              <div style={{
-                "background": "#1c1c1c",
-                "borderRadius": "18px",
-                "padding": "16px 18px",
-                "display": "flex",
-                "flexDirection": "column",
-                "gap": "8px"
-              }}>
-                <div style={{
-                  "display": "flex",
-                  "alignItems": "center",
-                  "gap": "10px",
-                  "fontSize": "12.5px",
-                  "color": "#cfcfcf"
-                }}><span style={{
-                    "width": "14px",
-                    "height": "14px",
-                    "borderRadius": "4px",
-                    "background": "#ffd24a",
-                    "flexShrink": "0"
-                  }}></span>{"가사와 함께 외치는 응원법"}</div>
-                <div style={{
-                  "display": "flex",
-                  "alignItems": "center",
-                  "gap": "10px",
-                  "fontSize": "12.5px",
-                  "color": "#cfcfcf"
-                }}><span style={{
-                    "width": "14px",
-                    "height": "14px",
-                    "borderRadius": "4px",
-                    "background": "#5b8cff",
-                    "flexShrink": "0"
-                  }}></span>{"응원법만 크게 외치는 구간"}</div>
-                <div style={{
-                  "display": "flex",
-                  "alignItems": "center",
-                  "gap": "10px",
-                  "fontSize": "12.5px",
-                  "color": "#cfcfcf"
-                }}><span style={{
-                    "width": "14px",
-                    "height": "14px",
-                    "borderRadius": "4px",
-                    "background": "rgba(255,210,74,0.22)",
-                    "flexShrink": "0"
-                  }}></span>{"최근 공연 떼창 구간"}</div>
-                <div style={{
-                  "display": "flex",
-                  "alignItems": "center",
-                  "gap": "10px",
-                  "fontSize": "12.5px",
-                  "color": "#cfcfcf"
-                }}><span style={{
-                    "width": "14px",
-                    "height": "14px",
-                    "borderRadius": "4px",
-                    "background": "#0b0b0b",
-                    "borderBottom": "2px solid #ffffff",
-                    "flexShrink": "0"
-                  }}></span>{"팬들이 가장 헷갈리는 줄"}</div>
-              </div>
-              {v.sheet.map((b, index) => <React.Fragment key={index}>
-                <div style={{
-                  "display": "flex",
-                  "flexDirection": "column",
-                  "gap": "8px",
-                  "background": "#141414",
-                  "borderRadius": "18px",
-                  "padding": "16px 18px"
-                }}>
-                  <div style={{
-                    "fontSize": "11px",
-                    "fontWeight": "800",
-                    "letterSpacing": "0.08em",
-                    "color": "#8f8f8f"
-                  }}>{b.p}</div>
-                  {b.lines.map((l, index) => <React.Fragment key={index}>
-                    <div style={{
-                      "fontSize": "16px",
-                      "lineHeight": "1.55",
-                      "fontWeight": "600",
-                      "background": l.bg,
-                      "borderRadius": "6px",
-                      "padding": "2px 6px",
-                      "borderBottom": l.ul
-                    }}>
-                      {l.k.map((k, index) => <React.Fragment key={index}><span style={{
-                          "color": k.color,
-                          "fontWeight": k.w
-                        }}>{k.t}</span></React.Fragment>)}
-                    </div>
-                  </React.Fragment>)}
-                </div>
-              </React.Fragment>)}
-            </div>
- </>}
+
         </div>
       </div>
 
@@ -2351,7 +2439,6 @@ class LyricsGame extends React.Component {
       isPlay: s.screen === "play",
       isCall: s.screen === "call",
       isResult: s.screen === "result",
-      isSheet: s.screen === "sheet",
       isFull: s.screen === "full",
       fullRoundLength: this.fullRoundLength,
       fullNote: "후렴 자리 + 응원법 " + CALLSPOTS.length + "곳 · 선택지 3개 · 칸당 " + this.cfg.sec + "초",
@@ -2361,6 +2448,33 @@ class LyricsGame extends React.Component {
       roundLength: this.roundLength,
       callRoundLength: this.callRoundLength,
       diffLabel: "",
+      g1Starts: [["보기 고르기", "3개 중 고르기"], ["단어 입력", "달라지는 단어만 입력"], ["전체 입력", "빈 줄 전체 입력"]].map(([label, d], i) => ({
+        label,
+        desc: this.roundLength + "문제 · " + d,
+        play: OK,
+        line: i ? "1px solid #3a3a3a" : "0",
+        onClick: () => this.setState({
+          g1Diff: i
+        }, this.startBlank)
+      })),
+      g2Starts: [["보기 고르기", "3개 중 고르기"], ["단어 입력", "달라지는 부분만 입력"], ["전체 입력", "응원법 전체 입력"]].map(([label, d], i) => ({
+        label,
+        desc: Math.min(CALLSPOTS.length + (i === 0 ? 1 : 0), this.roundLength) + "문제 · " + d,
+        play: "#5b8cff",
+        line: i ? "1px solid #3a3a3a" : "0",
+        onClick: () => this.setState({
+          g2Diff: i
+        }, this.startCall)
+      })),
+      g3Starts: [["보기 고르기", "3개 중 고르기"], ["전체 입력", "빈칸 전체를 직접 입력"]].map(([label, d], i) => ({
+        label,
+        desc: this.buildFull().length + "칸 · " + d,
+        play: "#ffffff",
+        line: i ? "1px solid #3a3a3a" : "0",
+        onClick: () => this.setState({
+          g3Diff: i
+        }, this.startFull)
+      })),
       g2Diffs: ["보기 고르기", "단어 입력", "전체 입력"].map((label, i) => ({
         label,
         bg: s.g2Diff === i ? "#ffffff" : "transparent",
@@ -2393,10 +2507,7 @@ class LyricsGame extends React.Component {
           stroke: i === s.results.length ? "#ffffff" : "#5a5a5a"
         };
       }),
-      goHome: s.screen === "sheet" ? this.toggleLyrics : nav("home"),
-      goSheet: nav("sheet"),
-      sheetBg: s.screen === "sheet" ? "#ffffff" : "#1c1c1c",
-      sheetFg: s.screen === "sheet" ? "#0b0b0b" : "#cfcfcf",
+      goHome: nav("home"),
       onStartBlank: this.startBlank,
       onStartCall: this.startCall,
       isStudy: s.screen === "study",
@@ -2424,75 +2535,77 @@ class LyricsGame extends React.Component {
       const fb3 = s.feedback;
       const byRow = {};
       s.questions.forEach((x, xi) => {
-        byRow[x.row] = {
+        (byRow[x.row] = byRow[x.row] || []).push({
           q: x,
           i: xi
-        };
+        });
+      });
+      const textPiece = t => ({
+        t,
+        display: "inline",
+        w: "0",
+        h: "auto",
+        bg: "transparent",
+        color: "inherit",
+        border: "0",
+        pad: "0",
+        fw: "inherit",
+        anim: "none"
       });
       const rows = [];
       let ri = 0;
       BLOCKS.forEach(b => {
         rows.push({
           active: "false",
-          pre: b.p,
-          slot: "",
-          post: "",
+          pieces: [],
           size: 11,
           weight: "800",
           color: "#6f6f6f",
-          pad: "10px 4px 2px",
-          slotDisplay: "none",
-          slotW: "0",
-          slotH: "auto",
-          slotBg: "transparent",
-          slotColor: "#ffffff",
-          slotBorder: "0",
-          slotPad: "0",
-          slotAnim: "none"
+          pad: rows.length ? "7px 0 0" : "0"
         });
         b.lines.forEach(l => {
           const text = l.k.map(k => k[0]).join("");
-          const hit = byRow[ri];
-          if (hit) {
-            const done = hit.i < s.qi || (hit.i === s.qi && fb3);
-            const active = hit.i === s.qi;
-            const answered = active && fb3;
-            rows.push({
-              pre: hit.q.pre,
-              slot: done ? hit.q.answer : "",
-              post: hit.q.post,
-              size: active ? 16 : 14.5,
-              weight: active ? "700" : "500",
-              color: active ? "#ffffff" : done ? "#9a9a9a" : "#5a5a5a",
-              pad: "3px 6px",
-              slotDisplay: "inline-flex",
-              slotW: active && !fb3 ? Math.max(84, hit.q.answer.length * 14) + "px" : "0",
-              slotH: active && !fb3 ? "24px" : "auto",
-              slotBg: answered ? fb3 === "correct" ? OK : "#2a1512" : active ? "#201d14" : "transparent",
-              slotColor: answered ? fb3 === "correct" ? "#0b0b0b" : "#ffb5aa" : done ? "#ffd24a" : "#ffd24a",
-              slotBorder: answered ? "2px solid " + (fb3 === "correct" ? OK : NG) : active ? "2px dashed #6a5a24" : "0",
-              slotPad: active ? "1px 10px" : "0",
-              slotAnim: active && !fb3 ? "slotPulse 1.6s ease-in-out infinite" : "none",
-              active: active ? "true" : "false"
-            });
-          } else {
+          const hits = (byRow[ri] || []).slice().sort((a, b) => a.q.at - b.q.at);
+          if (!hits.length) {
             rows.push({
               active: "false",
-              pre: text,
-              slot: "",
-              post: "",
+              pieces: [textPiece(text)],
               size: 14.5,
               weight: "500",
               color: "#8f8f8f",
-              pad: "3px 6px",
-              slotDisplay: "none",
-              slotW: "0",
-              slotH: "auto",
-              slotBg: "transparent",
-              slotColor: "#ffffff",
-              slotBorder: "0",
-              slotPad: "0",
-              slotAnim: "none"
+              pad: "3px 6px"
+            });
+          } else {
+            const rowActive = hits.some(h => h.i === s.qi);
+            const pieces = [];
+            let cur = 0;
+            hits.forEach(h => {
+              if (h.q.at > cur) pieces.push(textPiece(text.slice(cur, h.q.at)));
+              const done = h.i < s.qi || (h.i === s.qi && fb3);
+              const active = h.i === s.qi,
+                answered = active && fb3;
+              pieces.push({
+                t: done ? h.q.answer : active && h.q.mode === "full" ? s.typed : "",
+                display: "inline-flex",
+                w: active && !fb3 ? Math.max(84, h.q.answer.length * 14) + "px" : done ? "0" : Math.max(48, h.q.answer.length * 9) + "px",
+                h: active && !fb3 ? "24px" : done ? "auto" : "18px",
+                bg: answered ? fb3 === "correct" ? OK : "#2a1512" : active ? "#201d14" : done ? "transparent" : "#242424",
+                color: answered ? fb3 === "correct" ? "#0b0b0b" : "#ffb5aa" : "#ffd24a",
+                border: answered ? "2px solid " + (fb3 === "correct" ? OK : NG) : active ? "2px dashed #6a5a24" : "0",
+                pad: active ? "1px 10px" : "0",
+                fw: "800",
+                anim: active && !fb3 ? "slotPulse 1.6s ease-in-out infinite" : "none"
+              });
+              cur = h.q.at + h.q.len;
+            });
+            if (cur < text.length) pieces.push(textPiece(text.slice(cur)));
+            rows.push({
+              active: rowActive ? "true" : "false",
+              pieces,
+              size: rowActive ? 16 : 14.5,
+              weight: rowActive ? "700" : "500",
+              color: rowActive ? "#ffffff" : "#8f8f8f",
+              pad: "3px 6px"
             });
           }
           ri += 1;
@@ -2503,6 +2616,7 @@ class LyricsGame extends React.Component {
         timePct: Math.max(0, 100 - s.elapsed / this.cfg.sec * 100),
         timeColor: s.elapsed / this.cfg.sec > 0.75 ? "#8f8f8f" : "#ffffff",
         qLabel: s.qi + 1 + " / " + s.questions.length + " 칸",
+        progress: [],
         fullRows: rows,
         scrollRef: el => {
           this._scroller = el;
@@ -2514,6 +2628,24 @@ class LyricsGame extends React.Component {
             if (!fb3) this.resolveBlank(t);
           }
         })),
+        hasChoices: q3.mode !== "full",
+        isTyping: q3.mode === "full",
+        typeHint: "빈칸에 들어갈 가사를 입력하세요 (띄어쓰기·느낌표는 무시)",
+        typedValue: s.typed,
+        typeRef: el => {
+          this._typeInput = el;
+        },
+        onTypeChange: e => this.setState({
+          typed: e.target.value
+        }),
+        onTypeKey: e => {
+          if (e.key === "Enter" && !e.nativeEvent.isComposing && !fb3 && s.typed.trim()) this.resolveBlank(s.typed);
+        },
+        onTypeSubmit: () => {
+          if (!fb3 && s.typed.trim()) this.resolveBlank(s.typed);
+        },
+        submitBg: s.typed.trim() ? "#ffffff" : "#2a2a2a",
+        submitFg: s.typed.trim() ? "#0b0b0b" : "#5f5f5f",
         feedback: !!fb3,
         noFeedback: !fb3,
         choiceOpacity: fb3 ? 0.55 : 1,
@@ -2524,7 +2656,7 @@ class LyricsGame extends React.Component {
         fbTitleColor: fb3 === "correct" ? OK : NG,
         gained: fb3 === "correct" ? "+" + (100 + s.combo * 20 - 20) : "",
         nextLabel: fb3 ? s.qi + 1 >= s.questions.length ? "결과 보기" : "다음 칸" : "건너뛰기",
-        nextBg: fb3 ? "#ffffff" : "#1c1c1c",
+        nextBg: fb3 ? "#ffffff" : "#3a3a3a",
         nextFg: fb3 ? "#0b0b0b" : "#cfcfcf",
         onNext: () => {
           if (!fb3) {
@@ -2560,21 +2692,6 @@ class LyricsGame extends React.Component {
         studyToQuiz: () => isCall ? this.startCall() : this.startBlank()
       };
     }
-    if (s.screen === "sheet") {
-      base.sheet = BLOCKS.map(b => ({
-        p: b.p,
-        lines: b.lines.map(l => ({
-          bg: l.sing ? "rgba(255,210,74,0.16)" : "transparent",
-          ul: l.tricky ? "2px solid #6f6f6f" : "0",
-          k: l.k.map(k => ({
-            t: k[0],
-            color: k[1] === "y" ? "#ffd24a" : k[1] === "b" ? "#5b8cff" : "#ffffff",
-            w: k[1] ? "800" : "600"
-          }))
-        }))
-      }));
-      return base;
-    }
     if (s.screen === "result") {
       const isCall = s.game === "call";
       const rate = Math.round(s.correct / Math.max(1, s.questions.length) * 100);
@@ -2583,7 +2700,7 @@ class LyricsGame extends React.Component {
         correctRate: rate,
         missed: s.missed,
         perfect: s.missed.length === 0,
-        resultGame: isCall ? "이 자리 응원법 맞히기" : s.game === "full" ? "전체 가사 빈칸 채우기" : "후렴 빈칸 채우기",
+        resultGame: isCall ? "이 자리 응원법 맞히기" : s.game === "full" ? "처음부터 끝까지 빈칸 채우기" : "바뀌는 후렴 가사 맞히기",
         resultBg: isCall ? "#5b8cff" : "#ffffff",
         rateLabel: "정답률",
         missLabel: isCall ? "놓친 응원법" : "놓친 자리",
@@ -2663,7 +2780,7 @@ class LyricsGame extends React.Component {
           };
         }),
         nextLabel: fb2 ? s.qi + 1 >= s.questions.length ? "결과 보기" : "다음" : "건너뛰기",
-        nextBg: fb2 ? "#5b8cff" : "#1c1c1c",
+        nextBg: fb2 ? "#5b8cff" : "#3a3a3a",
         nextFg: fb2 ? "#0b0b0b" : "#cfcfcf",
         onNext: () => {
           if (!fb2) {
@@ -2816,7 +2933,7 @@ class LyricsGame extends React.Component {
         };
       }),
       nextLabel: fb ? s.qi + 1 >= s.questions.length ? "결과 보기" : "다음" : "건너뛰기",
-      nextBg: fb ? "#ffffff" : "#1c1c1c",
+      nextBg: fb ? "#ffffff" : "#3a3a3a",
       nextFg: fb ? "#0b0b0b" : "#cfcfcf",
       onNext: () => {
         if (!fb) {

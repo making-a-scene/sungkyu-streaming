@@ -2492,6 +2492,12 @@ html, body {
     box-shadow: none;
     font: inherit;
     text-align: left;
+    text-decoration: none;
+}
+
+.home-cheering-guide-banner:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 4px;
 }
 
 .home-cheering-guide-icon {

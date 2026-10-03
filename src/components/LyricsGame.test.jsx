@@ -40,7 +40,7 @@ test('all three rounds contain unique choices and correct answers, and finish wi
 
 test('20-second timeout resolves once and next question restarts the timer', () => {
   const ref = mountGame();
-  fireEvent.click(screen.getByText('9문제 풀기'));
+  fireEvent.click(screen.getAllByText('보기 고르기')[0]);
   act(() => jest.advanceTimersByTime(20100));
   expect(ref.current.state.feedback).toBe('timeout');
   expect(ref.current.state.results).toEqual([false]);
@@ -97,12 +97,36 @@ test('lyrics viewer pauses the current game and returns to the same question', (
   act(() => ref.current.startBlank());
   act(() => jest.advanceTimersByTime(3000));
   const elapsed = ref.current.state.elapsed;
-  fireEvent.click(screen.getByText('가사 · 응원법 보기'));
-  expect(ref.current.state.screen).toBe('sheet');
+  act(() => ref.current.toggleLyrics());
+  expect(screen.getByRole('dialog', { name: '60초 가사·응원법' })).toBeTruthy();
+  expect(ref.current.state.screen).toBe('play');
   act(() => jest.advanceTimersByTime(21000));
   expect(ref.current.state.elapsed).toBe(elapsed);
-  fireEvent.click(screen.getByText('가사 · 응원법 닫기'));
+  fireEvent.click(screen.getByRole('button', { name: '가사·응원법 닫기' }));
+  act(() => jest.advanceTimersByTime(250));
   expect(ref.current.state.screen).toBe('play');
   expect(ref.current.state.qi).toBe(0);
   expect(ref.current.state.feedback).toBeNull();
+});
+
+test('game three includes required lyrics, multiple bridge blanks, and supports loose typed answers', () => {
+  const ref = mountGame();
+  fireEvent.click(screen.getAllByText('전체 입력')[2]);
+  const game = ref.current;
+  expect(game.state.game).toBe('full');
+  const answers = game.state.questions.map(q => q.answer);
+  for (const text of ['넌 그런 사람', '이 맘을 본 건', '선명하게 넌 전해졌어', '널 잡지 않았어 니 맘을 본걸', '(내 두 개의 story)', '(story)', '(with U)', '어나더미! 김성규!', '또 다른 너! 김성규!']) {
+    expect(answers).toContain(text);
+  }
+  expect(game.state.questions.some((q, i, all) => i > 0 && all[i - 1].row === q.row)).toBe(true);
+  for (const q of game.state.questions) {
+    expect(q.mode).toBe('full');
+    expect(q.choices).toHaveLength(0);
+    fireEvent.change(screen.getByPlaceholderText('여기에 입력'), { target: { value: q.answer.toUpperCase().replace(/[\s!()]/g, '') } });
+    fireEvent.click(screen.getByText('확인'));
+    expect(game.state.feedback).toBe('correct');
+    act(() => game.next());
+  }
+  expect(game.state.screen).toBe('result');
+  expect(game.state.correct).toBe(answers.length);
 });

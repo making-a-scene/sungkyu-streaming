@@ -9,7 +9,7 @@ const LyricsPracticeCard = () => (
       className="lyrics-practice-card-icon"
     />
     <span className="lyrics-practice-card-text">
-      부락 대비 응원법 · 떼창 가사 퀴즈
+      벼락치기 시민둥이들을 위한 가사 퀴즈!
     </span>
     <span className="lyrics-practice-card-arrow" aria-hidden="true">
       <img

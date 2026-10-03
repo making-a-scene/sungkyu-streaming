@@ -21,17 +21,26 @@ const LyricsPractice = () => (
                             <img src={process.env.PUBLIC_URL + '/arrow-icon.svg'} alt="" className="cheering-item-arrow" />
                         </div>
                     </Link>
-                    <div className="cheering-item lyrics-quiz-song lyrics-quiz-song-pending" aria-disabled="true" aria-label="Shine 떼창곡, 게임 준비 중">
+                    <Link to="/lyrics-practice/shine" className="cheering-item lyrics-quiz-song">
                         <div className="cheering-item-left">
                             <div className="cheering-item-album"><img src={process.env.PUBLIC_URL + '/album-another-me.png'} alt="" className="cheering-item-album-img" /></div>
                             <span className="cheering-item-title">Shine</span>
                         </div>
                         <div className="cheering-item-right">
-                            <span className="lyrics-song-pending-label">준비 중</span>
                             <span className="cheering-item-badge chorus">떼창곡</span>
                             <img src={process.env.PUBLIC_URL + '/arrow-icon.svg'} alt="" className="cheering-item-arrow" />
                         </div>
-                    </div>
+                    </Link>
+                    <Link to="/lyrics-practice/small-talk" className="cheering-item lyrics-quiz-song">
+                        <div className="cheering-item-left">
+                            <div className="cheering-item-album"><img src={process.env.PUBLIC_URL + '/album-small-talk.png'} alt="" className="cheering-item-album-img" /></div>
+                            <span className="cheering-item-title">Small Talk</span>
+                        </div>
+                        <div className="cheering-item-right">
+                            <span className="cheering-item-badge fanchat">응원법</span>
+                            <img src={process.env.PUBLIC_URL + '/arrow-icon.svg'} alt="" className="cheering-item-arrow" />
+                        </div>
+                    </Link>
                 </div>
             </div>
         </main>

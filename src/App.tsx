@@ -6,6 +6,8 @@ import { SpeedInsights } from "@vercel/speed-insights/react";
 import Home from './pages/Home';
 import LyricsPractice from './pages/LyricsPractice';
 import LyricsPractice60 from './pages/LyricsPractice60';
+import LyricsPracticeShine from './pages/LyricsPracticeShine';
+import LyricsPracticeSmallTalk from './pages/LyricsPracticeSmallTalk';
 import MusicBroadcast from './pages/guide/MusicBroadcast';
 import Vote from "./pages/guide/Vote";
 import IdGeneration from "./pages/guide/IdGeneration";
@@ -40,6 +42,8 @@ function App() {
                 <Route path="/" element={<Home />} />
                 <Route path="/lyrics-practice" element={<LyricsPractice />} />
                 <Route path="/lyrics-practice/60-seconds" element={<LyricsPractice60 />} />
+                <Route path="/lyrics-practice/shine" element={<LyricsPracticeShine />} />
+                <Route path="/lyrics-practice/small-talk" element={<LyricsPracticeSmallTalk />} />
                 <Route path="/guide" element={<Guide />} />
                 <Route path="/guide/id-generation" element={<IdGeneration />} />
                 <Route path="/guide/streaming" element={<Streaming />} />
