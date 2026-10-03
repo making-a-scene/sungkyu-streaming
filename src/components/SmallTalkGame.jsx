@@ -552,7 +552,7 @@ class SmallTalkGame extends React.Component {
                 }}>{"‹ 곡 선택"}</Link>
                 <div style={{
                   "fontSize": "22px",
-                  "fontWeight": "800",
+                  "fontWeight": "bold",
                   "letterSpacing": "-0.03em",
                   "lineHeight": "1.1",
                   "whiteSpace": "nowrap"
@@ -611,7 +611,7 @@ class SmallTalkGame extends React.Component {
                 </div>
                 <div style={{
                   "fontSize": "24px",
-                  "fontWeight": "800",
+                  "fontWeight": "bold",
                   "letterSpacing": "-0.03em",
                   "lineHeight": "1.25"
                 }}>{"이 자리 응원법 맞히기"}</div>
@@ -737,7 +737,7 @@ class SmallTalkGame extends React.Component {
                 </div>
                 <div style={{
                   "fontSize": "24px",
-                  "fontWeight": "800",
+                  "fontWeight": "bold",
                   "letterSpacing": "-0.03em",
                   "lineHeight": "1.25"
                 }}>{"긴 응원법 외우기"}</div>
@@ -835,7 +835,7 @@ class SmallTalkGame extends React.Component {
                 }}>{"게임 3 · 떼창"}</div>
                 <div style={{
                   "fontSize": "24px",
-                  "fontWeight": "800",
+                  "fontWeight": "bold",
                   "letterSpacing": "-0.03em",
                   "lineHeight": "1.25"
                 }}>{"처음부터 끝까지 빈칸 채우기"}</div>

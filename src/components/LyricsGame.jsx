@@ -807,7 +807,7 @@ class LyricsGame extends React.Component {
                 }}>{"‹ 곡 선택"}</Link>
                 <div style={{
                   "fontSize": "22px",
-                  "fontWeight": "800",
+                  "fontWeight": "bold",
                   "letterSpacing": "-0.03em",
                   "lineHeight": "1.1",
                   "whiteSpace": "nowrap"
@@ -866,7 +866,7 @@ class LyricsGame extends React.Component {
                 </div>
                 <div style={{
                   "fontSize": "24px",
-                  "fontWeight": "800",
+                  "fontWeight": "bold",
                   "letterSpacing": "-0.03em",
                   "lineHeight": "1.25"
                 }}>{"바뀌는 후렴 가사 맞히기"}</div>
@@ -996,7 +996,7 @@ class LyricsGame extends React.Component {
                 </div>
                 <div style={{
                   "fontSize": "24px",
-                  "fontWeight": "800",
+                  "fontWeight": "bold",
                   "letterSpacing": "-0.03em",
                   "lineHeight": "1.25"
                 }}>{"이 자리 응원법 맞히기"}</div>
@@ -1105,7 +1105,7 @@ class LyricsGame extends React.Component {
                 }}>{"게임 3 · 전체"}</div>
                 <div style={{
                   "fontSize": "24px",
-                  "fontWeight": "800",
+                  "fontWeight": "bold",
                   "letterSpacing": "-0.03em",
                   "lineHeight": "1.25"
                 }}>{"처음부터 끝까지 빈칸 채우기"}</div>
