@@ -5,7 +5,8 @@ import '../App.css';
 const NAV_ITEMS = [
     { id: 'home', label: '홈', icon: '/home-icon.svg', iconFilled: '/home-icon-filled.svg', path: '/', disabled: false },
     { id: 'guide', label: '가이드', icon: '/guide-icon.svg', iconFilled: '/guide-icon-filled.svg', path: '/guide', disabled: false },
-    { id: 'lv4', label: 'LV4', icon: '/lv4-icon.svg', iconFilled: '/lv4-icon-filled.svg', path: '/lv4', disabled: false },
+    { id: 'lyrics-practice', label: '가사 퀴즈', icon: '/lyrics-icon.svg', iconFilled: '/lyrics-icon-filled.svg', path: '/lyrics-practice', disabled: false },
+    // { id: 'lv4', label: 'LV4', icon: '/lv4-icon.svg', iconFilled: '/lv4-icon-filled.svg', path: '/lv4', disabled: false },
     { id: 'chart', label: '차트', icon: '/chart-icon.svg', iconFilled: '/chart-icon-filled.svg', path: '/chart', disabled: false },
     { id: 'apply', label: '이벤트', icon: '/event-icon.svg', iconFilled: '/event-icon-filled.svg', path: '/event', disabled: false },
 ];
@@ -15,7 +16,7 @@ const BottomNav = () => {
     const location = useLocation();
 
     // 관리자/이벤트 폼 페이지에선 하단 네비 숨김 (폼 자체 네비와 겹침)
-    if (location.pathname.startsWith('/admin') || location.pathname.startsWith('/event/')) return null;
+    if (location.pathname.startsWith('/admin') || location.pathname.startsWith('/event/') || location.pathname.startsWith('/lyrics-practice/')) return null;
 
     const isActive = (path: string) => {
         if (path === '/') {
