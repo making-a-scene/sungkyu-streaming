@@ -489,6 +489,37 @@ html, body {
     margin-right: auto;
 }
 
+.id-generation-shortcut {
+    box-sizing: border-box;
+    max-width: 880px;
+    margin: 0 auto;
+    padding-bottom: 16px;
+}
+
+.id-generation-signup-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding: 0 16px;
+    border-radius: 12px;
+    background: #2E2E2E;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.id-generation-signup-link:hover {
+    background: #3D3D3D;
+}
+
+.id-generation-signup-link:focus-visible {
+    outline: 2px solid #FFFFFF;
+    outline-offset: 4px;
+}
+
 /* Notification Banner */
 .notification-banner {
     margin: 16px auto;
