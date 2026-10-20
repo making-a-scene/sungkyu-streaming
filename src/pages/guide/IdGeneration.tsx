@@ -1,4 +1,5 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useLayoutEffect, useRef } from "react";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import "../../App.css";
 
 import Header from "../../components/Header";
@@ -6,9 +7,13 @@ import Footer from "../../components/Footer";
 import TabView from "../../components/TabView";
 import GuideMenu from "../../components/GuideMenu";
 
+const tabs = ["멜론", "지니", "벅스", "플로", "바이브", "듀얼 넘버", "안심번호"];
+const servicePaths = ["melon", "genie", "bugs", "flo", "vibe", "dual-number", "virtual-number"];
+
 const IdGeneration = () => {
-  const tabs = ["멜론", "지니", "벅스", "플로", "바이브", "듀얼 넘버", "안심번호"];
-  const [selectedTab, setSelectedTab] = useState(0);
+  const { service } = useParams<{ service: string }>();
+  const navigate = useNavigate();
+  const selectedTab = service ? servicePaths.indexOf(service) : 0;
 
   const mainRef = useRef<HTMLElement>(null);
 
@@ -21,11 +26,19 @@ const IdGeneration = () => {
     }
   }, [selectedTab]);
 
+  if (!service || selectedTab === -1) {
+    return <Navigate to="/guide/id-generation/melon" replace />;
+  }
+
   return (
     <div className="app">
       <Header />
       <GuideMenu />
-      <TabView tabs={tabs} defaultTab={0} onTabChange={setSelectedTab} />
+      <TabView
+        tabs={tabs}
+        selectedTab={selectedTab}
+        onTabChange={(index) => navigate(`/guide/id-generation/${servicePaths[index]}`)}
+      />
       <main className="main-content" ref={mainRef}>
         {selectedTab === 0 && (
           <img
