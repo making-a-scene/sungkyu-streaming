@@ -9,6 +9,13 @@ import GuideMenu from "../../components/GuideMenu";
 
 const tabs = ["멜론", "지니", "벅스", "플로", "바이브", "듀얼 넘버", "안심번호"];
 const servicePaths = ["melon", "genie", "bugs", "flo", "vibe", "dual-number", "virtual-number"];
+const signupLinks: Record<string, string> = {
+  melon: "https://accounts.melon.com/join/choice?cpId=WP10",
+  genie: "https://member.genie.co.kr/account/create/agree?svc=W",
+  bugs: "https://secure.bugs.co.kr/member/join/memberMain",
+  flo: "https://www.music-flo.com/member/signup",
+  vibe: "https://nid.naver.com/user2/V2Join.nhn",
+};
 
 const IdGeneration = () => {
   const { service } = useParams<{ service: string }>();
@@ -40,6 +47,20 @@ const IdGeneration = () => {
         onTabChange={(index) => navigate(`/guide/id-generation/${servicePaths[index]}`)}
       />
       <main className="main-content" ref={mainRef}>
+        {signupLinks[service] && (
+          <div className="id-generation-shortcut">
+            <a
+              className="id-generation-signup-link"
+              href={signupLinks[service]}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`${tabs[selectedTab]} 아이디 생성 바로가기 (새 탭)`}
+            >
+              아이디 생성 바로가기
+              <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        )}
         {selectedTab === 0 && (
           <img
             src={process.env.PUBLIC_URL + "/guide-melon.png"}
