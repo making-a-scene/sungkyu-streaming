@@ -4,11 +4,13 @@ import '../App.css';
 interface TabViewProps {
     tabs: string[];
     defaultTab?: number;
+    selectedTab?: number;
     onTabChange?: (index: number) => void;
 }
 
-const TabView: React.FC<TabViewProps> = ({ tabs, defaultTab = 0, onTabChange }) => {
-    const [selectedTab, setSelectedTab] = useState(defaultTab);
+const TabView: React.FC<TabViewProps> = ({ tabs, defaultTab = 0, selectedTab: controlledTab, onTabChange }) => {
+    const [internalTab, setSelectedTab] = useState(defaultTab);
+    const selectedTab = controlledTab ?? internalTab;
     const [showLeftGradient, setShowLeftGradient] = useState(false);
     const [showRightGradient, setShowRightGradient] = useState(false);
     const tabListRef = useRef<HTMLDivElement>(null);

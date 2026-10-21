@@ -46,6 +46,7 @@ function App() {
                 <Route path="/lyrics-practice/small-talk" element={<LyricsPracticeSmallTalk />} />
                 <Route path="/guide" element={<Guide />} />
                 <Route path="/guide/id-generation" element={<IdGeneration />} />
+                <Route path="/guide/id-generation/:service" element={<IdGeneration />} />
                 <Route path="/guide/streaming" element={<Streaming />} />
                 <Route path="/guide/download" element={<Download />} />
                 <Route path="/guide/music-broadcast" element={<MusicBroadcast />} />
